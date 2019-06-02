@@ -1,0 +1,16 @@
+<table border="1">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let route of routes">
+      <td>{{route.title}}</td>
+      <td>{{route.date | date:'medium'}}</td>
+    </tr>
+  </tbody>
+
+
+</table>
