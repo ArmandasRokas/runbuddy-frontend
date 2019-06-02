@@ -8,6 +8,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorComponent } from './error/error.component';
 import { MyRoutesComponent } from './my-routes/my-routes.component';
+import { MenuComponent } from './menu/menu.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { MyRoutesComponent } from './my-routes/my-routes.component';
     WelcomeComponent,
     LoginComponent,
     ErrorComponent,
-    MyRoutesComponent
+    MyRoutesComponent,
+    MenuComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

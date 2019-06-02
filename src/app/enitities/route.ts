@@ -1,5 +1,4 @@
 export class Route {
-
   constructor(
     private id: String,
     private title: String,
@@ -9,7 +8,7 @@ export class Route {
     //private duration: number,
     //private description: String,
     //private status: String, 
-    ////wayPoints 
+    //  wayPoints 
     //private maxParticipants: number,
     //private minParticipants: number,
     //private numberOfParticipants: number
