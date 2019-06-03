@@ -15,4 +15,14 @@ export class HardcodedAuthenticationService {
       return false
     }
   }
+
+  isUserLoggedIn() {
+    let user = sessionStorage.getItem('authenticaterUser');
+    return !(user === null)
+  }
+
+  logout() {
+    sessionStorage.removeItem('authenticaterUser')
+  }
+
 }
