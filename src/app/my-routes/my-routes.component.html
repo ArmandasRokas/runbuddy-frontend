@@ -1,19 +1,22 @@
 <h1> My routes </h1>
+<div class="alert alert-success" *ngIf="deletedMessage"> {{deletedMessage}} </div>
 <div class="containter">
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let route of routes">
-      <td>{{route.title}}</td>
-      <td>{{route.date | date:'medium'}}</td>
-    </tr>
-  </tbody>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let route of routes">
+        <td>{{route.title}}</td>
+        <td>{{route.date | date:'medium'}}</td>
+        <td><button (click)="deleteRoute(route.id)" class="btn btn-warning">Delete</button></td>
+      </tr>
+    </tbody>
 
 
-</table>
+  </table>
 </div>
