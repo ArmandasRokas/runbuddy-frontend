@@ -7,12 +7,13 @@ import { HardcodedAuthenticationService } from '../service/hardcoded-authenticat
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
+  username: String
   constructor(
     private hardcodedAuthenticationService: HardcodedAuthenticationService
   ) { }
 
   ngOnInit() {
+    this.username = sessionStorage.getItem('authenticaterUser')
   }
 
 }

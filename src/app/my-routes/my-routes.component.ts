@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Route } from '../enitities/route';
 import { RouteDataService } from '../service/data/route-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-routes',
@@ -18,7 +19,8 @@ export class MyRoutesComponent implements OnInit {
 
 
   constructor(
-    private routeDataService: RouteDataService
+    private routeDataService: RouteDataService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -28,7 +30,6 @@ export class MyRoutesComponent implements OnInit {
   refreshRoutes() {
     this.routeDataService.retrieveUserRoutes('1').subscribe( // creatorId is hardcoded 
       response => {
-        console.log(response)
         this.routes = response
       }
     )
@@ -43,4 +44,11 @@ export class MyRoutesComponent implements OnInit {
      )
   }
 
+  updateRoute(routeId) {
+    this.router.navigate(['route', routeId])
+  }
+
+  createRoute() {
+    this.router.navigate(['route', 'newRoute'])
+  }
 }

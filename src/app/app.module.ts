@@ -12,6 +12,7 @@ import { MyRoutesComponent } from './my-routes/my-routes.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { LogoutComponent } from './logout/logout.component';
+import { RouteComponent } from './route/route.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LogoutComponent } from './logout/logout.component';
     MyRoutesComponent,
     MenuComponent,
     FooterComponent,
-    LogoutComponent
+    LogoutComponent,
+    RouteComponent
   ],
   imports: [
     BrowserModule,
