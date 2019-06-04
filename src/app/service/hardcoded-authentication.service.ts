@@ -4,12 +4,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class HardcodedAuthenticationService {
+  public authUsername: String
 
   constructor() { }
 
+  
   authenticate(username, password) {
     if (username === "username" && password === "pass") {
       sessionStorage.setItem('authenticaterUser', username)
+      this.authUsername = username
       return true
     } else {
       return false
@@ -23,6 +26,10 @@ export class HardcodedAuthenticationService {
 
   logout() {
     sessionStorage.removeItem('authenticaterUser')
+  }
+
+  setUsername(username) {
+    this.authUsername = username;
   }
 
 }

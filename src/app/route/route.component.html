@@ -1,14 +1,18 @@
 <h1>Route</h1>
 <div class="container">
-  <fieldset class="form-group">
-    <label>Title</label>
-    <input type="text" [(ngModel)]="route.title" class="form-control" name="description" required="required">
-  </fieldset>
-  <fieldset class="form-group">
-    <label>Date</label>
-    <input type="date" [ngModel]="route.date | date:'yyyy-MM-dd'" (ngModelChange)="route.date = $event"
-           class="form-control" name="targetDate" required="required">
-  </fieldset>
-  <button class="btn btn-success" (click)="saveRoute()">Save</button>
-
+  <div class="alert alert-warning" *ngIf="date.dirty && date.invalid">Enter valid date</div>
+  <div class="alert alert-warning" *ngIf="title.dirty && title.invalid">Enter at least 5 characters in title</div>
+  <form (ngSubmit)="!routeForm.invalid && saveRoute()" #routeForm="ngForm">
+    <fieldset class="form-group">
+      <label>Title</label>
+      <input type="text" [(ngModel)]="route.title" #title="ngModel"
+             class="form-control" name="description" required="required" minlength="5">
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Date</label>
+      <input type="date" [ngModel]="route.date | date:'yyyy-MM-dd'" (ngModelChange)="route.date = $event"
+             class="form-control" name="targetDate" required="required" #date="ngModel">
+    </fieldset>
+    <button type="submit" class="btn btn-success">Save</button>
+  </form>
 </div>
