@@ -19,5 +19,5 @@ export class WayPoint {
   constructor(
     private x: number,
     private y: number,
-    private index: number) { }
+    public index: number) { }
 }

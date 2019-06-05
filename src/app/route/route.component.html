@@ -13,20 +13,30 @@
       <input type="date" [ngModel]="route.date | date:'yyyy-MM-dd'" (ngModelChange)="route.date = $event"
              class="form-control" name="targetDate" required="required" #date="ngModel">
     </fieldset>
+    <fieldset class="form-group">
+      <div class="form-group">
+      <label><b>WayPoints</b></label>
+      <br>
+      <div *ngIf="route.wayPoints == null || this.route.wayPoints.length === 0 ">There is no waypoints added to this route.</div>
+      <button type="button" class="btn btn-warning" (click)=addWayPoint()>Add a new waypoint</button>
+       </div>
+    </fieldset>
+    
 
 
+    <div *ngFor="let wayPoint of route.wayPoints; let index = index;">
+      <fieldset class="form-group">
 
-    <div *ngFor="let wayPoint of route.wayPoints; let index = index;" >
-    <fieldset class="form-group" >
-      <div class="form-row">
-        <div class="form-group col-md-2">
-          <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
-          <button class="btn btn-warning" (click)=removeWayPoint(index)>Remove</button>
-        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
+            <button class="btn btn-danger" (click)=removeWayPoint(index)>Remove</button>
+          </div>
           <div class="form-group col-md-2">
             <label for="inputLattitude">Lattitude(X)</label>
             <input id="inputLattitude" type="number" [(ngModel)]="route.wayPoints[index].x"
-                   class="form-control" name=waypointX{{index}} required="required">
+                   class="form-control" name=waypointX{{index}} required="required"
+                   min="0.1">
           </div>
           <div class="form-group col-md-2">
             <label for="inputLongitude">Longitude(Y)</label>
@@ -34,8 +44,8 @@
                    class="form-control" name=waypointY{{index}} required="required">
           </div>
         </div>
-</fieldset>
-      </div>
+      </fieldset>
+    </div>
     <button type="submit" class="btn btn-success">Save</button>
   </form>
   <br><br>

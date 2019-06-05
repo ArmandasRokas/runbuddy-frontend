@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouteDataService } from '../service/data/route-data.service';
-import { Route } from '../enitities/route';
+import { Route, WayPoint } from '../enitities/route';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class RouteComponent implements OnInit {
 
   ngOnInit() {
     this.routeId = this.activatedRoute.snapshot.params['id']
-    this.route = new Route(this.routeId, "", new Date(), null)
+    this.route = new Route(this.routeId, "", new Date(), undefined)
     if (this.routeId != 'newRoute') {
       this.routeDataService.retrieveRoute('1', this.routeId).subscribe(
         data => {
@@ -48,5 +48,17 @@ export class RouteComponent implements OnInit {
   }
   removeWayPoint(index) {
     this.route.wayPoints.splice(index, 1)
+  }
+  addWayPoint() {
+    var index = 1
+    var wayPoint = new WayPoint(0, 0, index)
+    if (this.route.wayPoints === undefined || this.route.wayPoints.length === 0 ) {
+      var wayPoints: WayPoint[] = [wayPoint]
+      this.route.wayPoints = wayPoints
+    } else {
+      wayPoint.index = this.route.wayPoints[this.route.wayPoints.length - 1].index + 1
+      this.route.wayPoints.push(wayPoint)
+    }
+    console.log(this.route)
   }
 }
