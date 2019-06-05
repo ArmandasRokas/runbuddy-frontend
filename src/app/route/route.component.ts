@@ -21,10 +21,12 @@ export class RouteComponent implements OnInit {
 
   ngOnInit() {
     this.routeId = this.activatedRoute.snapshot.params['id']
-    this.route = new Route(this.routeId, "", new Date())
+    this.route = new Route(this.routeId, "", new Date(), null)
     if (this.routeId != 'newRoute') {
       this.routeDataService.retrieveRoute('1', this.routeId).subscribe(
-        data => this.route = data
+        data => {
+        this.route = data
+        console.log(data)}
       )
     }
   }

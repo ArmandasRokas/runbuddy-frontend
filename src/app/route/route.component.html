@@ -4,15 +4,36 @@
   <div class="alert alert-warning" *ngIf="title.dirty && title.invalid">Enter at least 5 characters in title</div>
   <form (ngSubmit)="!routeForm.invalid && saveRoute()" #routeForm="ngForm">
     <fieldset class="form-group">
-      <label>Title</label>
+      <label><b>Title</b></label>
       <input type="text" [(ngModel)]="route.title" #title="ngModel"
              class="form-control" name="description" required="required" minlength="5">
     </fieldset>
     <fieldset class="form-group">
-      <label>Date</label>
+      <label><b>Date</b></label>
       <input type="date" [ngModel]="route.date | date:'yyyy-MM-dd'" (ngModelChange)="route.date = $event"
              class="form-control" name="targetDate" required="required" #date="ngModel">
     </fieldset>
+
+
+
+    <div *ngFor="let wayPoint of route.wayPoints; let index = index;" >
+    <fieldset class="form-group" >
+      <div class="form-row">
+        <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
+        <div class="form-group col-md-2">
+          <label for="inputLattitude">Lattitude</label>
+          <input id="inputLattitude" type="number" [(ngModel)]="route.wayPoints[index].x" 
+                 class="form-control" name=waypointX{{index}} required="required" >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputLongitude">Longitude </label>
+          <input id="inputLongitude" type="number" [(ngModel)]="wayPoint.y"
+                 class="form-control" name=waypointY{{index}} required="required" >
+        </div>
+      </div>
+    </fieldset>
+      </div>
     <button type="submit" class="btn btn-success">Save</button>
   </form>
+  <br><br>
 </div>
