@@ -25,10 +25,11 @@ export class RouteComponent implements OnInit {
     if (this.routeId != 'newRoute') {
       this.routeDataService.retrieveRoute('1', this.routeId).subscribe(
         data => {
-        this.route = data
+          this.route = data
         console.log(data)}
       )
     }
+
   }
   saveRoute() {
     if (this.routeId === 'newRoute') {
@@ -44,5 +45,8 @@ export class RouteComponent implements OnInit {
         }
       )
     }
+  }
+  removeWayPoint(index) {
+    this.route.wayPoints.splice(index, 1)
   }
 }

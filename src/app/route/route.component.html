@@ -19,19 +19,22 @@
     <div *ngFor="let wayPoint of route.wayPoints; let index = index;" >
     <fieldset class="form-group" >
       <div class="form-row">
-        <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
         <div class="form-group col-md-2">
-          <label for="inputLattitude">Lattitude</label>
-          <input id="inputLattitude" type="number" [(ngModel)]="route.wayPoints[index].x" 
-                 class="form-control" name=waypointX{{index}} required="required" >
+          <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
+          <button class="btn btn-warning" (click)=removeWayPoint(index)>Remove</button>
         </div>
-        <div class="form-group col-md-2">
-          <label for="inputLongitude">Longitude </label>
-          <input id="inputLongitude" type="number" [(ngModel)]="wayPoint.y"
-                 class="form-control" name=waypointY{{index}} required="required" >
+          <div class="form-group col-md-2">
+            <label for="inputLattitude">Lattitude(X)</label>
+            <input id="inputLattitude" type="number" [(ngModel)]="route.wayPoints[index].x"
+                   class="form-control" name=waypointX{{index}} required="required">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputLongitude">Longitude(Y)</label>
+            <input id="inputLongitude" type="number" [(ngModel)]="wayPoint.y"
+                   class="form-control" name=waypointY{{index}} required="required">
+          </div>
         </div>
-      </div>
-    </fieldset>
+</fieldset>
       </div>
     <button type="submit" class="btn btn-success">Save</button>
   </form>
