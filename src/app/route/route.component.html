@@ -15,13 +15,13 @@
     </fieldset>
     <fieldset class="form-group">
       <div class="form-group">
-      <label><b>WayPoints</b></label>
-      <br>
-      <div *ngIf="route.wayPoints == null || this.route.wayPoints.length === 0 ">There is no waypoints added to this route.</div>
-      <button type="button" class="btn btn-warning" (click)=addWayPoint()>Add a new waypoint</button>
-       </div>
+        <label><b>WayPoints</b></label>
+        <br>
+        <div *ngIf="route.wayPoints == null || this.route.wayPoints.length === 0 ">There is no waypoints added to this route.</div>
+        <button type="button" class="btn btn-warning" (click)=addWayPoint()>Add a new waypoint</button>
+      </div>
     </fieldset>
-    
+
 
 
     <div *ngFor="let wayPoint of route.wayPoints; let index = index;">
@@ -30,7 +30,7 @@
         <div class="form-row">
           <div class="form-group col-md-2">
             <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
-            <button class="btn btn-danger" (click)=removeWayPoint(index)>Remove</button>
+            <button class="btn btn-secondary" (click)=removeWayPoint(index)>Remove</button>
           </div>
           <div class="form-group col-md-2">
             <label for="inputLattitude">Lattitude(X)</label>
@@ -46,7 +46,14 @@
         </div>
       </fieldset>
     </div>
-    <button type="submit" class="btn btn-success">Save</button>
-  </form>
+    <div class="form-row">
+      <div class="form-group col-md-1">
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+      <div class="form-group col-md-1">
+        <button type="button" (click)="cancel()" class="btn btn-danger">Cancel</button>
+      </div>
+    </div>
+</form>
   <br><br>
 </div>

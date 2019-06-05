@@ -61,4 +61,8 @@ export class RouteComponent implements OnInit {
     }
     console.log(this.route)
   }
+
+  cancel() {
+    this.router.navigate(['myroutes'])
+  }
 }
