@@ -13,6 +13,8 @@ import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RouteComponent } from './route/route.component';
+import { RunComponent } from './run/run.component';
+import { ChartsModule } from 'ng2-charts'
 
 @NgModule({
   declarations: [
@@ -24,13 +26,15 @@ import { RouteComponent } from './route/route.component';
     MenuComponent,
     FooterComponent,
     LogoutComponent,
-    RouteComponent
+    RouteComponent,
+    RunComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

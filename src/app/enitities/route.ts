@@ -17,7 +17,7 @@ export class Route {
 
 export class WayPoint {
   constructor(
-    private x: number,
-    private y: number,
+    public x: number,
+    public y: number,
     public index: number) { }
 }
