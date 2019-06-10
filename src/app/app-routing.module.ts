@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'myroutes', component: MyRoutesComponent, canActivate: [RouteGuardService] },
   { path: 'logout', component: LogoutComponent, canActivate: [RouteGuardService] },
   { path: 'route/:id', component: RouteComponent, canActivate: [RouteGuardService] },
-  { path: 'run', component: RunComponent, canActivate: [RouteGuardService] },
+  { path: 'run/:id', component: RunComponent, canActivate: [RouteGuardService] },
    
   { path: '**', component: ErrorComponent } // ALWAYS should be the last
 ];

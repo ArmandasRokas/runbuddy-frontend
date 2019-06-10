@@ -60,7 +60,7 @@ export class RunComponent implements OnInit {
   public bubbleChartLegend = true;
 
   public bubbleChartData: ChartDataSets[] = [
-    {
+   // {
       //data: [
       //  //{ x: 10, y: 10, r: 25 },
       //  //{ x: 15, y: 5, r: 25 },
@@ -72,7 +72,7 @@ export class RunComponent implements OnInit {
       //borderColor: 'blue',
       //hoverBackgroundColor: 'purple',
       //hoverBorderColor: 'red',
-    },
+    //},
     {
       data: [
         { x: 10, y: 10, r: 20},
@@ -88,9 +88,9 @@ export class RunComponent implements OnInit {
     },
     {
       data: [
-        { x: 12, y: 12, r: 25 },
-        { x: 17, y: 7, r: 25 },
-        { x: 28, y: 14, r: 25 },
+        { x: 12, y: 12, r: 20 },
+        { x: 17, y: 7, r: 20 },
+        { x: 28, y: 14, r: 20 },
         { x: 9, y:10, r: 20},
       ],
       label: 'Missing',
@@ -101,22 +101,22 @@ export class RunComponent implements OnInit {
     }
   ];
 
-  public bubbleChartColors: Color[] = [
-    {
-      backgroundColor: [
-        'red',
-        'green',
-        'blue',
-        'purple',
-        'yellow',
-        'brown',
-        'magenta',
-        'cyan',
-        'orange',
-        'pink'
-      ]
-    }
-  ];
+  //public bubbleChartColors: Color[] = [
+  //  {
+  //    backgroundColor: [
+  //      //'red',
+  //      'green',
+  //      //'blue',
+  //      //'purple',
+  //      //'yellow',
+  //      //'brown',
+  //      //'magenta',
+  //      //'cyan',
+  //      //'orange',
+  //      //'pink'
+  //    ]
+  //  }
+  //];
 
   constructor(
     private routeDataService: RouteDataService
