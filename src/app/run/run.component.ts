@@ -4,6 +4,7 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Color } from 'ng2-charts';
 import { Route, WayPoint } from '../enitities/route';
 import { RouteDataService } from '../service/data/route-data.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 class WayPointBubbleData {
@@ -34,8 +35,16 @@ class WayPointBubbleData {
 
 export class RunComponent implements OnInit {
   route: Route
+  runId : String
 
   public bubbleChartOptions: ChartOptions = {
+    tooltips: {
+      callbacks: {
+        label: function (t, d) {
+          return '(Visited:' + 'date';  //d.datasets[t.datasetIndex].label +  t.xLabel + ', Total:' + t.yLabel + ')' //  is not null visited
+        }
+      }
+    },
     responsive: true,
     scales: {
       xAxes: [
@@ -119,10 +128,12 @@ export class RunComponent implements OnInit {
   //];
 
   constructor(
-    private routeDataService: RouteDataService
+    private routeDataService: RouteDataService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.runId = this.activatedRoute.snapshot.params['id']
     this.routeDataService.retrieveRoute('1', '10').subscribe(
       data => {
         this.route = data
