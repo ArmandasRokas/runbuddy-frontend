@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Route } from '../enitities/route';
+import { RouteDataService } from '../service/data/route-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-routes',
@@ -7,9 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllRoutesComponent implements OnInit {
 
-  constructor() { }
+  //routes: Route[]
+  routes = [
+   new Route("1", "Fun run", new Date(), []),
+    new Route("2", "My favorite run", new Date(), []),
+    new Route("3", "Cultural run", new Date(), [])
+  ]
+
+  constructor(
+    private routeDataService: RouteDataService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.refreshRoutes()
+  }
+
+  refreshRoutes() {
+    this.routeDataService.retrieveAllRoutes().subscribe( 
+      response => {
+      this.routes = response
+      }
+    )
+  }
+
+  signUpForRoute(routeID, participantID) {
+    this.router.navigate(['run',routeID])
   }
 
 }

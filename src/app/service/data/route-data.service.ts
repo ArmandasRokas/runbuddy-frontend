@@ -11,6 +11,9 @@ export class RouteDataService {
     private http: HttpClient
   ) { }
 
+  retrieveAllRoutes(){
+    return this.http.get<Route[]>(`http://localhost:8080/routes`)
+  }
   retrieveUserRoutes(creatorId) {
     return this.http.get<Route[]>(`http://localhost:8080/users/${creatorId}/routes`)
   }
