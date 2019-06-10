@@ -28,21 +28,21 @@ class WayPointBubbleData {
 
 
 // bruge route data service til at hente
-  // complete button til. kun tilladt hvis alle point markeret
+// complete button til. kun tilladt hvis alle point markeret
 
-  // get waypoints  routes/{id}/waypoints
+// get waypoints  routes/{id}/waypoints
 
 
 
 export class RunComponent implements OnInit {
   waypoints: WayPoint[]
-  runId : String
+  runId: String
 
   public bubbleChartOptions: ChartOptions = {
     tooltips: {
       callbacks: {
         label: function (t, d) {
-          return '(Visited:' + 'date';  //d.datasets[t.datasetIndex].label +  t.xLabel + ', Total:' + t.yLabel + ')' //  is not null visited
+          return '(Visited:' + 'date'; //https://stackoverflow.com/questions/45249779/chart-js-bubble-chart-changing-dataset-labels
         }
       }
     },
@@ -70,28 +70,28 @@ export class RunComponent implements OnInit {
   public bubbleChartLegend = true;
 
   public bubbleChartData: ChartDataSets[] = [
-   // {
-      //data: [
-      //  //{ x: 10, y: 10, r: 25 },
-      //  //{ x: 15, y: 5, r: 25 },
-      //  //{ x: 26, y: 12, r: 25 },
-      //  //{ x: 7, y: 8, r: 10 },
-      //],
-      //label: 'Missing',
-      //backgroundColor: 'red',
-      //borderColor: 'blue',
-      //hoverBackgroundColor: 'purple',
-      //hoverBorderColor: 'red',
+    // {
+    //data: [
+    //  //{ x: 10, y: 10, r: 25 },
+    //  //{ x: 15, y: 5, r: 25 },
+    //  //{ x: 26, y: 12, r: 25 },
+    //  //{ x: 7, y: 8, r: 10 },
+    //],
+    //label: 'Missing',
+    //backgroundColor: 'red',
+    //borderColor: 'blue',
+    //hoverBackgroundColor: 'purple',
+    //hoverBorderColor: 'red',
     //},
     {
       data: [
-        { x: 10, y: 10, r: 20},
+        { x: 10, y: 10, r: 20 },
         { x: 15, y: 5, r: 20 },
-        { x: 26, y: 12, r: 20},
+        { x: 26, y: 12, r: 20 },
         { x: 7, y: 8, r: 20 },
       ],
-      label: 'Visited',
-      backgroundColor: 'green',
+      label: 'Missing',
+      backgroundColor: 'red',
       borderColor: 'blue',
       hoverBackgroundColor: 'purple',
       hoverBorderColor: 'red',
@@ -101,10 +101,10 @@ export class RunComponent implements OnInit {
         { x: 12, y: 12, r: 20 },
         { x: 17, y: 7, r: 20 },
         { x: 28, y: 14, r: 20 },
-        { x: 9, y:10, r: 20},
+        { x: 9, y: 10, r: 20 },
       ],
-      label: 'Missing',
-      backgroundColor: 'red',
+      label: 'Visited',
+      backgroundColor: 'green',
       borderColor: 'blue',
       hoverBackgroundColor: 'purple',
       hoverBorderColor: 'red',
@@ -145,7 +145,7 @@ export class RunComponent implements OnInit {
     )
   }
 
- //  events
+  //  events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
