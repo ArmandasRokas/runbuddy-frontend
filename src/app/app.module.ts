@@ -14,7 +14,8 @@ import { FooterComponent } from './footer/footer.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RouteComponent } from './route/route.component';
 import { RunComponent } from './run/run.component';
-import { ChartsModule } from 'ng2-charts'
+import { ChartsModule } from 'ng2-charts';
+import { AllRoutesComponent } from './all-routes/all-routes.component'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ChartsModule } from 'ng2-charts'
     FooterComponent,
     LogoutComponent,
     RouteComponent,
-    RunComponent
+    RunComponent,
+    AllRoutesComponent
   ],
   imports: [
     BrowserModule,

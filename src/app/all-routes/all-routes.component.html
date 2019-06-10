@@ -1,0 +1,21 @@
+<h1> All routes </h1>
+<div class="container">
+  <br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Sign up</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let route of routes">
+        <td>{{route.title}}</td>
+        <td>{{route.date | date:'medium'}}</td>
+        <td><button (click)="signUpForRoute(routeID)" class="btn btn-warning">Sign up</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <br><br>
+</div>

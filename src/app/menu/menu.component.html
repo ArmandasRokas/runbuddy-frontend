@@ -8,6 +8,7 @@
     <ul class="navbar-nav">
       <li><a *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" routerLink="/welcome/username" class="nav-link">Home</a></li>
       <li><a *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" routerLink="/myroutes" class="nav-link">My routes</a></li>
+      <li><a *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" routerLink="/allroutes" class="nav-link">All routes</a></li>
     </ul>
     <ul class="navbar-nav navbar-collapse justify-content-end">
       <li><a *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" class="navbar-text text-white">{{hardcodedAuthenticationService.authUsername | titlecase}}</a></li>

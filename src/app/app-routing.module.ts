@@ -8,6 +8,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { RouteGuardService } from './service/route-guard.service';
 import { RouteComponent } from './route/route.component';
 import { RunComponent } from './run/run.component';
+import { AllRoutesComponent } from './all-routes/all-routes.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, canActivate: [RouteGuardService] },
@@ -17,7 +18,9 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent, canActivate: [RouteGuardService] },
   { path: 'route/:id', component: RouteComponent, canActivate: [RouteGuardService] },
   { path: 'run/:id', component: RunComponent, canActivate: [RouteGuardService] },
-   
+  { path: 'run', component: RunComponent, canActivate: [RouteGuardService] },
+  { path: 'allroutes', component: AllRoutesComponent, canActivate: [RouteGuardService] }, 
+
   { path: '**', component: ErrorComponent } // ALWAYS should be the last
 ];
 
