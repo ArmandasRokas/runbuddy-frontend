@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\enitities",
+    "\\src\\app\\login",
+    "\\src\\app\\my-routes",
+    "\\src\\app\\route",
+    "\\src\\app\\service",
+    "\\src\\app\\service\\data",
+    "\\src\\app\\welcome"
+  ],
+  "PreviewInSolutionExplorer": false
+}
