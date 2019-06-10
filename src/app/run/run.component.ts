@@ -5,6 +5,7 @@ import { Color } from 'ng2-charts';
 import { Route, WayPoint } from '../enitities/route';
 import { RouteDataService } from '../service/data/route-data.service';
 import { ActivatedRoute } from '@angular/router';
+import { RunDataService } from '../service/data/run-data.service';
 
 
 class WayPointBubbleData {
@@ -34,7 +35,7 @@ class WayPointBubbleData {
 
 
 export class RunComponent implements OnInit {
-  route: Route
+  waypoints: WayPoint[]
   runId : String
 
   public bubbleChartOptions: ChartOptions = {
@@ -128,17 +129,17 @@ export class RunComponent implements OnInit {
   //];
 
   constructor(
-    private routeDataService: RouteDataService,
+    private runDataService: RunDataService,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.runId = this.activatedRoute.snapshot.params['id']
-    this.routeDataService.retrieveRoute('1', '10').subscribe(
+    this.runDataService.getMissingWaypoints(this.runId).subscribe(
       data => {
-        this.route = data
+        this.waypoints = data
         console.log(data)
-        let waypointstobubblearr = this.route.wayPoints.map(item => new WayPointBubbleData(item));
+        let waypointstobubblearr = this.waypoints.map(item => new WayPointBubbleData(item));
         this.bubbleChartData[0].data = waypointstobubblearr;
       }
     )
