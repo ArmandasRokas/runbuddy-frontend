@@ -42,7 +42,7 @@ export class RunComponent implements OnInit {
     tooltips: {
       callbacks: {
         label: function (t, d) {
-          return '(Visited:' + 'date';  //d.datasets[t.datasetIndex].label +  t.xLabel + ', Total:' + t.yLabel + ')' //  is not null visited
+          return '(Visited:' + 'date'; https://stackoverflow.com/questions/45249779/chart-js-bubble-chart-changing-dataset-labels
         }
       }
     },
@@ -90,8 +90,8 @@ export class RunComponent implements OnInit {
         { x: 26, y: 12, r: 20},
         { x: 7, y: 8, r: 20 },
       ],
-      label: 'Visited',
-      backgroundColor: 'green',
+      label: 'Missing',
+      backgroundColor: 'red',
       borderColor: 'blue',
       hoverBackgroundColor: 'purple',
       hoverBorderColor: 'red',
@@ -103,8 +103,8 @@ export class RunComponent implements OnInit {
         { x: 28, y: 14, r: 20 },
         { x: 9, y:10, r: 20},
       ],
-      label: 'Missing',
-      backgroundColor: 'red',
+      label: 'Visited',
+      backgroundColor: 'green',
       borderColor: 'blue',
       hoverBackgroundColor: 'purple',
       hoverBorderColor: 'red',
