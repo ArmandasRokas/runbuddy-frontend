@@ -5,6 +5,7 @@ import { Route } from 'src/app/enitities/route';
 @Injectable({
   providedIn: 'root'
 })
+
 export class RouteDataService {
 
   constructor(

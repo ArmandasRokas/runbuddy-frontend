@@ -1,15 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\e2e",
+    "\\e2e\\src",
     "\\src",
     "\\src\\app",
+    "\\src\\app\\all-routes",
     "\\src\\app\\enitities",
     "\\src\\app\\login",
-    "\\src\\app\\my-routes",
-    "\\src\\app\\route",
-    "\\src\\app\\service",
-    "\\src\\app\\service\\data",
-    "\\src\\app\\welcome"
+    "\\src\\app\\menu",
+    "\\src\\app\\run"
   ],
+  "SelectedNode": "\\src\\app\\service\\data\\route-data.service.ts",
   "PreviewInSolutionExplorer": false
 }
