@@ -6,6 +6,7 @@ import { Route, WayPoint } from '../enitities/route';
 import { RouteDataService } from '../service/data/route-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { RunDataService } from '../service/data/run-data.service';
+import { Checkpoint } from '../enitities/run';
 
 
 class WayPointBubbleData {
@@ -16,6 +17,17 @@ class WayPointBubbleData {
   constructor(item: WayPoint) {
     this.x = item.x;
     this.y = item.y;
+    this.r = 20;
+  }
+}
+class CheckPointBubbleData {
+  x: number;
+  y: number;
+  r: number;
+
+  constructor(item: Checkpoint) {
+    this.x = item.wayPoint.x;
+    this.y = item.wayPoint.y;
     this.r = 20;
   }
 }
@@ -36,6 +48,7 @@ class WayPointBubbleData {
 
 export class RunComponent implements OnInit {
   waypoints: WayPoint[]
+  checkpoints: Checkpoint[]
   runId: String
 
   public bubbleChartOptions: ChartOptions = {
@@ -141,6 +154,14 @@ export class RunComponent implements OnInit {
         console.log(data)
         let waypointstobubblearr = this.waypoints.map(item => new WayPointBubbleData(item));
         this.bubbleChartData[0].data = waypointstobubblearr;
+      }
+    )
+    this.runDataService.getLatestCheckpoints(this.runId).subscribe(
+      data => {
+        this.checkpoints = data
+        console.log(data)
+        let checkpointbubblearr = this.checkpoints.map(item => new CheckPointBubbleData(item));
+        this.bubbleChartData[1].data = checkpointbubblearr;
       }
     )
   }
