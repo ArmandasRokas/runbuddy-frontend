@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Subject, Observable } from 'rxjs'
 import { IUser, ILocation } from './user.model'
+import { User, Location } from './user'
+
 import { HttpClient } from '@angular/common/http';
 import * as UUID from 'uuid'
 import { CreateUserComponent } from '../create-user.component';
@@ -8,7 +10,6 @@ import { CreateUserComponent } from '../create-user.component';
 
 @Injectable()
 export class UserService{     
-    newUser:IUser
     constructor(private http: HttpClient ) { }
 /*  
       retrieveUserById(id) {
@@ -29,21 +30,21 @@ export class UserService{
      
     saveUser(user:IUser){
         user.id = UUID.v4()
-        user.location = UUID.v4()
+        user.location.id = UUID.v4()
         
-        this.newUser.id = user.id
-        this.newUser.userName = user.userName
-        this.newUser.email = user.email
-        this.newUser.password = user.password
-        this.newUser.locations.push(user.location);
-            
-        //user.locations[] = new Array<ILocation>
-        //user.locations[] = user.location
+        var userNew = new User(
+            user.id, user.userName, user.email, user.password, 
+            [
+                new Location(
+                    user.location.id, user.location.streetName, user.location.streetNumber, 
+                    user.location.city, user.location.country
+                )
+            ] 
+        );
         
         USERS.push(user)
-        //console.log(user)
-        console.log(this.newUser)
-        this.createUser(this.newUser).subscribe( response => console.log(response) );
+        console.log(userNew)
+        this.createUser(userNew).subscribe( response => console.log(response) );
     }
 }
 
