@@ -16,6 +16,7 @@ import { RouteComponent } from './route/route.component';
 import { RunComponent } from './run/run.component';
 import { ChartsModule } from 'ng2-charts';
 import { AllRoutesComponent } from './all-routes/all-routes.component'
+import { AuthService } from './user/auth.service'
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import { AllRoutesComponent } from './all-routes/all-routes.component'
     HttpClientModule,
     ChartsModule
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,47 @@
+<h1>New User</h1>
+<hr>
+<div class="col-md-6">
+  <form #newUserForm="ngForm" (ngSubmit)="saveUser(newUserForm.value)" autocomplete="off" novalidate>
+    
+    <div class="form-group" [ngClass]="{'error': newUserForm.controls.userName?.invalid && newUserForm.controls.userName?.touched}">
+      <label for="userName">User Name:</label>
+      <em *ngIf="newUserForm.controls.userName?.invalid && (newUserForm.controls.userName?.touched)">Required</em>
+      <input (ngModel)="newUser.userName" name="userName" required id="userName" type="text" class="form-control" placeholder="User Name..." />
+    </div>
+
+    <div class="form-group" [ngClass]="{'error': newUserForm.controls.email?.invalid && newUserForm.controls.email?.touched}">
+      <label for="email">Email:</label>
+      <em *ngIf="newUserForm.controls.email?.invalid && (newUserForm.controls.email?.touched)">Required</em>
+      <input (ngModel)="newUser.email" name="email" required id="email" type="text" class="form-control" placeholder="Email..." />
+    </div>
+
+    <div class="form-group" [ngClass]="{'error': newUserForm.controls.password?.invalid && newUserForm.controls.password?.touched}">
+      <label for="password">Password:</label>
+      <em *ngIf="newUserForm.controls.password?.invalid && (newUserForm.controls.password?.touched)">Required</em>
+      <input (ngModel)="newUser.password" name="password" required id="password" type="text" class="form-control" placeholder="Password..." />
+    </div>
+        
+    <div ngModelGroup="location">
+        <div class="form-group">
+        <label for="streetName">Street Name:</label>
+        <input (ngModel)="newUser.streetName" name="streetName" id="streetName" type="text" class="form-control" placeholder="Street Name..." />
+        </div>
+        <div class="form-group">
+            <label for="streetNumber">Street Number:</label>
+            <input (ngModel)="newUser.streetNumber" name="streetNumber" id="streetNumber" type="text" class="form-control" placeholder="Street Number..." />
+        </div>
+        <div class="row">
+        <div class="col-md-6">
+            <input (ngModel)="newUser.city" name="city" id="city" type="text" class="form-control" placeholder="City..." />
+        </div>
+        <div class="col-md-6" >
+            <input (ngModel)="newUser.country" name="country" id="country" type="text" class="form-control" placeholder="Country..." />
+        </div>
+        </div>  
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" [disabled]="newUserForm.invalid" class="btn btn-default" (click)="cancel()">Cancel</button>
+  
+  </form>
+</div>
