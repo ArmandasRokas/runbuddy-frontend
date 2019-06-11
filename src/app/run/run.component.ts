@@ -50,6 +50,8 @@ export class RunComponent implements OnInit {
   waypoints: WayPoint[]
   checkpoints: Checkpoint[]
   runId: String
+  currUserX: number
+  currUserY: number
 
   public bubbleChartOptions: ChartOptions = {
     tooltips: {
