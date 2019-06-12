@@ -19,6 +19,13 @@ import { AllRoutesComponent } from './all-routes/all-routes.component'
 import { AuthService } from './user/auth.service'
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ChartsModule
+  ],
   declarations: [
     AppComponent,
     WelcomeComponent,
@@ -31,13 +38,6 @@ import { AuthService } from './user/auth.service'
     RouteComponent,
     RunComponent,
     AllRoutesComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    ChartsModule
   ],
   providers: [
     AuthService

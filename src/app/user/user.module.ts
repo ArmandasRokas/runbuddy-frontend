@@ -9,6 +9,7 @@ import { LoginComponent } from './login.component'
 import { CreateUserComponent } from './create-user.component'
 
 import { UserService } from './shared/user.service'
+import { AuthService } from './auth.service';
 
 @NgModule({
     imports:[
