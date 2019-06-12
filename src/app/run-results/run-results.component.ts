@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RunDataService } from '../service/data/run-data.service';
 import { Run } from '../enitities/run';
 import { ActivatedRoute } from '@angular/router';
-import { Route } from '../enitities/route';
+import { Route, WayPoint } from '../enitities/route';
 
 @Component({
   selector: 'app-run-results',
@@ -13,6 +13,8 @@ export class RunResultsComponent implements OnInit {
 
   runId: String
   run: Run
+  waypoints: WayPoint[]
+  totalTime:number
 
   constructor(
     private runDataService: RunDataService,
@@ -25,8 +27,16 @@ export class RunResultsComponent implements OnInit {
       this.runDataService.retrieveRunWithLatestCheckpoints(this.runId).subscribe(
         data => {
           this.run = data
-        console.log(data)}
-      )
+          console.log(data)
+          this.totalTime = this.run.startTime.getTime()-this.run.endTime.getTime()
+        }
+    )
+
+    this.runDataService.getMissingWaypoints(this.runId).subscribe(
+      data => {
+        this.waypoints = data
+      }
+    )
   }
 
 }

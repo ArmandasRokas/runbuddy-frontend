@@ -8,18 +8,20 @@
       <tr>
         <th>Starttime</th>
         <th>Endtime</th>
+        <th>Total time</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>{{run.startTime | date:'medium'}}</td>
         <td>{{run.endTime | date:'medium'}}</td>
+        <td>{{totalTime }}</td>
       </tr>
     </tbody>
   </table>
   <br>
 
-  <h2> Visited waypoints </h2>
+  <h3>Visited waypoints </h3>
   <table class="table">
     <thead>
       <tr>
@@ -34,5 +36,17 @@
       </tr>
     </tbody>
   </table>
-  <h2> Not visited waypoints </h2>
+  <h3> Not visited waypoints </h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Waypoint index</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let waypoint of waypoints">
+        <td>{{waypoint.index}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
