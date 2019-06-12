@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Route } from '../enitities/route';
 import { RouteDataService } from '../service/data/route-data.service';
 import { Router } from '@angular/router';
+import { RunDataService } from '../service/data/run-data.service';
+import { Run } from '../enitities/run';
 
 @Component({
   selector: 'app-all-routes',
@@ -16,8 +18,10 @@ export class AllRoutesComponent implements OnInit {
     new Route("2", "My favorite run", new Date(), []),
     new Route("3", "Cultural run", new Date(), [])
   ]
+  run: Run;
 
   constructor(
+    private runDataService: RunDataService,
     private routeDataService: RouteDataService,
     private router: Router
   ) { }
@@ -34,8 +38,12 @@ export class AllRoutesComponent implements OnInit {
     )
   }
 
-  signUpForRoute(routeID, participantID) {
-    this.router.navigate(['run',routeID])
+  signUpForRoute() {
+    
+    this.runDataService.createRun('1', this.run).subscribe(
+      data => {
+        this.router.navigate(['run'])
+      })
   }
 
 }
