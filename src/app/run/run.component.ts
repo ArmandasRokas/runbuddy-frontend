@@ -50,7 +50,7 @@ export class RunComponent implements OnInit {
   waypoints: WayPoint[]
   checkpoints: Checkpoint[]
   runId: String
-  run: Run
+  run: Run = new Run("",null, null, new Date(), new Date())
   currUserX: number
   currUserY: number
 
