@@ -14,9 +14,9 @@ export class AllRoutesComponent implements OnInit {
 
   //routes: Route[]
   routes = [
-   new Route("1", "Fun run", new Date(), []),
-    new Route("2", "My favorite run", new Date(), []),
-    new Route("3", "Cultural run", new Date(), [])
+   //new Route("1", "Fun run", new Date(), []),
+   // new Route("2", "My favorite run", new Date(), []),
+   // new Route("3", "Cultural run", new Date(), [])
   ]
   run: Run;
 

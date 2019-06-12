@@ -100,10 +100,10 @@ export class RunComponent implements OnInit {
     //},
     {
       data: [
-        { x: 10, y: 10, r: 20 },
-        { x: 15, y: 5, r: 20 },
-        { x: 26, y: 12, r: 20 },
-        { x: 7, y: 8, r: 20 },
+        //{ x: 10, y: 10, r: 20 },
+        //{ x: 15, y: 5, r: 20 },
+        //{ x: 26, y: 12, r: 20 },
+        //{ x: 7, y: 8, r: 20 },
       ],
       label: 'Missing',
       backgroundColor: 'red',
@@ -113,10 +113,10 @@ export class RunComponent implements OnInit {
     },
     {
       data: [
-        { x: 12, y: 12, r: 20 },
-        { x: 17, y: 7, r: 20 },
-        { x: 28, y: 14, r: 20 },
-        { x: 9, y: 10, r: 20 },
+        //{ x: 12, y: 12, r: 20 },
+        //{ x: 17, y: 7, r: 20 },
+        //{ x: 28, y: 14, r: 20 },
+        //{ x: 9, y: 10, r: 20 },
       ],
       label: 'Visited',
       backgroundColor: 'green',
@@ -150,6 +150,11 @@ export class RunComponent implements OnInit {
 
   ngOnInit() {
     this.runId = this.activatedRoute.snapshot.params['id']
+    this.refreshBubbles() 
+
+  }
+
+  refreshBubbles() {
     this.runDataService.getMissingWaypoints(this.runId).subscribe(
       data => {
         this.waypoints = data
@@ -175,6 +180,12 @@ export class RunComponent implements OnInit {
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
+  }
+
+  submit() {
+    this.runDataService.addCheckPointIfValid(this.runId, this.currUserX, this.currUserY, 1).subscribe(
+      response => this.refreshBubbles() 
+    )
   }
 
   //private rand(max: number) {
