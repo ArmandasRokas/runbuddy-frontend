@@ -17,7 +17,7 @@ const routes: Routes = [
  // { path: 'welcome/:name', component: WelcomeComponent, canActivate: [RouteGuardService] },
   { path: 'myroutes', component: MyRoutesComponent, canActivate: [RouteGuardService] },
   { path: 'myruns', component: MyRunsComponent, canActivate: [RouteGuardService] },
-  { path: 'runresults', component: RunResultsComponent, canActivate: [RouteGuardService] },
+  { path: 'runresults/:id', component: RunResultsComponent, canActivate: [RouteGuardService] },
 //  { path: 'logout', component: LogoutComponent, canActivate: [RouteGuardService] },
   { path: 'route/:id', component: RouteComponent, canActivate: [RouteGuardService] },
   { path: 'run/:id', component: RunComponent /* ,canActivate: [RouteGuardService]* TODO uncomment when session is implemented*/ },

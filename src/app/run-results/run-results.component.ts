@@ -22,13 +22,11 @@ export class RunResultsComponent implements OnInit {
   ngOnInit() {
     this.runId = this.activatedRoute.snapshot.params['id']
     this.run = new Run(this.runId, new Route("2","routeyroute",new Date(),[]), null, new Date(), new Date())
-    if (this.runId != 'newRun'){
       this.runDataService.retrieveRunWithLatestCheckpoints(this.runId).subscribe(
         data => {
           this.run = data
         console.log(data)}
       )
-    }
   }
 
 }

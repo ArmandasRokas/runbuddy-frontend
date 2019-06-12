@@ -12,23 +12,27 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{run.starttime}}</td>
-        <td>{{run.endtime}}</td>
+        <td>{{run.startTime | date:'medium'}}</td>
+        <td>{{run.endTime | date:'medium'}}</td>
       </tr>
     </tbody>
   </table>
   <br>
+
+  <h2> Visited waypoints </h2>
   <table class="table">
     <thead>
       <tr>
-        <th>Checkpoint</th>
+        <th>Waypoint index</th>
         <th>Timestamp</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let run of runs">
-        <td>{{run.checkpoint}}</td>
+      <tr *ngFor="let checkpoint of run.checkpoints">
+        <td>{{checkpoint.wayPoint.index}}</td>
+        <td>{{checkpoint.visitedTimestamp | date:'medium'}}</td>
       </tr>
     </tbody>
   </table>
+  <h2> Not visited waypoints </h2>
 </div>

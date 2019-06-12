@@ -207,8 +207,11 @@ export class RunComponent implements OnInit {
     )
   }
 
-  endRun(){
-    this.router.navigate(['runresults'])
+  endRun() {
+    this.run.endTime = new Date()
+    this.runDataService.updateRun(this.runId, this.run).subscribe(
+      response => { this.router.navigate(['runresults', this.runId]) }
+    )
   }
 
   //private rand(max: number) {

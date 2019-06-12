@@ -11,9 +11,9 @@ export class Run {
   constructor(
     private id: String,
     public route: Route,
-    private checkpoints: Checkpoint[],
-    private startTime: Date,
-    private endTime: Date
+    public checkpoints: Checkpoint[],
+    public startTime: Date,
+    public endTime: Date
   ) { }
 
 }
