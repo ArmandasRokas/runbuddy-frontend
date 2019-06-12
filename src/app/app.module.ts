@@ -17,7 +17,8 @@ import { RunComponent } from './run/run.component';
 import { ChartsModule } from 'ng2-charts';
 import { AllRoutesComponent } from './all-routes/all-routes.component'
 import { AuthService } from './user/auth.service';
-import { MyRunsComponent } from './my-runs/my-runs.component'
+import { MyRunsComponent } from './my-runs/my-runs.component';
+import { RunResultsComponent } from './run-results/run-results.component'
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MyRunsComponent } from './my-runs/my-runs.component'
     RouteComponent,
     RunComponent,
     AllRoutesComponent,
-    MyRunsComponent
+    MyRunsComponent,
+    RunResultsComponent
   ],
   imports: [
     BrowserModule,

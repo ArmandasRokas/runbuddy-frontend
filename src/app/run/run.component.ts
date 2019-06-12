@@ -4,7 +4,7 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Color } from 'ng2-charts';
 import { Route, WayPoint } from '../enitities/route';
 import { RouteDataService } from '../service/data/route-data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RunDataService } from '../service/data/run-data.service';
 import { Checkpoint } from '../enitities/run';
 
@@ -145,7 +145,8 @@ export class RunComponent implements OnInit {
 
   constructor(
     private runDataService: RunDataService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -192,6 +193,10 @@ export class RunComponent implements OnInit {
     this.runDataService.addCheckPointIfValid(this.runId, this.currUserX, this.currUserY, 1).subscribe(
       response => this.refreshBubbles() 
     )
+  }
+
+  endRun(){
+    this.router.navigate(['runresults'])
   }
 
   //private rand(max: number) {
