@@ -13,17 +13,17 @@ export class RunDataService {
   ) { }
 
   getMissingWaypoints(runId) {
-    return this.http.get<WayPoint[]>(`http://localhost:8080/run/${runId}/waypoint`)
+    return this.http.get<WayPoint[]>(`http://localhost:8080/runs/${runId}/waypoint`)
   }
   getLatestCheckpoints(runId) {
-    return this.http.get<Checkpoint[]>(`http://localhost:8080/run/${runId}/checkpoint`)
+    return this.http.get<Checkpoint[]>(`http://localhost:8080/runs/${runId}/checkpoint`)
   }
 
   createRun(creatorId, run){
-    return this.http.post(`http://localhost:8080/users/${creatorId}/run`, run)
+    return this.http.post(`http://localhost:8080/users/${creatorId}/runs`, run)
   }
 
-  retrieveRun(runId){
-    return this.http.get<Run>(`http://localhost:8080/run/${runId}`)
+  retrieveRuns(creatorId){
+    return this.http.get<Run[]>(`http://localhost:8080/users/${creatorId}/runs`)
   }
 }

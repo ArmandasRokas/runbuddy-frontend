@@ -8,6 +8,7 @@
     <ul class="navbar-nav">
       <li><a routerLink="/allroutes" class="nav-link">All routes</a></li>
       <li><a *ngIf="auth.isAuthenticated()" routerLink="/myroutes" class="nav-link">My routes</a></li>
+      <li><a *ngIf="auth.isAuthenticated()" routerLink="/myruns" class="nav-link">My runs</a></li>
     </ul>
     <ul class="navbar-nav navbar-collapse justify-content-end">
       <!--
