@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators'
 import { IUser, ILocation } from './user.model'
 import { User, Location } from './user'
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as UUID from 'uuid'
 import { CreateUserComponent } from '../create-user.component';
 
@@ -22,15 +22,24 @@ export class UserService{
                 .pipe(catchError(this.handleError<IUser>('getUser')))
     }
 
+    saveUser(user:IUser){
+        user.locations = [
+            <ILocation>{ 
+                id:'', streetName: user.location.streetName, 
+                streetNumber:user.location.streetNumber, 
+                city:user.location.city, country:user.location.country 
+            } ]
+        let options = {headers: new HttpHeaders({'Content-Type':'application/json'})}
+        return this.http.post<IUser>(`http://localhost:8080/users`, user, options)
+                .pipe(catchError(this.handleError<IUser>('saveUser')))
+    }
+
      /*
     getUser(userName: string){
         return this.http.get<User>(`http://localhost:8080/users/${userName}`)
     }*/
 
-    createUser(user) {
-        return this.http.post(`http://localhost:8080/users`, user)
-        //return this.http.get(`http://localhost:8080/users/hello`)
-    } 
+    /*
     saveUser(user:IUser){
         user.id = UUID.v4()
         user.location.id = UUID.v4()
@@ -49,6 +58,14 @@ export class UserService{
         console.log(userNew)
         this.createUser(userNew).subscribe( response => console.log(response) );
     }
+
+    createUser(user) {
+        return this.http.post(`http://localhost:8080/users`, user)
+        //return this.http.get(`http://localhost:8080/users/hello`)
+    } 
+    */
+
+
 
     private handleError<T>(operation = 'operation', result?:T){
         return (error:any):Observable<T> => {
