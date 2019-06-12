@@ -1,0 +1,22 @@
+<h1> My runs </h1>
+<div class="container">
+  <br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Starttime</th>
+        <th>Endtime</th>
+        <th>Run</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let run of runs">
+        <td>{{run.route.title}}</td>
+        <td>{{run.starttime}}</td>
+        <td>{{run.endtime}}</td>
+        <td><button (click)="startRun(run.id)" class="btn btn-success">Start run</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

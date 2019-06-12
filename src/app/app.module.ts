@@ -16,7 +16,8 @@ import { RouteComponent } from './route/route.component';
 import { RunComponent } from './run/run.component';
 import { ChartsModule } from 'ng2-charts';
 import { AllRoutesComponent } from './all-routes/all-routes.component'
-import { AuthService } from './user/auth.service'
+import { AuthService } from './user/auth.service';
+import { MyRunsComponent } from './my-runs/my-runs.component'
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthService } from './user/auth.service'
     LogoutComponent,
     RouteComponent,
     RunComponent,
-    AllRoutesComponent
+    AllRoutesComponent,
+    MyRunsComponent
   ],
   imports: [
     BrowserModule,

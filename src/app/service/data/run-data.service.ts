@@ -23,6 +23,10 @@ export class RunDataService {
     return this.http.post(`http://localhost:8080/users/${creatorId}/runs`, run)
   }
 
+
+  retrieveRuns(creatorId){
+    return this.http.get<Run[]>(`http://localhost:8080/users/${creatorId}/runs`)
+  }
   retrieveRun(runId){
     return this.http.get<Run>(`http://localhost:8080/runs/${runId}`)
   }

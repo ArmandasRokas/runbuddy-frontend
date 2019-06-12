@@ -40,7 +40,7 @@ export class AllRoutesComponent implements OnInit {
 
   signUpForRoute(routeId) {
     
-    this.run = new Run()
+    this.run = new Run("newrun", null, null, null, null)
     this.run.route = new Route(routeId, null, null, null)
     this.runDataService.createRun('1', this.run).subscribe(
       data => {
