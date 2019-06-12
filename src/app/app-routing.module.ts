@@ -9,6 +9,7 @@ import { RouteComponent } from './route/route.component';
 import { RunComponent } from './run/run.component';
 import { AllRoutesComponent } from './all-routes/all-routes.component';
 import { MyRunsComponent } from './my-runs/my-runs.component';
+import { RunResultsComponent } from './run-results/run-results.component';
 
 const routes: Routes = [
  
@@ -16,6 +17,7 @@ const routes: Routes = [
  // { path: 'welcome/:name', component: WelcomeComponent, canActivate: [RouteGuardService] },
   { path: 'myroutes', component: MyRoutesComponent, canActivate: [RouteGuardService] },
   { path: 'myruns', component: MyRunsComponent, canActivate: [RouteGuardService] },
+  { path: 'runresults', component: RunResultsComponent, canActivate: [RouteGuardService] },
 //  { path: 'logout', component: LogoutComponent, canActivate: [RouteGuardService] },
   { path: 'route/:id', component: RouteComponent, canActivate: [RouteGuardService] },
   { path: 'run/:id', component: RunComponent /* ,canActivate: [RouteGuardService]* TODO uncomment when session is implemented*/ },
