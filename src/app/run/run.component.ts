@@ -54,13 +54,13 @@ export class RunComponent implements OnInit {
   currUserY: number
 
   public bubbleChartOptions: ChartOptions = {
-    tooltips: {
-      callbacks: {
-        label: function (t, d) {
-          return '(Visited:' + 'date'; //https://stackoverflow.com/questions/45249779/chart-js-bubble-chart-changing-dataset-labels
-        }
-      }
-    },
+    //tooltips: {
+    //  callbacks: {
+    //    label: function (t, d) {
+    //      return '(Visited:' + 'date'; //https://stackoverflow.com/questions/45249779/chart-js-bubble-chart-changing-dataset-labels
+    //    }
+    //  }
+    //},
     responsive: true,
     scales: {
       xAxes: [
@@ -150,6 +150,8 @@ export class RunComponent implements OnInit {
 
   ngOnInit() {
     this.runId = this.activatedRoute.snapshot.params['id']
+    // set start time to enitity and start timer
+    //  tjekke if start time is null. if not does not allow to start.
     this.refreshBubbles() 
 
   }
