@@ -100,10 +100,10 @@ export class RunComponent implements OnInit {
     //},
     {
       data: [
-        //{ x: 10, y: 10, r: 20 },
-        //{ x: 15, y: 5, r: 20 },
-        //{ x: 26, y: 12, r: 20 },
-        //{ x: 7, y: 8, r: 20 },
+        { x: 10, y: 10, r: 20 },
+        { x: 15, y: 5, r: 20 },
+        { x: 26, y: 12, r: 20 },
+        { x: 7, y: 8, r: 20 },
       ],
       label: 'Missing',
       backgroundColor: 'red',
@@ -113,10 +113,10 @@ export class RunComponent implements OnInit {
     },
     {
       data: [
-        //{ x: 12, y: 12, r: 20 },
-        //{ x: 17, y: 7, r: 20 },
-        //{ x: 28, y: 14, r: 20 },
-        //{ x: 9, y: 10, r: 20 },
+        { x: 12, y: 12, r: 20 },
+        { x: 17, y: 7, r: 20 },
+        { x: 28, y: 14, r: 20 },
+        { x: 9, y: 10, r: 20 },
       ],
       label: 'Visited',
       backgroundColor: 'green',
@@ -150,6 +150,10 @@ export class RunComponent implements OnInit {
 
   ngOnInit() {
     this.runId = this.activatedRoute.snapshot.params['id']
+    // fetch run
+    // sert start time
+    // update
+
     // set start time to enitity and start timer
     //  tjekke if start time is null. if not does not allow to start.
     this.refreshBubbles() 
