@@ -30,6 +30,9 @@ export class RunDataService {
   retrieveRun(runId){
     return this.http.get<Run>(`http://localhost:8080/runs/${runId}`)
   }
+  retrieveRunWithLatestCheckpoints(runId){
+    return this.http.get<Run>(`http://localhost:8080/runResults/${runId}`)
+  }
 
   addCheckPointIfValid(runId, currentX, currentY, precision) {
   //  let params = new HttpParams().set("currentX", currentX).set("currentY", currentY).set("presicion", precision);
