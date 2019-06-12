@@ -38,11 +38,13 @@ export class AllRoutesComponent implements OnInit {
     )
   }
 
-  signUpForRoute() {
+  signUpForRoute(routeId) {
     
+    this.run = new Run()
+    this.run.route = new Route(routeId, null, null, null)
     this.runDataService.createRun('1', this.run).subscribe(
       data => {
-        this.router.navigate(['run'])
+        this.router.navigate(['myruns'])
       })
   }
 

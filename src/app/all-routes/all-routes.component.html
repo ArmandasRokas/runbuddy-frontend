@@ -13,7 +13,7 @@
       <tr *ngFor="let route of routes">
         <td>{{route.title}}</td>
         <td>{{route.date | date:'medium'}}</td>
-        <td><button (click)="signUpForRoute(routeID)" class="btn btn-warning">Sign up</button></td>
+        <td><button (click)="signUpForRoute(route.id)" class="btn btn-success">Sign up</button></td>
       </tr>
     </tbody>
   </table>
