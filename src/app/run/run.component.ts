@@ -6,7 +6,7 @@ import { Route, WayPoint } from '../enitities/route';
 import { RouteDataService } from '../service/data/route-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RunDataService } from '../service/data/run-data.service';
-import { Checkpoint } from '../enitities/run';
+import { Checkpoint, Run } from '../enitities/run';
 
 
 class WayPointBubbleData {
@@ -50,6 +50,7 @@ export class RunComponent implements OnInit {
   waypoints: WayPoint[]
   checkpoints: Checkpoint[]
   runId: String
+  run: Run
   currUserX: number
   currUserY: number
 
@@ -151,6 +152,17 @@ export class RunComponent implements OnInit {
 
   ngOnInit() {
     this.runId = this.activatedRoute.snapshot.params['id']
+    this.runDataService.retrieveRun(this.runId).subscribe(
+      response => {
+        this.run = response
+        this.run.startTime = new Date()
+        this.runDataService.updateRun(this.runId, this.run).subscribe(
+          response => { }
+        )
+      }
+    )
+
+
     // fetch run
     // sert start time
     // update
