@@ -9,7 +9,7 @@ export class Checkpoint {
 
 export class Run {
   private id: String;
-    private route: Route;
+    public route: Route;
     private checkpoints: Checkpoint[];
     private startTime: Date;
     private endTime: Date;
