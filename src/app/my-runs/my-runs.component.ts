@@ -39,7 +39,11 @@ export class MyRunsComponent implements OnInit {
   }
 
   handleErrorResponse(error) {
-    this.errorMessage = error.error.message
+    if (error.error.message != null) {
+      this.errorMessage = error.error.message;
+    } else {
+      this.errorMessage = "Error: Could not get connection to server";
+    }
   }
 
 }

@@ -222,9 +222,12 @@ export class RunComponent implements OnInit {
   }
 
   handleErrorResponse(error) {
-    this.errorMessage = error.error.message
+    if (error.error.message === undefined) {
+      this.errorMessage = "Error: Could not get connection to server";
+    } else {
+      this.errorMessage = error.error.message;
+    }
   }
-
   //private rand(max: number) {
   //  return Math.trunc(Math.random() * max);
   //}

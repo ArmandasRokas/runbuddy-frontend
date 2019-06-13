@@ -42,9 +42,12 @@ export class RunResultsComponent implements OnInit {
       error => this.handleErrorResponse(error)
     )
   }
-
   handleErrorResponse(error) {
-    this.errorMessage = error.error.message
+    if (error.error.message === undefined) {
+      this.errorMessage = "Error: Could not get connection to server";
+    } else {
+      this.errorMessage = error.error.message;
+    }
   }
 
 }
