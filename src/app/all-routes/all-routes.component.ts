@@ -34,6 +34,7 @@ export class AllRoutesComponent implements OnInit {
   refreshRoutes() {
     this.routeDataService.retrieveAllRoutes().subscribe( 
       response => {
+        console.log(response)
       this.routes = response
       },
       error => this.handleErrorResponse(error)

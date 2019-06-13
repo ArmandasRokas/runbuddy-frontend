@@ -9,6 +9,7 @@
       <tr>
         <th>Title</th>
         <th>Date</th>
+        <th>Participants</th>
         <th>Sign up</th>
       </tr>
     </thead>
@@ -16,6 +17,7 @@
       <tr *ngFor="let route of routes">
         <td>{{route.title}}</td>
         <td>{{route.date | date:'medium'}}</td>
+        <td>{{route.numberOfParticipants}}</td>
         <td><button (click)="signUpForRoute(route.id)" class="btn btn-success">Sign up</button></td>
       </tr>
     </tbody>
