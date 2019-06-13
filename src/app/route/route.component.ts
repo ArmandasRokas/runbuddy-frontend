@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouteDataService } from '../service/data/route-data.service';
 import { Route, WayPoint } from '../enitities/route';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '../user/shared/user';
 
 @Component({
   selector: 'app-route',
@@ -21,7 +22,7 @@ export class RouteComponent implements OnInit {
 
   ngOnInit() {
     this.routeId = this.activatedRoute.snapshot.params['id']
-    this.route = new Route(this.routeId, "", new Date(), undefined)
+      this.route = new Route(this.routeId, "", new Location("", "", "", "", ""), new Date(), 0,0,"","",undefined,10000 ,0,0)
     if (this.routeId != 'newRoute') {
       this.routeDataService.retrieveRoute('1', this.routeId).subscribe(
         data => {

@@ -4,6 +4,7 @@ import { RouteDataService } from '../service/data/route-data.service';
 import { Router } from '@angular/router';
 import { RunDataService } from '../service/data/run-data.service';
 import { Run } from '../enitities/run';
+import { Location } from '../user/shared/user';
 
 @Component({
   selector: 'app-all-routes',
@@ -41,7 +42,7 @@ export class AllRoutesComponent implements OnInit {
   signUpForRoute(routeId) {
     
     this.run = new Run("newrun", null, null, null, null)
-    this.run.route = new Route(routeId, null, null, null)
+    this.run.route = new Route(routeId, "", new Location("", "", "", "", ""), new Date(), 0, 0, "", "", undefined, 0, 0, 0)
     this.runDataService.createRun('1', this.run).subscribe(
       data => {
         this.router.navigate(['myruns'])
