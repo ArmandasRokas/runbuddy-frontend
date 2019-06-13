@@ -47,7 +47,9 @@ export class AllRoutesComponent implements OnInit {
     this.runDataService.createRun('1', this.run).subscribe(
       data => {
         this.router.navigate(['myruns'])
-      })
+      },
+      error => this.handleErrorResponse(error)
+    )
   }
   handleErrorResponse(error) {
     if (error.error.message != null) {

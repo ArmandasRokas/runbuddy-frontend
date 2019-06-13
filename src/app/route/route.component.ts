@@ -72,10 +72,10 @@ export class RouteComponent implements OnInit {
   }
 
   handleErrorResponse(error) {
-    if (error.error.message === undefined) {
-      this.errorMessage = "Error: Could not get connection to server";
-    } else {
+    if (error.error.message != null) {
       this.errorMessage = error.error.message;
+    } else {
+      this.errorMessage = "Error: Could not get connection to server";
     }
   }
 }

@@ -32,7 +32,8 @@ export class MyRoutesComponent implements OnInit {
     this.routeDataService.retrieveUserRoutes('1').subscribe( // creatorId is hardcoded 
       response => {
         this.routes = response
-      }
+      },
+      error => this.handleErrorResponse(error)
     )
   }
 
