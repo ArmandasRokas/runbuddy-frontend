@@ -1,50 +1,79 @@
 import { Injectable } from '@angular/core'
-import { Subject, Observable } from 'rxjs'
+import { Subject, Observable, of } from 'rxjs'
+import { catchError } from 'rxjs/operators'
+
 import { IUser, ILocation } from './user.model'
-import { HttpClient } from '@angular/common/http';
+import { User, Location } from './user'
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as UUID from 'uuid'
 import { CreateUserComponent } from '../create-user.component';
 
+@Injectable({
+    providedIn: 'root'
+})
+export class UserService{
+    constructor(private http: HttpClient ) {
+        
+    }
 
-@Injectable()
-export class UserService{     
-    newUser:IUser
-    constructor(private http: HttpClient ) { }
-/*  
-      retrieveUserById(id) {
-        return this.http.get<IUser>(`http://localhost:8080/users/${id}`)
-      }
+    getUser(userName: string):Observable<IUser>{
+        return this.http.get<IUser>(`http://localhost:8080/users/${userName}`)
+                .pipe(catchError(this.handleError<IUser>('getUser')))
+    }
 
-      deleteUser(id) {
-        return this.http.delete(`http://localhost:8080/users/${id}`)
-      }
-      updateUser(user, id) {
-        return this.http.put(`http://localhost:8080/users/${id}`, user)
-      }
-*/
+    saveUser(user:IUser){
+        user.locations = [
+            <ILocation>{ 
+                id:'', streetName: user.location.streetName, 
+                streetNumber:user.location.streetNumber, 
+                city:user.location.city, country:user.location.country 
+            } ]
+        let options = {headers: new HttpHeaders({'Content-Type':'application/json'})}
+        return this.http.post<IUser>(`http://localhost:8080/users`, user, options)
+                .pipe(catchError(this.handleError<IUser>('saveUser')))
+    }
+
+     /*
+    getUser(userName: string){
+        return this.http.get<User>(`http://localhost:8080/users/${userName}`)
+    }*/
+
+    /*
+    saveUser(user:IUser){
+        user.id = UUID.v4()
+        user.location.id = UUID.v4()
+        
+        var userNew = new User(
+            user.id, user.userName, user.email, user.password, 
+            [
+                new Location(
+                    user.location.id, user.location.streetName, user.location.streetNumber, 
+                    user.location.city, user.location.country
+                )
+            ] 
+        );
+        
+        USERS.push(user)
+        console.log(userNew)
+        this.createUser(userNew).subscribe( response => console.log(response) );
+    }
+
     createUser(user) {
         return this.http.post(`http://localhost:8080/users`, user)
         //return this.http.get(`http://localhost:8080/users/hello`)
     } 
-     
-    saveUser(user:IUser){
-        user.id = UUID.v4()
-        user.location = UUID.v4()
-        
-        this.newUser.id = user.id
-        this.newUser.userName = user.userName
-        this.newUser.email = user.email
-        this.newUser.password = user.password
-        this.newUser.locations.push(user.location);
-            
-        //user.locations[] = new Array<ILocation>
-        //user.locations[] = user.location
-        
-        USERS.push(user)
-        //console.log(user)
-        console.log(this.newUser)
-        this.createUser(this.newUser).subscribe( response => console.log(response) );
+    */
+
+
+
+    private handleError<T>(operation = 'operation', result?:T){
+        return (error:any):Observable<T> => {
+            console.error(error);
+            return of(result as T)
+        }
     }
+
 }
 
 const USERS:IUser[] = [
@@ -74,3 +103,15 @@ const USERS:IUser[] = [
                     2000 )
         return subject; 
     }*/
+/*  
+      retrieveUserById(id) {
+        return this.http.get<IUser>(`http://localhost:8080/users/${id}`)
+      }
+
+      deleteUser(id) {
+        return this.http.delete(`http://localhost:8080/users/${id}`)
+      }
+      updateUser(user, id) {
+        return this.http.put(`http://localhost:8080/users/${id}`, user)
+      }
+*/

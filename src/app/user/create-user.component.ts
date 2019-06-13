@@ -25,17 +25,17 @@ export class CreateUserComponent{
 
     saveUser(formValues){
         //save user
-        this.userService.saveUser(formValues)
-        
-        //if ok
-        this.isDirty = false
+        this.userService.saveUser(formValues).subscribe( () => {
+            //if ok
+            this.isDirty = false
 
-        //login
-        this.authService
-        .loginUser(formValues.userName, formValues.password);
+            //login
+            this.authService
+            .loginUser(formValues.userName, formValues.password);
 
-        //go back to main page
-        this.router.navigate([''])
+            //go back to main page
+            this.router.navigate([''])
+        } );        
     }
 
     cancel(){

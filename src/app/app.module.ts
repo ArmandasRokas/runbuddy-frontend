@@ -21,6 +21,13 @@ import { MyRunsComponent } from './my-runs/my-runs.component';
 import { RunResultsComponent } from './run-results/run-results.component'
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ChartsModule
+  ],
   declarations: [
     AppComponent,
     WelcomeComponent,
@@ -35,13 +42,6 @@ import { RunResultsComponent } from './run-results/run-results.component'
     AllRoutesComponent,
     MyRunsComponent,
     RunResultsComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    ChartsModule
   ],
   providers: [
     AuthService
