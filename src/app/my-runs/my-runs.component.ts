@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class MyRunsComponent implements OnInit {
 
+  errorMessage: String;
   runs: Run[] //= [
     //new Run("runrun",new Route("2","routeyroute",new Date(),[]),[],new Date(),new Date())
   //]
@@ -28,12 +29,17 @@ export class MyRunsComponent implements OnInit {
     this.runDataService.retrieveRuns("1").subscribe(
       response => {
         this.runs = response
-      }
+      },
+      error => this.handleErrorResponse(error)
     )
   }
 
   startRun(runId) {
     this.router.navigate(['run', runId])
+  }
+
+  handleErrorResponse(error) {
+    this.errorMessage = error.error.message
   }
 
 }

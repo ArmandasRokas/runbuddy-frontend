@@ -16,6 +16,7 @@ export class RunResultsComponent implements OnInit {
   run: Run
   waypoints: WayPoint[]
   totalTime:number
+  errorMessage: String;
 
   constructor(
     private runDataService: RunDataService,
@@ -30,14 +31,20 @@ export class RunResultsComponent implements OnInit {
           this.run = data
           console.log(data)
           this.totalTime = this.run.startTime.getTime()-this.run.endTime.getTime()
-        }
+        },
+        error => this.handleErrorResponse(error)
     )
 
     this.runDataService.getMissingWaypoints(this.runId).subscribe(
       data => {
         this.waypoints = data
-      }
+      },
+      error => this.handleErrorResponse(error)
     )
+  }
+
+  handleErrorResponse(error) {
+    this.errorMessage = error.error.message
   }
 
 }

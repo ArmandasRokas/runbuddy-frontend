@@ -13,6 +13,7 @@ export class RouteComponent implements OnInit {
 
   routeId: String
   route: Route
+  errorMessage: String;
 
   constructor(
     private routeDataService: RouteDataService,
@@ -27,7 +28,8 @@ export class RouteComponent implements OnInit {
       this.routeDataService.retrieveRoute('1', this.routeId).subscribe(
         data => {
           this.route = data
-        console.log(data)}
+        console.log(data)},
+        error => this.handleErrorResponse(error)
       )
     }
 
@@ -37,13 +39,15 @@ export class RouteComponent implements OnInit {
       this.routeDataService.createRoute('1', this.route).subscribe(
         data => {
           this.router.navigate(['myroutes'])
-        }
+        },
+        error => this.handleErrorResponse(error)
     )
     } else {
       this.routeDataService.updateRoute(this.routeId, this.route).subscribe(
         data => {
           this.router.navigate(['myroutes'])
-        }
+        },
+        error => this.handleErrorResponse(error)
       )
     }
   }
@@ -65,5 +69,9 @@ export class RouteComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['myroutes'])
+  }
+
+  handleErrorResponse(error) {
+    this.errorMessage = error.error.message
   }
 }
