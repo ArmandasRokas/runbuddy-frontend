@@ -12,7 +12,7 @@ import { Location } from '../user/shared/user';
   styleUrls: ['./all-routes.component.css']
 })
 export class AllRoutesComponent implements OnInit {
-
+  errorMessage: String
   //routes: Route[]
   routes = [
    //new Route("1", "Fun run", new Date(), []),
@@ -35,7 +35,8 @@ export class AllRoutesComponent implements OnInit {
     this.routeDataService.retrieveAllRoutes().subscribe( 
       response => {
       this.routes = response
-      }
+      },
+      error => this.handleErrorResponse(error)
     )
   }
 
@@ -48,5 +49,7 @@ export class AllRoutesComponent implements OnInit {
         this.router.navigate(['myruns'])
       })
   }
-
+  handleErrorResponse(error) {
+    this.errorMessage = error.error.message
+  }
 }
