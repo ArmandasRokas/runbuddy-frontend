@@ -1,4 +1,7 @@
 <h1>Route</h1>
+<div class="container alert alert-danger" *ngIf="errorMessage">
+  {{errorMessage}}
+</div>
 <div class="container">
   <div class="alert alert-warning" *ngIf="date.dirty && date.invalid">Enter valid date</div>
   <div class="alert alert-warning" *ngIf="title.dirty && title.invalid">Enter at least 5 characters in title</div>

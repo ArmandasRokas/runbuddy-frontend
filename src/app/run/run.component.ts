@@ -53,6 +53,7 @@ export class RunComponent implements OnInit {
   run: Run = new Run("",null, null, new Date(), new Date())
   currUserX: number
   currUserY: number
+  errorMessage: String;
 
   public bubbleChartOptions: ChartOptions = {
     //tooltips: {
@@ -126,7 +127,7 @@ export class RunComponent implements OnInit {
       hoverBorderColor: 'red',
     }
   ];
-
+  
   //public bubbleChartColors: Color[] = [
   //  {
   //    backgroundColor: [
@@ -157,9 +158,11 @@ export class RunComponent implements OnInit {
         this.run = response
         this.run.startTime = new Date()
         this.runDataService.updateRun(this.runId, this.run).subscribe(
-          response => { }
+          response => { },
+          error => this.handleErrorResponse(error)
         )
-      }
+      },
+      error => this.handleErrorResponse(error)
     )
 
 
@@ -180,7 +183,8 @@ export class RunComponent implements OnInit {
         console.log(data)
         let waypointstobubblearr = this.waypoints.map(item => new WayPointBubbleData(item));
         this.bubbleChartData[0].data = waypointstobubblearr;
-      }
+      },
+      error => this.handleErrorResponse(error)
     )
     this.runDataService.getLatestCheckpoints(this.runId).subscribe(
       data => {
@@ -188,7 +192,8 @@ export class RunComponent implements OnInit {
         console.log(data)
         let checkpointbubblearr = this.checkpoints.map(item => new CheckPointBubbleData(item));
         this.bubbleChartData[1].data = checkpointbubblearr;
-      }
+      },
+      error => this.handleErrorResponse(error)
     )
   }
 
@@ -203,15 +208,21 @@ export class RunComponent implements OnInit {
 
   submit() {
     this.runDataService.addCheckPointIfValid(this.runId, this.currUserX, this.currUserY, 1).subscribe(
-      response => this.refreshBubbles() 
+      response => this.refreshBubbles(),
+      error => this.handleErrorResponse(error) 
     )
   }
 
   endRun() {
     this.run.endTime = new Date()
     this.runDataService.updateRun(this.runId, this.run).subscribe(
-      response => { this.router.navigate(['runresults', this.runId]) }
+      response => { this.router.navigate(['runresults', this.runId]) },
+      error => this.handleErrorResponse(error)
     )
+  }
+
+  handleErrorResponse(error) {
+    this.errorMessage = error.error.message
   }
 
   //private rand(max: number) {
