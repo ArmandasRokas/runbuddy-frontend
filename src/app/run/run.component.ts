@@ -50,6 +50,7 @@ export class RunComponent implements OnInit {
   waypoints: WayPoint[]
   checkpoints: Checkpoint[]
   runId: String
+  action: String
   run: Run = new Run("",null, null, new Date(), new Date())
   currUserX: number
   currUserY: number
@@ -153,19 +154,26 @@ export class RunComponent implements OnInit {
 
   ngOnInit() {
     this.runId = this.activatedRoute.snapshot.params['id']
-    this.runDataService.retrieveRun(this.runId).subscribe(
-      response => {
-        this.run = response
-        this.run.startTime = new Date()
-        this.runDataService.updateRun(this.runId, this.run).subscribe(
-          response => { },
-          error => this.handleErrorResponse(error)
-        )
-      },
-      error => this.handleErrorResponse(error)
-    )
-
-
+    this.action = this.activatedRoute.snapshot.params['action']
+    if (this.action === "run") {
+      this.runDataService.retrieveRun(this.runId).subscribe(
+        response => {
+          this.run = response
+          this.run.startTime = new Date()
+          this.runDataService.updateRun(this.runId, this.run).subscribe(
+            response => { },
+            error => this.handleErrorResponse(error)
+          )
+        },
+        error => this.handleErrorResponse(error)
+      )
+    } else {
+      this.runDataService.retrieveRun(this.runId).subscribe(
+        response => 
+          this.run = response
+      ),
+        error => this.handleErrorResponse(error)
+    }
     // fetch run
     // sert start time
     // update

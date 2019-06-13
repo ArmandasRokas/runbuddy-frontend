@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'runresults/:id', component: RunResultsComponent, canActivate: [RouteGuardService] },
 //  { path: 'logout', component: LogoutComponent, canActivate: [RouteGuardService] },
   { path: 'route/:id', component: RouteComponent, canActivate: [RouteGuardService] },
-  { path: 'run/:id', component: RunComponent /* ,canActivate: [RouteGuardService]* TODO uncomment when session is implemented*/ },
+  { path: 'run/:id/:action', component: RunComponent /* ,canActivate: [RouteGuardService]* TODO uncomment when session is implemented*/ },
   { path: 'allroutes', component: AllRoutesComponent},
   { path: '', component: AllRoutesComponent},
   { path: 'user', loadChildren: './user/user.module#UserModule' },
