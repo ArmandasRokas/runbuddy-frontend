@@ -16,9 +16,11 @@
     <tbody>
       <tr *ngFor="let run of runs">
         <td>{{run.route.title}}</td>
-        <td>{{run.starttime}}</td>
-        <td>{{run.endtime}}</td>
-        <td><button (click)="startRun(run.id)" class="btn btn-success">Start run</button></td>
+        <td>{{run.startTime | date:'medium'}}</td>
+        <td>{{run.endTime | date:'medium'}}</td>
+        <td *ngIf="run.startTime===null"><button (click)="startRun(run.id)" class="btn btn-success">Start run</button></td>
+        <td *ngIf="run.startTime && run.endTime===null"> <button (click)="continueRun(run.id)" class="btn btn-warning">Continue</button></td>
+        <td *ngIf="run.startTime && run.endTime"> <button (click)="showResult(run.id)" class="btn btn-info">Show results</button></td>
       </tr>
     </tbody>
   </table>
