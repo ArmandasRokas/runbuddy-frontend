@@ -14,6 +14,7 @@ export interface IUser{
     locations?:ILocation[]
 }
 export interface ILocation{
+    title: string;
     id:string
     streetName:string
     streetNumber:string

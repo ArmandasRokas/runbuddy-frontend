@@ -38,10 +38,10 @@
             <input (ngModel)="newUser.country" name="country" id="country" type="text" class="form-control" placeholder="Country..." />
         </div>
         </div>  
-    </div>
-    
+    </div>    
     <button type="submit" class="btn btn-primary">Save</button>
     <button type="button" [disabled]="newUserForm.invalid" class="btn btn-default" (click)="cancel()">Cancel</button>
-  
+    <br>
+    <div *ngIf="loginInvalid" class="alert alert-danger">Something went wrong, try again.</div>
   </form>
 </div>

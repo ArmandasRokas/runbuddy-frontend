@@ -13,13 +13,23 @@ export class LoginComponent{
     userName
     password 
     mouseoverLogin
-    constructor(private authService:AuthService, private router:Router){
+    loginInvalid = false;
 
-    }
+    constructor(private authService:AuthService, private router:Router){  }
+    
     login(formValues){
-        this.authService
-            .loginUser(formValues.userName, formValues.password);
-        //this.router.navigate(['myroutes'])
+        //this.authService
+          //  .loginUser(formValues.userName, formValues.password);
+          this.authService
+          .loginUser(formValues.userName, formValues.password)
+          .subscribe(resp =>{
+              if(!resp){
+                this.loginInvalid = true;
+              }else{
+                this.router.navigate(['myroutes']);
+              }
+          })
+          //this.router.navigate(['myroutes'])
     }
 
     cancel(){

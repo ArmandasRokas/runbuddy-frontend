@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { UserService } from './shared/user.service'
 import { AuthService } from './auth.service';
+import { IUser } from './shared/user.model';
 
 @Component({
     templateUrl:'create-user.component.html',
@@ -18,6 +19,7 @@ import { AuthService } from './auth.service';
 export class CreateUserComponent{
     newUser
     isDirty:boolean = true
+    loginInvalid = false;
     constructor(private router: Router, 
                 private userService: UserService,
                 private authService: AuthService){
@@ -25,17 +27,29 @@ export class CreateUserComponent{
 
     saveUser(formValues){
         //save user
-        this.userService.saveUser(formValues).subscribe( () => {
-            //if ok
-            this.isDirty = false
+        this.userService.saveUser(formValues).subscribe( (saveResp) => {
+            //console.log(user);
+            if(!saveResp){//if userName is already taken
+                this.loginInvalid = true;
+            }else{ //if userName not taken
+                //if ok
+                this.isDirty = false
 
-            //login
-            this.authService
-            .loginUser(formValues.userName, formValues.password);
+                //login
+                this.authService
+                    .loginUser(formValues.userName, formValues.password)
+                    .subscribe(resp =>{
+                        if(!resp){
+                            this.loginInvalid = true;
+                        }else{
+                            this.router.navigate(['myroutes']);
+                        }
+                    })
+            }
 
             //go back to main page
-            this.router.navigate([''])
-        } );        
+            //this.router.navigate([''])
+        });        
     }
 
     cancel(){

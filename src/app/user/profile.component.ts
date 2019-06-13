@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit{
     constructor(private authService: AuthService, private router:Router){
 
     }
+
     ngOnInit(): void {
         this.userName = new FormControl(this.authService.currentUser.userName, 
                                         [Validators.required, Validators.pattern('[a-zA-Z].*')])
@@ -39,8 +40,16 @@ export class ProfileComponent implements OnInit{
     saveProfile(formValues){
         if(this.profileForm.valid){
             this.authService.updateCurrentUser(formValues.userName, formValues.email, formValues.password)
-            this.router.navigate(['myroutes'])
+            .subscribe(()=>{
+                //this.toastr.success('Profile Saved')
+            })
+            //this.router.navigate(['myroutes'])
         }
+    }
+
+    logout(){
+        this.authService.logout();
+        this.router.navigate(['/user/login']);
     }
 
     cancel(){

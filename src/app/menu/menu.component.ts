@@ -10,13 +10,12 @@ import { AuthService } from '../user/auth.service';
 })
 
 export class MenuComponent implements OnInit {
-
   constructor(
-    private hardcodedAuthenticationService: HardcodedAuthenticationService,
+//    private hardcodedAuthenticationService: HardcodedAuthenticationService,
     private auth: AuthService
   ) { }
 
   ngOnInit() {
-    this.hardcodedAuthenticationService.setUsername(sessionStorage.getItem('authenticaterUser'))
+    //this.hardcodedAuthenticationService.setUsername(sessionStorage.getItem('authenticaterUser'))
   }
 }
