@@ -2,24 +2,24 @@ import { Location } from '../user/shared/user';
 
 export class Route {
   constructor(
-    private id: String,
-    private title: String,
-    private location: Location,
-    private date: Date,
-    private distance: number,
-    private duration: number,
-    private description: String,
-    private status: String, 
-    private wayPoints: WayPoint[], 
-    private maxParticipants: number,
-    private minParticipants: number,
-    private numberOfParticipants: number
+    public id: String,
+    public title: String,
+    public location: Location,
+    public date: Date,
+    public distance: number,
+    public duration: number,
+    public description: String,
+    public status: String, 
+    public wayPoints: WayPoint[], 
+    public maxParticipants: number,
+    public minParticipants: number,
+    public numberOfParticipants: number
   ) { }
 }
 
 export class WayPoint {
   constructor(
-    private x: number,
-    private y: number,
-    private index: number) { }
+    public x: number,
+    public y: number,
+    public index: number) { }
 }

@@ -3,17 +3,17 @@ import { Route } from './route';
 
 export class Checkpoint {
   constructor(
-    private wayPoint: WayPoint,
-    private visitedTimestamp: number) { }
+    public wayPoint: WayPoint,
+    public visitedTimestamp: number) { }
 }
 
 export class Run {
   constructor(
-    private id: String,
-    private route: Route,
-    private checkpoints: Checkpoint[],
-    private startTime: Date,
-    private endTime: Date
+    public id: String,
+    public route: Route,
+    public checkpoints: Checkpoint[],
+    public startTime: Date,
+    public endTime: Date
   ) { }
 
 }
