@@ -29,7 +29,7 @@ export class MyRoutesComponent implements OnInit {
   }
 
   refreshRoutes() {
-    this.routeDataService.retrieveUserRoutes('1').subscribe( // creatorId is hardcoded 
+    this.routeDataService.retrieveUserRoutes(localStorage.getItem('userId')).subscribe(  
       response => {
         this.routes = response
       },

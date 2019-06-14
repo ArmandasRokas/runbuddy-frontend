@@ -26,7 +26,7 @@ export class MyRunsComponent implements OnInit {
   }
 
   refreshRuns() {
-    this.runDataService.retrieveRuns("1").subscribe(
+    this.runDataService.retrieveRuns(localStorage.getItem('userId')).subscribe(
       response => {
         this.runs = response
       },
