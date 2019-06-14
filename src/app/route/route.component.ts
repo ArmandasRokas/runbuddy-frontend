@@ -59,7 +59,7 @@ export class RouteComponent implements OnInit {
     var wayPoint = new WayPoint(0, 0, index)
     if (this.route.wayPoints === undefined || this.route.wayPoints.length === 0 ) {
       var wayPoints: WayPoint[] = [wayPoint]
-      this.route.wayPoints = wayPoints 
+      this.route.wayPoints = wayPoints
     } else {
       wayPoint.index = this.route.wayPoints[this.route.wayPoints.length - 1].index + 1
       this.route.wayPoints.push(wayPoint)

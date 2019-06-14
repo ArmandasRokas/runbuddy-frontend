@@ -10,18 +10,11 @@ export class Route {
     private duration: number,
     private description: String,
     private status: String, 
-    private _wayPoints: WayPoint[], 
+    public wayPoints: WayPoint[], 
     private maxParticipants: number,
     private minParticipants: number,
     private numberOfParticipants: number
   ) { }
-
-  public get wayPoints(): WayPoint[] {
-    return this._wayPoints
-  }
-  public set wayPoints(value: WayPoint[]) {
-    this._wayPoints = value
-  }
 }
 
 export class WayPoint {
