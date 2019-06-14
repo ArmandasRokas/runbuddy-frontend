@@ -20,6 +20,7 @@ export class AllRoutesComponent implements OnInit {
    // new Route("2", "My favorite run", new Date(), []),
    // new Route("3", "Cultural run", new Date(), [])
   ]
+  runs: Run[]
   run: Run;
 
   constructor(
@@ -37,10 +38,22 @@ export class AllRoutesComponent implements OnInit {
     this.routeDataService.retrieveAllRoutes().subscribe( 
       response => {
         console.log(response)
-      this.routes = response
+        this.routes = response
+        this.runDataService.retrieveRuns('1').subscribe(
+          response => {
+            
+            console.log(response)
+            this.runs = response
+            for (let run of this.runs) {
+              this.routes.splice(this.routes.indexOf(run.route.id), 1)
+            }
+          },
+          error => this.handleErrorResponse(error)
+        )
       },
       error => this.handleErrorResponse(error)
     )
+
   }
 
   signUpForRoute(routeId) {
