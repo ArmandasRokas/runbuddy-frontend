@@ -16,11 +16,19 @@ export class AuthService{
     loginUser(userName: string, password: string){
         return this.http.get<IUser>(`http://localhost:8080/users/${userName}`)
                 .pipe( tap( (user:IUser) => {
-                    this.currentUser = user;                    
-                    localStorage.setItem('loggedIn','true');
-                    localStorage.setItem('userId', user.id);
-                    localStorage.setItem('userName', user.userName);
-                }))
+                    if( (typeof user !== 'undefined' && typeof user.userName !== 'undefined' && typeof user.password !== 'undefined') && 
+                        (userName === user.userName && password === user.password) 
+                    ){
+                        this.currentUser = user;                    
+                        localStorage.setItem('loggedIn','true');
+                        localStorage.setItem('userId', user.id);
+                        localStorage.setItem('userName', user.userName);
+                    }else{
+                        this.currentUser = { id:'', userName:'', password:'', email:''}
+                        this.logout()
+                        return of(false)
+                    }
+                }) )
                 .pipe( catchError( err => {
                     this.currentUser = { id:'', userName:'', password:'', email:''}
                     this.logout()
