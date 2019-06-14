@@ -40,6 +40,9 @@ export class MyRunsComponent implements OnInit {
   continueRun(runId) {
     this.router.navigate(['run', runId, 'continue'])
   }
+  showResult(runId) {
+    this.router.navigate(['runresults', runId])
+  }
 
   handleErrorResponse(error) {
     if (error.error.message != null) {

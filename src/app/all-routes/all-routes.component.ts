@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { RunDataService } from '../service/data/run-data.service';
 import { Run } from '../enitities/run';
 import { Location } from '../user/shared/user';
+import { AuthService } from '../user/auth.service';
 
 @Component({
   selector: 'app-all-routes',
@@ -24,7 +25,8 @@ export class AllRoutesComponent implements OnInit {
   constructor(
     private runDataService: RunDataService,
     private routeDataService: RouteDataService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -52,6 +54,11 @@ export class AllRoutesComponent implements OnInit {
       error => this.handleErrorResponse(error)
     )
   }
+
+  login(){
+    this.router.navigate(['login'])
+  }
+
   handleErrorResponse(error) {
     if (error.error.message != null) {
       this.errorMessage = error.error.message;
