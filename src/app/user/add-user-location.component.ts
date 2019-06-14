@@ -1,19 +1,27 @@
 import {Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
+import { ILocation } from './shared/user.model'
 
 @Component({
-    templateUrl: './add-user-location.component.html'
+    templateUrl: './add-user-location.component.html',
+    styles: [`
+        em { float: right; color: #E05C65; padding-left: 10px;}
+        .error input {background-color: #E3C3C5;}
+        .error ::-webkit-input-placeholder {color:#999;}
+        .error ::-moz-placeholder {color:#999;}
+        .error :-moz-placeholder {color:#999;}
+        .error :ms-input-placeholder {color:#999;}
+    `]
 })
 
-
 export class AddUserLocationComponent implements OnInit{
-    newLocationForm: FormGroup
-    id: FormControl
-    title: FormControl
-    streetName: FormControl
-    streetNumber: FormControl
-    city: FormControl
-    country: FormControl
+    public newLocationForm: FormGroup
+    //public id: FormControl
+    public title: FormControl
+    public streetName: FormControl
+    public streetNumber: FormControl
+    public city: FormControl
+    public country: FormControl
     
     ngOnInit(): void {
         this.title = new FormControl('',[Validators.required, Validators.maxLength(80)])
@@ -23,7 +31,7 @@ export class AddUserLocationComponent implements OnInit{
         this.country = new FormControl('',Validators.required)
    
         this.newLocationForm = new FormGroup({
-            id: this.id,
+            //id: this.id,
             title: this.title,
             streetName: this.streetName,
             streetNumber: this.streetNumber,
@@ -33,6 +41,14 @@ export class AddUserLocationComponent implements OnInit{
     }
 
     saveLocation(formValues){
-        console.log(formValues)
+        let location:ILocation = {
+            id: undefined,
+            title: formValues.title,
+            streetName: formValues.streetName,
+            streetNumber: formValues.streetNumber,
+            city: formValues.city,
+            country: formValues.country
+        }
+        console.log(location);        
     }    
 }
