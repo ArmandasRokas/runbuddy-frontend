@@ -25,7 +25,7 @@ export class RouteComponent implements OnInit {
     this.routeId = this.activatedRoute.snapshot.params['id']
       this.route = new Route(this.routeId, "", new Location("", "", "", "", ""), new Date(), 0,0,"","",undefined,10000 ,0,0)
     if (this.routeId != 'newRoute') {
-      this.routeDataService.retrieveRoute('1', this.routeId).subscribe(
+      this.routeDataService.retrieveRoute(localStorage.getItem('userId'), this.routeId).subscribe(
         data => {
           this.route = data
         console.log(data)},
@@ -36,7 +36,7 @@ export class RouteComponent implements OnInit {
   }
   saveRoute() {
     if (this.routeId === 'newRoute') {
-      this.routeDataService.createRoute('1', this.route).subscribe(
+      this.routeDataService.createRoute(localStorage.getItem('userId'), this.route).subscribe(
         data => {
           this.router.navigate(['myroutes'])
         },

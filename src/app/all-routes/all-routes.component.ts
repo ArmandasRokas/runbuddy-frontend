@@ -39,7 +39,7 @@ export class AllRoutesComponent implements OnInit {
       response => {
         console.log(response)
         this.routes = response
-        this.runDataService.retrieveRuns('1').subscribe(
+        this.runDataService.retrieveRuns(localStorage.getItem('userId')).subscribe(
           response => {
             
             console.log(response)
@@ -60,7 +60,7 @@ export class AllRoutesComponent implements OnInit {
     
     this.run = new Run("newrun", null, null, null, null)
     this.run.route = new Route(routeId, "", new Location("", "", "", "", ""), new Date(), 0, 0, "", "", undefined, 0, 0, 0)
-    this.runDataService.createRun('1', this.run).subscribe(
+    this.runDataService.createRun(localStorage.getItem('userId'), this.run).subscribe(
       data => {
         this.router.navigate(['myruns'])
       },
