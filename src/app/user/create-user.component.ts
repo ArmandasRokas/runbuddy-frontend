@@ -18,6 +18,7 @@ import { IUser } from './shared/user.model';
 
 export class CreateUserComponent{
     newUser
+    userName
     isDirty:boolean = true
     loginInvalid = false;
     constructor(private router: Router, 
@@ -26,11 +27,13 @@ export class CreateUserComponent{
     }
 
     saveUser(formValues){
+        
         //save user
         this.userService.saveUser(formValues).subscribe( (saveResp) => {
             //console.log(user);
             if(!saveResp){//if userName is already taken
                 this.loginInvalid = true;
+                this.userName = formValues.userName;
             }else{ //if userName not taken
                 //if ok
                 this.isDirty = false

@@ -18,10 +18,15 @@ export class AuthService{
                 .pipe( tap( (user:IUser) => {
                     this.currentUser = user;                    
                     localStorage.setItem('loggedIn','true');
+                    localStorage.setItem('userId', user.id);
+                    localStorage.setItem('userName', user.userName);
                 }))
                 .pipe( catchError( err => {
                     this.currentUser = { id:'', userName:'', password:'', email:''}
-                    localStorage.removeItem('loggedIn');
+                    this.logout()
+                    /*localStorage.removeItem('loggedIn');
+                    localStorage.removeItem('userId');
+                    */
                     return of(false)
                 }) )       
         /*
@@ -41,6 +46,8 @@ export class AuthService{
 
     logout(){
         localStorage.removeItem('loggedIn');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
     }
 
     isAuthenticated(){
