@@ -1,0 +1,55 @@
+<h1> Results </h1>
+<div class="container alert alert-danger" *ngIf="errorMessage">
+{{errorMessage}}
+</div>
+<br>
+<h2> {{run.route.title}} </h2>
+<div class="container">
+  <br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Starttime</th>
+        <th>Endtime</th>
+        <th>Total time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{run.startTime | date:'medium'}}</td>
+        <td>{{run.endTime | date:'medium'}}</td>
+        <td>{{totalTime }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <h3>Visited waypoints </h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Waypoint index</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let checkpoint of run.checkpoints">
+        <td>{{checkpoint.wayPoint.index}}</td>
+        <td>{{checkpoint.visitedTimestamp | date:'medium'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3> Not visited waypoints </h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Waypoint index</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let waypoint of waypoints">
+        <td>{{waypoint.index}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

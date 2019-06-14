@@ -1,28 +1,80 @@
 <h1>Route</h1>
+<div class="container alert alert-danger" *ngIf="errorMessage">
+  {{errorMessage}}
+</div>
 <div class="container">
   <div class="alert alert-warning" *ngIf="date.dirty && date.invalid">Enter valid date</div>
   <div class="alert alert-warning" *ngIf="title.dirty && title.invalid">Enter at least 5 characters in title</div>
+  <div class="alert alert-warning" *ngIf="streetName.dirty && streetName.invalid ||
+       streetNumber.dirty && streetNumber.invalid ||
+       city.dirty && city.invalid ||
+       country.dirty && country.invalid ">Enter valid location</div>
   <form (ngSubmit)="!routeForm.invalid && saveRoute()" #routeForm="ngForm">
     <fieldset class="form-group">
       <label><b>Title</b></label>
       <input type="text" [(ngModel)]="route.title" #title="ngModel"
-             class="form-control" name="description" required="required" minlength="5">
+             class="form-control" name="title" required="required" minlength="5">
     </fieldset>
     <fieldset class="form-group">
       <label><b>Date</b></label>
       <input type="date" [ngModel]="route.date | date:'yyyy-MM-dd'" (ngModelChange)="route.date = $event"
              class="form-control" name="targetDate" required="required" #date="ngModel">
     </fieldset>
+    <h2> Location </h2>
+    <fieldset class="form-group">
+      <label><b>Street name</b></label>
+      <input type="text" [(ngModel)]="route.location.streetName"
+             class="form-control" name="streetName" required="required" #streetName="ngModel">
+    </fieldset>
+    <fieldset class="form-group">
+      <label><b>Street number</b></label>
+      <input type="text" [(ngModel)]="route.location.streetNumber"
+             class="form-control" name="streetNumber" required="required" #streetNumber="ngModel">
+    </fieldset>
+    <fieldset class="form-group">
+      <label><b>City</b></label>
+      <input type="text" [(ngModel)]="route.location.city"
+             class="form-control" name="city" required="required" #city="ngModel">
+    </fieldset>
+    <fieldset class="form-group">
+      <label><b>Country</b></label>
+      <input type="text" [(ngModel)]="route.location.country"
+             class="form-control" name="country" required="required" #country="ngModel">
+    </fieldset>
+    <h2> Advanced optional </h2>
+    <fieldset class="form-group">
+      <label><b>Distance</b></label>
+      <input type="number" [(ngModel)]="route.distance"
+             class="form-control" name="distance"  #distance="ngModel">
+    </fieldset>
+    <fieldset class="form-group">
+      <label><b>Duration</b></label>
+      <input type="number" [(ngModel)]="route.duration"
+             class="form-control" name="duration"  #duration="ngModel">
+    </fieldset>
+    <fieldset class="form-group">
+      <label><b>Description</b></label>
+      <input type="text" [(ngModel)]="route.description"
+             class="form-control" name="description" #description="ngModel">
+    </fieldset>
+    <fieldset class="form-group">
+      <label><b>Maximum participants</b></label>
+      <input type="text" [(ngModel)]="route.maxParticipants"
+             class="form-control" name="maxParticipants" #maxParticipants="ngModel">
+    </fieldset>
+    <fieldset class="form-group">
+      <label><b>Minimum participants</b></label>
+      <input type="text" [(ngModel)]="route.minParticipants"
+             class="form-control" name="minParticipants" #minParticipants="ngModel">
+    </fieldset>
+    <h2> Waypoints </h2>
     <fieldset class="form-group">
       <div class="form-group">
-        <label><b>WayPoints</b></label>
         <br>
         <div *ngIf="route.wayPoints == null || this.route.wayPoints.length === 0 ">There is no waypoints added to this route.</div>
         <button type="button" class="btn btn-warning" (click)=addWayPoint()>Add a new waypoint</button>
       </div>
     </fieldset>
-
-
 
     <div *ngFor="let wayPoint of route.wayPoints; let index = index;">
       <fieldset class="form-group">
@@ -54,6 +106,6 @@
         <button type="button" (click)="cancel()" class="btn btn-danger">Cancel</button>
       </div>
     </div>
-</form>
+  </form>
   <br><br>
 </div>

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class MyRoutesComponent implements OnInit {
   deletedMessage : string 
   routes: Route[]
+  errorMessage: String
   //routes = [
   //  new Route("1", "Fun run", new Date()),
   //  new Route("2", "My favorite run", new Date()),
@@ -31,7 +32,8 @@ export class MyRoutesComponent implements OnInit {
     this.routeDataService.retrieveUserRoutes('1').subscribe( // creatorId is hardcoded 
       response => {
         this.routes = response
-      }
+      },
+      error => this.handleErrorResponse(error)
     )
   }
 
@@ -40,7 +42,8 @@ export class MyRoutesComponent implements OnInit {
       response => {
         this.refreshRoutes()
         this.deletedMessage = 'Delete is successful!'
-      }
+      },
+      error => this.handleErrorResponse(error)
      )
   }
 
@@ -50,5 +53,13 @@ export class MyRoutesComponent implements OnInit {
 
   createRoute() {
     this.router.navigate(['route', 'newRoute'])
+  }
+  handleErrorResponse(error) {
+    console.log(error.error.message)
+    if (error.error.message != null) {
+      this.errorMessage = error.error.message;
+    } else {
+      this.errorMessage = "Error: Could not get connection to server";
+    }
   }
 }

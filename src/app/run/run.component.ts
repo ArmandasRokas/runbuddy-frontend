@@ -4,9 +4,9 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Color } from 'ng2-charts';
 import { Route, WayPoint } from '../enitities/route';
 import { RouteDataService } from '../service/data/route-data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RunDataService } from '../service/data/run-data.service';
-import { Checkpoint } from '../enitities/run';
+import { Checkpoint, Run } from '../enitities/run';
 
 
 class WayPointBubbleData {
@@ -50,15 +50,20 @@ export class RunComponent implements OnInit {
   waypoints: WayPoint[]
   checkpoints: Checkpoint[]
   runId: String
+  action: String
+  run: Run = new Run("",null, null, new Date(), new Date())
+  currUserX: number
+  currUserY: number
+  errorMessage: String;
 
   public bubbleChartOptions: ChartOptions = {
-    tooltips: {
-      callbacks: {
-        label: function (t, d) {
-          return '(Visited:' + 'date'; //https://stackoverflow.com/questions/45249779/chart-js-bubble-chart-changing-dataset-labels
-        }
-      }
-    },
+    //tooltips: {
+    //  callbacks: {
+    //    label: function (t, d) {
+    //      return '(Visited:' + 'date'; //https://stackoverflow.com/questions/45249779/chart-js-bubble-chart-changing-dataset-labels
+    //    }
+    //  }
+    //},
     responsive: true,
     scales: {
       xAxes: [
@@ -123,7 +128,7 @@ export class RunComponent implements OnInit {
       hoverBorderColor: 'red',
     }
   ];
-
+  
   //public bubbleChartColors: Color[] = [
   //  {
   //    backgroundColor: [
@@ -143,18 +148,51 @@ export class RunComponent implements OnInit {
 
   constructor(
     private runDataService: RunDataService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.runId = this.activatedRoute.snapshot.params['id']
+    this.action = this.activatedRoute.snapshot.params['action']
+    if (this.action === "run") {
+      this.runDataService.retrieveRun(this.runId).subscribe(
+        response => {
+          this.run = response
+          this.run.startTime = new Date()
+          this.runDataService.updateRun(this.runId, this.run).subscribe(
+            response => { },
+            error => this.handleErrorResponse(error)
+          )
+        },
+        error => this.handleErrorResponse(error)
+      )
+    } else {
+      this.runDataService.retrieveRun(this.runId).subscribe(
+        response => 
+          this.run = response
+      ),
+        error => this.handleErrorResponse(error)
+    }
+    // fetch run
+    // sert start time
+    // update
+
+    // set start time to enitity and start timer
+    //  tjekke if start time is null. if not does not allow to start.
+    this.refreshBubbles() 
+
+  }
+
+  refreshBubbles() {
     this.runDataService.getMissingWaypoints(this.runId).subscribe(
       data => {
         this.waypoints = data
         console.log(data)
         let waypointstobubblearr = this.waypoints.map(item => new WayPointBubbleData(item));
         this.bubbleChartData[0].data = waypointstobubblearr;
-      }
+      },
+      error => this.handleErrorResponse(error)
     )
     this.runDataService.getLatestCheckpoints(this.runId).subscribe(
       data => {
@@ -162,7 +200,8 @@ export class RunComponent implements OnInit {
         console.log(data)
         let checkpointbubblearr = this.checkpoints.map(item => new CheckPointBubbleData(item));
         this.bubbleChartData[1].data = checkpointbubblearr;
-      }
+      },
+      error => this.handleErrorResponse(error)
     )
   }
 
@@ -175,6 +214,28 @@ export class RunComponent implements OnInit {
     console.log(event, active);
   }
 
+  submit() {
+    this.runDataService.addCheckPointIfValid(this.runId, this.currUserX, this.currUserY, 1).subscribe(
+      response => this.refreshBubbles(),
+      error => this.handleErrorResponse(error) 
+    )
+  }
+
+  endRun() {
+    this.run.endTime = new Date()
+    this.runDataService.updateRun(this.runId, this.run).subscribe(
+      response => { this.router.navigate(['runresults', this.runId]) },
+      error => this.handleErrorResponse(error)
+    )
+  }
+
+  handleErrorResponse(error) {
+    if (error.error.message != null) {
+      this.errorMessage = error.error.message;
+    } else {
+      this.errorMessage = "Error: Could not get connection to server";
+    }
+  }
   //private rand(max: number) {
   //  return Math.trunc(Math.random() * max);
   //}

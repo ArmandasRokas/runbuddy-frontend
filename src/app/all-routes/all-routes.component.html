@@ -1,4 +1,7 @@
 <h1> All routes </h1>
+<div class="container alert alert-danger" *ngIf="errorMessage">
+{{errorMessage}}
+</div>
 <div class="container">
   <br>
   <table class="table">
@@ -6,6 +9,7 @@
       <tr>
         <th>Title</th>
         <th>Date</th>
+        <th>Participants</th>
         <th>Sign up</th>
       </tr>
     </thead>
@@ -13,7 +17,9 @@
       <tr *ngFor="let route of routes">
         <td>{{route.title}}</td>
         <td>{{route.date | date:'medium'}}</td>
-        <td><button (click)="signUpForRoute(routeID)" class="btn btn-warning">Sign up</button></td>
+        <td>{{route.numberOfParticipants}}</td>
+        <td *ngIf="auth.isAuthenticated()"><button (click)="signUpForRoute(route.id)" class="btn btn-success">Sign up</button></td>
+        <td *ngIf="!auth.isAuthenticated()"><div class="container alert alert-warning">Login to sign up for route</div></td>
       </tr>
     </tbody>
   </table>

@@ -7,11 +7,15 @@ import { RouteComponent } from './route/route.component';
 import { RunComponent } from './run/run.component';
 import { AllRoutesComponent } from './all-routes/all-routes.component';
 import { from } from 'rxjs';
+import { MyRunsComponent } from './my-runs/my-runs.component';
+import { RunResultsComponent } from './run-results/run-results.component';
 
 export const appRoutes: Routes = [
   { path: 'myroutes', component: MyRoutesComponent, canActivate: [RouteGuardService] },
+  { path: 'myruns', component: MyRunsComponent, canActivate: [RouteGuardService] },
+  { path: 'runresults/:id', component: RunResultsComponent, canActivate: [RouteGuardService] },
   { path: 'route/:id', component: RouteComponent, canActivate: [RouteGuardService] },
-  { path: 'run/:id', component: RunComponent /* ,canActivate: [RouteGuardService]* TODO uncomment when session is implemented*/ },
+  { path: 'run/:id/:action', component: RunComponent /* ,canActivate: [RouteGuardService]* TODO uncomment when session is implemented*/ },
   { path: 'allroutes', component: AllRoutesComponent},
   { path: '', component: AllRoutesComponent},
   { path: 'user', loadChildren: './user/user.module#UserModule' },

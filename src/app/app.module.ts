@@ -12,9 +12,11 @@ import { FooterComponent } from './footer/footer.component';
 import { RouteComponent } from './route/route.component';
 import { RunComponent } from './run/run.component';
 import { ChartsModule } from 'ng2-charts';
-import { AllRoutesComponent } from './all-routes/all-routes.component';
-import { AuthService } from './user/auth.service';
 import{ appRoutes } from './app-routing.module';
+import { AllRoutesComponent } from './all-routes/all-routes.component'
+import { AuthService } from './user/auth.service';
+import { MyRunsComponent } from './my-runs/my-runs.component';
+import { RunResultsComponent } from './run-results/run-results.component'
 
 @NgModule({
   imports: [
@@ -33,6 +35,8 @@ import{ appRoutes } from './app-routing.module';
     RouteComponent,
     RunComponent,
     AllRoutesComponent,
+    MyRunsComponent,
+    RunResultsComponent
   ],
   providers: [
     AuthService

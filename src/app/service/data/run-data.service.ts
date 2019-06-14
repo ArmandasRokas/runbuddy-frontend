@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { WayPoint } from 'src/app/enitities/route';
-import { Checkpoint } from 'src/app/enitities/run';
+import { Checkpoint, Run } from 'src/app/enitities/run';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,33 @@ export class RunDataService {
   ) { }
 
   getMissingWaypoints(runId) {
-    return this.http.get<WayPoint[]>(`http://localhost:8080/run/${runId}/waypoint`)
+    return this.http.get<WayPoint[]>(`http://localhost:8080/runs/${runId}/waypoints`)
   }
   getLatestCheckpoints(runId) {
-    return this.http.get<Checkpoint[]>(`http://localhost:8080/run/${runId}/checkpoint`)
+    return this.http.get<Checkpoint[]>(`http://localhost:8080/runs/${runId}/checkpoints`)
+  }
+
+  createRun(creatorId, run){
+    return this.http.post(`http://localhost:8080/users/${creatorId}/runs`, run)
+  }
+
+
+  retrieveRuns(creatorId){
+    return this.http.get<Run[]>(`http://localhost:8080/users/${creatorId}/runs`)
+  }
+  retrieveRun(runId){
+    return this.http.get<Run>(`http://localhost:8080/runs/${runId}`)
+  }
+  retrieveRunWithLatestCheckpoints(runId){
+    return this.http.get<Run>(`http://localhost:8080/runs/${runId}`)
+  }
+
+  addCheckPointIfValid(runId, currentX, currentY, precision) {
+  //  let params = new HttpParams().set("currentX", currentX).set("currentY", currentY).set("presicion", precision);
+    return this.http.put(`http://localhost:8080/runs/${runId}/checkpoints?currentX=${currentX}&currentY=${currentY}&precision=${precision}`, null)
+  }
+
+  updateRun(runId, run) {
+    return this.http.put(`http://localhost:8080/runs/${runId}`, run)
   }
 }

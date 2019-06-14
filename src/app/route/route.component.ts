@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouteDataService } from '../service/data/route-data.service';
 import { Route, WayPoint } from '../enitities/route';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '../user/shared/user';
 
 @Component({
   selector: 'app-route',
@@ -12,6 +13,7 @@ export class RouteComponent implements OnInit {
 
   routeId: String
   route: Route
+  errorMessage: String;
 
   constructor(
     private routeDataService: RouteDataService,
@@ -21,12 +23,13 @@ export class RouteComponent implements OnInit {
 
   ngOnInit() {
     this.routeId = this.activatedRoute.snapshot.params['id']
-    this.route = new Route(this.routeId, "", new Date(), undefined)
+      this.route = new Route(this.routeId, "", new Location("", "", "", "", ""), new Date(), 0,0,"","",undefined,10000 ,0,0)
     if (this.routeId != 'newRoute') {
       this.routeDataService.retrieveRoute('1', this.routeId).subscribe(
         data => {
           this.route = data
-        console.log(data)}
+        console.log(data)},
+        error => this.handleErrorResponse(error)
       )
     }
 
@@ -36,13 +39,15 @@ export class RouteComponent implements OnInit {
       this.routeDataService.createRoute('1', this.route).subscribe(
         data => {
           this.router.navigate(['myroutes'])
-        }
+        },
+        error => this.handleErrorResponse(error)
     )
     } else {
       this.routeDataService.updateRoute(this.routeId, this.route).subscribe(
         data => {
           this.router.navigate(['myroutes'])
-        }
+        },
+        error => this.handleErrorResponse(error)
       )
     }
   }
@@ -64,5 +69,13 @@ export class RouteComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['myroutes'])
+  }
+
+  handleErrorResponse(error) {
+    if (error.error.message != null) {
+      this.errorMessage = error.error.message;
+    } else {
+      this.errorMessage = "Error: Could not get connection to server";
+    }
   }
 }
