@@ -14,6 +14,7 @@ export class RouteComponent implements OnInit {
   routeId: String
   route: Route
   errorMessage: String;
+  sumbited = false;
 
   constructor(
     private routeDataService: RouteDataService,
@@ -35,7 +36,9 @@ export class RouteComponent implements OnInit {
 
   }
   saveRoute() {
+    this.sumbited = true;
     if (this.routeId === 'newRoute') {
+      
       this.routeDataService.createRoute(localStorage.getItem('userId'), this.route).subscribe(
         data => {
           this.router.navigate(['myroutes'])

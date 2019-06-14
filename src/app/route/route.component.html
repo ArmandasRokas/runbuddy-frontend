@@ -9,7 +9,7 @@
        streetNumber.dirty && streetNumber.invalid ||
        city.dirty && city.invalid ||
        country.dirty && country.invalid ">Enter valid location</div>
-  <form (ngSubmit)="!routeForm.invalid && saveRoute()" #routeForm="ngForm">
+  <form (ngSubmit)="!this.sumbited && !routeForm.invalid && saveRoute()" #routeForm="ngForm">
     <fieldset class="form-group">
       <label><b>Title</b></label>
       <input type="text" [(ngModel)]="route.title" #title="ngModel"
