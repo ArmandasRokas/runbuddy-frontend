@@ -10,7 +10,7 @@ export class Route {
     private duration: number,
     private description: String,
     private status: String, 
-    public wayPoints: WayPoint[], 
+    private wayPoints: WayPoint[], 
     private maxParticipants: number,
     private minParticipants: number,
     private numberOfParticipants: number
@@ -19,7 +19,7 @@ export class Route {
 
 export class WayPoint {
   constructor(
-    public x: number,
-    public y: number,
-    public index: number) { }
+    private x: number,
+    private y: number,
+    private index: number) { }
 }
