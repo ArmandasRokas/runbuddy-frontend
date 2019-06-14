@@ -55,10 +55,6 @@ export class AllRoutesComponent implements OnInit {
     )
   }
 
-  login(){
-    this.router.navigate(['login'])
-  }
-
   handleErrorResponse(error) {
     if (error.error.message != null) {
       this.errorMessage = error.error.message;
