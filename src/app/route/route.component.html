@@ -45,12 +45,12 @@
     <fieldset class="form-group">
       <label><b>Distance</b></label>
       <input type="number" [(ngModel)]="route.distance"
-             class="form-control" name="distance"  #distance="ngModel">
+             class="form-control" name="distance" #distance="ngModel">
     </fieldset>
     <fieldset class="form-group">
       <label><b>Duration</b></label>
       <input type="number" [(ngModel)]="route.duration"
-             class="form-control" name="duration"  #duration="ngModel">
+             class="form-control" name="duration" #duration="ngModel">
     </fieldset>
     <fieldset class="form-group">
       <label><b>Description</b></label>
@@ -66,6 +66,11 @@
       <label><b>Minimum participants</b></label>
       <input type="text" [(ngModel)]="route.minParticipants"
              class="form-control" name="minParticipants" #minParticipants="ngModel">
+    </fieldset>
+    <fieldset class="form-group">
+      <label><b>Status</b></label>
+      <input type="text" [(ngModel)]="route.status"
+             class="form-control" name="status" #status="ngModel">
     </fieldset>
     <h2> Waypoints </h2>
     <fieldset class="form-group">
