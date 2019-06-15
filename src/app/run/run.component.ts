@@ -38,14 +38,6 @@ class CheckPointBubbleData {
   styleUrls: ['./run.component.css']
 })
 
-
-// bruge route data service til at hente
-// complete button til. kun tilladt hvis alle point markeret
-
-// get waypoints  routes/{id}/waypoints
-
-
-
 export class RunComponent implements OnInit {
   waypoints: WayPoint[]
   checkpoints: Checkpoint[]
@@ -57,13 +49,15 @@ export class RunComponent implements OnInit {
   errorMessage: String;
 
   public bubbleChartOptions: ChartOptions = {
-    //tooltips: {
-    //  callbacks: {
-    //    label: function (t, d) {
-    //      return '(Visited:' + 'date'; //https://stackoverflow.com/questions/45249779/chart-js-bubble-chart-changing-dataset-labels
-    //    }
-    //  }
-    //},
+    tooltips: {
+      callbacks: {
+        label: function (t, d) {
+          return d.datasets[t.datasetIndex].label +
+            ': (X:' + t.xLabel + ', Y:' + t.yLabel + ')'; //https://stackoverflow.com/questions/45249779/chart-js-bubble-chart-changing-dataset-labels
+        }
+      }
+    },
+
     responsive: true,
     scales: {
       xAxes: [
@@ -88,25 +82,12 @@ export class RunComponent implements OnInit {
   public bubbleChartLegend = true;
 
   public bubbleChartData: ChartDataSets[] = [
-    // {
-    //data: [
-    //  //{ x: 10, y: 10, r: 25 },
-    //  //{ x: 15, y: 5, r: 25 },
-    //  //{ x: 26, y: 12, r: 25 },
-    //  //{ x: 7, y: 8, r: 10 },
-    //],
-    //label: 'Missing',
-    //backgroundColor: 'red',
-    //borderColor: 'blue',
-    //hoverBackgroundColor: 'purple',
-    //hoverBorderColor: 'red',
-    //},
     {
       data: [
-        { x: 10, y: 10, r: 20 },
-        { x: 15, y: 5, r: 20 },
-        { x: 26, y: 12, r: 20 },
-        { x: 7, y: 8, r: 20 },
+        //{ x: 10, y: 10, r: 20 }, //Test data
+        //{ x: 15, y: 5, r: 20 },
+        //{ x: 26, y: 12, r: 20 },
+        //{ x: 7, y: 8, r: 20 },
       ],
       label: 'Missing',
       backgroundColor: 'red',
@@ -116,10 +97,10 @@ export class RunComponent implements OnInit {
     },
     {
       data: [
-        { x: 12, y: 12, r: 20 },
-        { x: 17, y: 7, r: 20 },
-        { x: 28, y: 14, r: 20 },
-        { x: 9, y: 10, r: 20 },
+        //{ x: 12, y: 12, r: 20 }, //Test data
+        //{ x: 17, y: 7, r: 20 },
+        //{ x: 28, y: 14, r: 20 },
+        //{ x: 9, y: 10, r: 20 },
       ],
       label: 'Visited',
       backgroundColor: 'green',
@@ -128,23 +109,6 @@ export class RunComponent implements OnInit {
       hoverBorderColor: 'red',
     }
   ];
-  
-  //public bubbleChartColors: Color[] = [
-  //  {
-  //    backgroundColor: [
-  //      //'red',
-  //      'green',
-  //      //'blue',
-  //      //'purple',
-  //      //'yellow',
-  //      //'brown',
-  //      //'magenta',
-  //      //'cyan',
-  //      //'orange',
-  //      //'pink'
-  //    ]
-  //  }
-  //];
 
   constructor(
     private runDataService: RunDataService,
@@ -174,12 +138,6 @@ export class RunComponent implements OnInit {
       ),
         error => this.handleErrorResponse(error)
     }
-    // fetch run
-    // sert start time
-    // update
-
-    // set start time to enitity and start timer
-    //  tjekke if start time is null. if not does not allow to start.
     this.refreshBubbles() 
 
   }
@@ -236,20 +194,4 @@ export class RunComponent implements OnInit {
       this.errorMessage = "Error: Could not get connection to server";
     }
   }
-  //private rand(max: number) {
-  //  return Math.trunc(Math.random() * max);
-  //}
-
-  //private randomPoint(maxCoordinate: number) {
-  //  const x = this.rand(maxCoordinate);
-  //  const y = this.rand(maxCoordinate);
-  //  const r = this.rand(30) + 5;
-  //  return { x, y, r };
-  //}
-
-  //public randomize(): void {
-  //  const numberOfPoints = this.rand(5) + 5;
-  //  const data = Array.apply(null, { length: numberOfPoints }).map(r => this.randomPoint(30));
-  //  this.bubbleChartData[0].data = data;
-  //}
 }
