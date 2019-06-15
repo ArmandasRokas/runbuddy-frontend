@@ -11,14 +11,14 @@
       <tr>
         <th>Starttime</th>
         <th>Endtime</th>
-        <th>Total time</th>
+        <th>Total time (HH:MM:SS.ss)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>{{run.startTime | date:'medium'}}</td>
         <td>{{run.endTime | date:'medium'}}</td>
-        <td>{{totalTime }}</td>
+        <td>{{totalTime | minuteSeconds }}</td>
       </tr>
     </tbody>
   </table>

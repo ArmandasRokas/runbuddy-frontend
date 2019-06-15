@@ -24,7 +24,7 @@ export class RouteComponent implements OnInit {
 
   ngOnInit() {
     this.routeId = this.activatedRoute.snapshot.params['id']
-      this.route = new Route(this.routeId, "", new Location("", "", "", "", ""), new Date(), 0,0,"","",undefined,10000 ,0,0, false)
+      this.route = new Route(this.routeId, "", new Location("", "", "", "", ""), new Date(), 0,0,"","released",undefined,10000 ,0,0, false)
     if (this.routeId != 'newRoute') {
       this.routeDataService.retrieveRoute(localStorage.getItem('userId'), this.routeId).subscribe(
         data => {

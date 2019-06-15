@@ -1,9 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { RunDataService } from '../service/data/run-data.service';
 import { Run } from '../enitities/run';
 import { ActivatedRoute } from '@angular/router';
 import { Route, WayPoint } from '../enitities/route';
 import { Location } from '../user/shared/user';
+
+@Pipe({
+  name: 'minuteSeconds'
+})
+export class MinuteSecondsPipe implements PipeTransform {
+  transform(value: number): string {
+    const hours: number = Math.floor(value / 3600000)
+    const minutes: number = Math.floor((value -= hours * 3600000)/60000);
+    const seconds: number = Math.floor((value -= minutes*60000)/1000);
+    const mili: number = (value -= seconds*1000);
+    return hours + ':' + minutes + ':' + seconds + '.' + mili;
+  }
+
+}
 
 @Component({
   selector: 'app-run-results',
@@ -15,6 +29,8 @@ export class RunResultsComponent implements OnInit {
   runId: String
   run: Run
   waypoints: WayPoint[]
+  startTime: number
+  endTime: number
   totalTime:number
   errorMessage: String;
 
@@ -29,8 +45,10 @@ export class RunResultsComponent implements OnInit {
       this.runDataService.retrieveRunWithLatestCheckpoints(this.runId).subscribe(
         data => {
           this.run = data
-          console.log(data)
-          this.totalTime = this.run.startTime.getTime()-this.run.endTime.getTime()
+          this.startTime = new Date(this.run.startTime).getTime()
+          this.endTime = new Date(this.run.endTime).getTime()
+          this.totalTime = this.endTime - this.startTime
+          console.log(this.totalTime)
         },
         error => this.handleErrorResponse(error)
     )

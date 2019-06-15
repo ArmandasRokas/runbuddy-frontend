@@ -16,7 +16,7 @@ import{ appRoutes } from './app-routing.module';
 import { AllRoutesComponent } from './all-routes/all-routes.component'
 import { AuthService } from './user/auth.service';
 import { MyRunsComponent } from './my-runs/my-runs.component';
-import { RunResultsComponent } from './run-results/run-results.component'
+import { RunResultsComponent, MinuteSecondsPipe } from './run-results/run-results.component'
 
 @NgModule({
   imports: [
@@ -36,7 +36,8 @@ import { RunResultsComponent } from './run-results/run-results.component'
     RunComponent,
     AllRoutesComponent,
     MyRunsComponent,
-    RunResultsComponent
+    RunResultsComponent,
+    MinuteSecondsPipe
   ],
   providers: [
     AuthService
