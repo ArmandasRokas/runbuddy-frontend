@@ -13,7 +13,8 @@ export class Route {
     public wayPoints: WayPoint[], 
     public maxParticipants: number,
     public minParticipants: number,
-    public numberOfParticipants: number
+    public numberOfParticipants: number,
+    public signedUp: boolean
   ) { }
 }
 

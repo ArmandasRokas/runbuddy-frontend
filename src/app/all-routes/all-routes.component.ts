@@ -34,26 +34,50 @@ export class AllRoutesComponent implements OnInit {
     this.refreshRoutes()
   }
 
+  //refreshRoutes() {
+  //  this.routeDataService.retrieveAllRoutes().subscribe( 
+  //    response => {
+  //      console.log(response)
+  //      this.routes = response
+  //      this.runDataService.retrieveRuns(localStorage.getItem('userId')).subscribe(
+  //        response => {
+            
+  //          console.log(response)
+  //          this.runs = response
+  //          for (let run of this.runs) {
+  //            console.log(this.routes.map(function (route) { return route.id; }).indexOf(run.route.id))
+  //            this.routes.splice(this.routes.map(function (route) { return route.id; }).indexOf(run.route.id), 1)
+  //          }
+  //        },
+  //        error => this.handleErrorResponse(error)
+  //      )
+  //    },
+  //    error => this.handleErrorResponse(error)
+  //  )
+
+  //}
   refreshRoutes() {
-    this.routeDataService.retrieveAllRoutes().subscribe( 
+
+    this.runDataService.retrieveRuns(localStorage.getItem('userId')).subscribe(
       response => {
         console.log(response)
-        this.routes = response
-        this.runDataService.retrieveRuns(localStorage.getItem('userId')).subscribe(
+        this.runs = response
+
+        this.routeDataService.retrieveAllRoutes().subscribe(
           response => {
-            
             console.log(response)
-            this.runs = response
+            this.routes = response
             for (let run of this.runs) {
-              this.routes.splice(this.routes.indexOf(run.route.id), 1)
+            //  this.routes.splice(this.routes.map(function (route) { return route.id; }).indexOf(run.route.id), 1)
+              this.routes[this.routes.map(function (route) { return route.id; }).indexOf(run.route.id)].signedUp = true;
             }
           },
           error => this.handleErrorResponse(error)
         )
+
       },
       error => this.handleErrorResponse(error)
     )
-
   }
 
   signUpForRoute(routeId) {
