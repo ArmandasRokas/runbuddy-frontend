@@ -32,18 +32,24 @@ export class MyRoutesComponent implements OnInit {
     this.routeDataService.retrieveUserRoutes(localStorage.getItem('userId')).subscribe(  
       response => {
         this.routes = response
+        console.log(this.routes)
       },
       error => this.handleErrorResponse(error)
     )
   }
 
-  deleteRoute(routeId) {
-    this.routeDataService.deleteRoute(routeId).subscribe(
+  deleteRoute(routeId, route: Route) {
+    let currStatus = route.status 
+    route.status = 'deleted';
+    this.routeDataService.deleteRoute(routeId, route).subscribe(
       response => {
         this.refreshRoutes()
         this.deletedMessage = 'Delete is successful!'
       },
-      error => this.handleErrorResponse(error)
+      error => {
+        route.status = currStatus
+        this.handleErrorResponse(error)
+      }
      )
   }
 

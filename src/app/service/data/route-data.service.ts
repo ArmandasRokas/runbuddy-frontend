@@ -21,9 +21,14 @@ export class RouteDataService {
   retrieveRoute(userId, routeId) {
     return this.http.get<Route>(`http://localhost:8080/users/${userId}/routes/${routeId}`)
   }
-  deleteRoute(routeId) {
-    return this.http.delete(`http://localhost:8080/routes/${routeId}`)
+  //deleteRoute(routeId) {
+  //  return this.http.delete(`http://localhost:8080/routes/${routeId}`)
+  //}
+
+  deleteRoute(routeId, route) {
+    return this.http.put(`http://localhost:8080/routes/${routeId}`, route)
   }
+
   updateRoute(routeId, route) {
     return this.http.put(`http://localhost:8080/routes/${routeId}`, route)
   }

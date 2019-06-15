@@ -69,7 +69,10 @@ export class AllRoutesComponent implements OnInit {
             this.routes = response
             for (let run of this.runs) {
             //  this.routes.splice(this.routes.map(function (route) { return route.id; }).indexOf(run.route.id), 1)
-              this.routes[this.routes.map(function (route) { return route.id; }).indexOf(run.route.id)].signedUp = true;
+              let routeIndex = this.routes.map(function (route) { return route.id; }).indexOf(run.route.id)
+              if (routeIndex != -1) {
+                this.routes[routeIndex].signedUp = true;
+              }
             }
           },
           error => this.handleErrorResponse(error)
@@ -83,7 +86,7 @@ export class AllRoutesComponent implements OnInit {
   signUpForRoute(routeId) {
     
     this.run = new Run("newrun", null, null, null, null)
-    this.run.route = new Route(routeId, "", new Location("", "", "", "", ""), new Date(), 0, 0, "", "", undefined, 0, 0, 0)
+    this.run.route = new Route(routeId, "", new Location("", "", "", "", ""), new Date(), 0, 0, "", "", undefined, 0, 0, 0, false)
     this.runDataService.createRun(localStorage.getItem('userId'), this.run).subscribe(
       data => {
         this.router.navigate(['myruns'])
