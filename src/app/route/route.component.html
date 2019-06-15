@@ -68,9 +68,15 @@
              class="form-control" name="minParticipants" #minParticipants="ngModel">
     </fieldset>
     <fieldset class="form-group">
-      <label><b>Status</b></label>
-      <input type="text" [(ngModel)]="route.status"
-             class="form-control" name="status" #status="ngModel">
+        <label><b>Status:</b></label>
+        <br>
+        <select type="text" [(ngModel)]="route.status"
+        class="form-control" name="status" #status="ngModel">
+          <option value="created">Created</option>
+          <option value="released">Released</option>
+          <option value="started">Started</option>
+          <option value="finished">Finished</option>
+        </select>  
     </fieldset>
     <h2> Waypoints </h2>
     <fieldset class="form-group">
