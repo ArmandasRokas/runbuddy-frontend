@@ -1,13 +1,14 @@
 <div class="col-md-12">
         <h3>Add Location</h3>
 </div>
-<div class="col-md-6">
+<div class="col-md-12">
     <form [formGroup]="newLocationForm" (ngSubmit)="saveLocation(newLocationForm.value)" 
           autocomplete="off">
         <div class="form-group" [ngClass]="{'error': title?.invalid && title?.touched}">
             <label for="title">Title:</label>
-            <em *ngIf="title?.invalid && title?.touched">Required</em>
+            <em *ngIf="title?.invalid && title?.touched && title?.errors.required">Required</em>
             <em *ngIf="title?.invalid && title?.touched && title?.errors.maxlength">Cannot exceed 80 characters</em>
+            <em *ngIf="title?.invalid && title?.touched && title?.errors.restrictedWords">Restricted words found: {{title.errors.restrictedWords}}</em>
             <input formControlName="title" id="title" type="text" class="form-control" placeholder="title..." />
         </div>
         <div class="form-group" [ngClass]="{'error': streetName.invalid && streetName.touched}">

@@ -13,6 +13,19 @@ export class AuthService{
         this.currentUser = { id:'', userName:'', password:'', email:''}
     }
 
+    ngOnInit(){
+        var userName = localStorage.getItem('userName');
+        var password = localStorage.getItem('password');
+
+        if(!userName){
+            this.currentUser = { id:'', userName:'', password:'', email:''}
+            this.logout()
+        }else{
+            this.loginUser(userName, password); 
+        }
+
+    }
+
     loginUser(userName: string, password: string){
         return this.http.get<IUser>(`http://localhost:8080/users/${userName}`)
                 .pipe( tap( (user:IUser) => {
@@ -23,6 +36,7 @@ export class AuthService{
                         localStorage.setItem('loggedIn','true');
                         localStorage.setItem('userId', user.id);
                         localStorage.setItem('userName', user.userName);
+                        localStorage.setItem('password', user.password);
                     }else{
                         this.currentUser = { id:'', userName:'', password:'', email:''}
                         this.logout()
@@ -56,6 +70,7 @@ export class AuthService{
         localStorage.removeItem('loggedIn');
         localStorage.removeItem('userId');
         localStorage.removeItem('userName');
+        localStorage.removeItem('password');
     }
 
     isAuthenticated(){

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service'
 import { Router } from '@angular/router'
+import { IUser } from './shared/user.model';
+import { UserService } from './shared/user.service';
 
 @Component({
     templateUrl: './profile.component.html',
@@ -20,11 +22,60 @@ export class ProfileComponent implements OnInit{
     private userName:FormControl
     private email:FormControl
     private password:FormControl    
-    constructor(private authService: AuthService, private router:Router){
+    user:IUser
+    constructor(private authService: AuthService, 
+                private router:Router,
+                private userService: UserService){
 
     }
 
     ngOnInit(): void {
+              //
+              this.user = this.authService.currentUser
+              this.userName = new FormControl(this.authService.currentUser.userName, 
+                                              [Validators.required, Validators.pattern('[a-zA-Z].*')])
+              this.email = new FormControl(this.authService.currentUser.email, Validators.required)
+              this.password = new FormControl(this.authService.currentUser.password, Validators.required)
+              
+              this.profileForm = new FormGroup({
+                  userName: this.userName,
+                  email: this.email,
+                  password: this.password
+              })
+
+
+        let username = localStorage.getItem('userName');
+        if(!username){
+          this.authService.logout();
+        }else{
+          this.userService.getUser(username).subscribe( (user:IUser) => {
+            if(!user){
+              this.authService.logout();
+            }else{
+              localStorage.setItem('userName', user.userName);
+              localStorage.setItem('password', user.password);
+              localStorage.setItem('userId', user.id);
+              this.authService.currentUser = user;
+
+
+              //
+              this.user = this.authService.currentUser
+              this.userName = new FormControl(this.authService.currentUser.userName, 
+                                              [Validators.required, Validators.pattern('[a-zA-Z].*')])
+              this.email = new FormControl(this.authService.currentUser.email, Validators.required)
+              this.password = new FormControl(this.authService.currentUser.password, Validators.required)
+              
+              this.profileForm = new FormGroup({
+                  userName: this.userName,
+                  email: this.email,
+                  password: this.password
+              })
+      
+            }
+          })
+        }
+        /*
+        this.user = this.authService.currentUser
         this.userName = new FormControl(this.authService.currentUser.userName, 
                                         [Validators.required, Validators.pattern('[a-zA-Z].*')])
         this.email = new FormControl(this.authService.currentUser.email, Validators.required)
@@ -35,6 +86,8 @@ export class ProfileComponent implements OnInit{
             email: this.email,
             password: this.password
         })
+
+        */
     }
 
     saveProfile(formValues){

@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core'
+import { Component, OnInit, Output, EventEmitter} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import { ILocation } from './shared/user.model'
+import { restrictedWords } from './shared/restricted-words.validator'
+
 
 @Component({
+    selector: 'add-user-location',
     templateUrl: './add-user-location.component.html',
     styles: [`
         em { float: right; color: #E05C65; padding-left: 10px;}
@@ -15,6 +18,7 @@ import { ILocation } from './shared/user.model'
 })
 
 export class AddUserLocationComponent implements OnInit{
+    @Output() saveNewLocation = new EventEmitter()
     public newLocationForm: FormGroup
     //public id: FormControl
     public title: FormControl
@@ -24,7 +28,10 @@ export class AddUserLocationComponent implements OnInit{
     public country: FormControl
     
     ngOnInit(): void {
-        this.title = new FormControl('',[Validators.required, Validators.maxLength(80)])
+        this.title = new FormControl('',[
+            Validators.required, 
+            Validators.maxLength(80), 
+            restrictedWords(['fuck', 'fucker'])])
         this.streetName = new FormControl('',Validators.required)
         this.streetNumber = new FormControl('',Validators.required)
         this.city = new FormControl('',Validators.required)
@@ -49,6 +56,6 @@ export class AddUserLocationComponent implements OnInit{
             city: formValues.city,
             country: formValues.country
         }
-        console.log(location);        
+        this.saveNewLocation.emit(location);
     }    
 }
