@@ -31,8 +31,10 @@
                 <a (click)="addLocation()">Add Location</a>
               </div>      
           </div>
-          <add-user-location *ngIf="addMode" (saveNewLocation)="saveNewLocation($event)"></add-user-location>
-          <location-list *ngIf="!addMode" [locations]="newUser?.locations"></location-list>
+          <add-user-location *ngIf="addMode" (saveNewLocation)="saveNewLocation($event)" 
+                                             (cancelNewLocation)="cancelNewLocation()"></add-user-location>
+          <location-list *ngIf="!addMode" (deleteLocation)="deleteLocation($event)" 
+                                          [locations]="newUser?.locations"></location-list>
         </div>
     <!--    
       <div *ngIf="!addMode" class="form-group">

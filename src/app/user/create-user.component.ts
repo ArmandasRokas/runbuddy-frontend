@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { UserService } from './shared/user.service'
 import { AuthService } from './auth.service';
 import { IUser, ILocation } from './shared/user.model';
+import * as UUID from 'uuid';
 
 @Component({
     templateUrl:'create-user.component.html',
@@ -76,7 +77,12 @@ export class CreateUserComponent{
         this.addMode = true;
     }
 
+    deleteLocation(location:ILocation){
+        this.newUser.locations = this.newUser.locations.filter(l=>l.id !== location.id);
+    }
+
     saveNewLocation(location:ILocation){
+        location.id = UUID.v4();
         console.log(this.newUser)
         this.newUser.locations.push(location);
         //this.userService.updateUser(this.newUser).subscribe();
@@ -101,4 +107,10 @@ export class CreateUserComponent{
             this.addMode = false;
         }*/
     }
+
+    cancelNewLocation(){
+        this.addMode = false;
+    }
+
+
 }

@@ -19,6 +19,8 @@ import { restrictedWords } from './shared/restricted-words.validator'
 
 export class AddUserLocationComponent implements OnInit{
     @Output() saveNewLocation = new EventEmitter()
+    @Output() cancelNewLocation = new EventEmitter()
+
     public newLocationForm: FormGroup
     //public id: FormControl
     public title: FormControl
@@ -58,4 +60,8 @@ export class AddUserLocationComponent implements OnInit{
         }
         this.saveNewLocation.emit(location);
     }    
+
+    cancel(){
+        this.cancelNewLocation.emit();
+    }
 }
