@@ -25,16 +25,16 @@
         <div class="container">
           <div class="row">
               <div class="col-md-6">
-                <h3 style="margin:0">Locations</h3>
+                <h3 style="margin:0">Locations:</h3>
               </div>
               <div class="col-md-6">
                 <a (click)="addLocation()">Add Location</a>
               </div>      
-          </div>
+          </div><br>
           <add-user-location *ngIf="addMode" (saveNewLocation)="saveNewLocation($event)" 
-                                             (cancelNewLocation)="cancelNewLocation()"></add-user-location>
+                                             (cancelNewLocation)="cancelNewLocation()"></add-user-location><br>
           <location-list *ngIf="!addMode" (deleteLocation)="deleteLocation($event)" 
-                                          [locations]="newUser?.locations"></location-list>
+                                          [locations]="newUser?.locations"></location-list><br>
         </div>
     <!--    
       <div *ngIf="!addMode" class="form-group">
@@ -60,7 +60,7 @@
     <button *ngIf="!addMode" type="button" [disabled]="newUserForm.invalid" class="btn btn-default" (click)="cancel()">Cancel</button>
     <br>
     <div *ngIf="loginInvalid" class="alert alert-danger">User name: {{userName}} is already taken.</div>
-  </form>
+  </form><br><br>
 <!--
   <hr>
   <div class="row">
