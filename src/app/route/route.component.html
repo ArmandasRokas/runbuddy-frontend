@@ -44,32 +44,37 @@
     <h2> Advanced optional </h2>
     <fieldset class="form-group">
       <label><b>Distance</b></label>
+      <div>Expected distance of the route measured in meters:</div>
       <input type="number" [(ngModel)]="route.distance"
              class="form-control" name="distance" #distance="ngModel">
     </fieldset>
     <fieldset class="form-group">
       <label><b>Duration</b></label>
+      <div>Expected duration of the route measured in minutes:</div>
       <input type="number" [(ngModel)]="route.duration"
              class="form-control" name="duration" #duration="ngModel">
     </fieldset>
     <fieldset class="form-group">
       <label><b>Description</b></label>
+      <div>A brief description of your route:</div>
       <input type="text" [(ngModel)]="route.description"
              class="form-control" name="description" #description="ngModel">
     </fieldset>
     <fieldset class="form-group">
       <label><b>Maximum participants</b></label>
+      <div>Set the maximum number of participants:</div>
       <input type="text" [(ngModel)]="route.maxParticipants"
              class="form-control" name="maxParticipants" #maxParticipants="ngModel">
     </fieldset>
     <fieldset class="form-group">
       <label><b>Minimum participants</b></label>
+      <div>Set the minimum number of participants:</div>
       <input type="text" [(ngModel)]="route.minParticipants"
              class="form-control" name="minParticipants" #minParticipants="ngModel">
     </fieldset>
     <fieldset class="form-group">
         <label><b>Status:</b></label>
-        <br>
+        <div>Set the route's status. New routes are set to released by default:</div>
         <select type="text" [(ngModel)]="route.status"
         class="form-control" name="status" #status="ngModel">
           <option value="created">Created</option>
