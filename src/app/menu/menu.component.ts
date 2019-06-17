@@ -28,6 +28,7 @@ export class MenuComponent implements OnInit {
           this.auth.logout();
         }else{
           localStorage.setItem('userName', user.userName);
+          localStorage.setItem('password', user.password);
           localStorage.setItem('userId', user.id);
           this.auth.currentUser = user;
         }

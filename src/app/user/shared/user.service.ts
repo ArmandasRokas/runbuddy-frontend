@@ -23,23 +23,40 @@ export class UserService{
     }
 
     saveUser(user:IUser){
-        user.locations = [
+        /*user.locations = [
             <ILocation>{ 
                 id:'', streetName: user.location.streetName, 
                 streetNumber:user.location.streetNumber, 
                 city:user.location.city, country:user.location.country 
-            } ]
+            } ]*/
         let options = {headers: new HttpHeaders({'Content-Type':'application/json'})}
         return this.http.post<IUser>(`http://localhost:8080/users`, user, options)
                 .pipe(catchError(this.handleError<IUser>('saveUser')))
     }
 
-     /*
+    updateUser(updatedUser) {
+        let options = {headers: new HttpHeaders({'Content-Type':'application/json'})}
+        return this.http.put<IUser>(`http://localhost:8080/users`, updatedUser, options)
+                .pipe(catchError(this.handleError<IUser>('updateUser')))
+                
+    }
+
+    private handleError<T>(operation = 'operation', result?:T){
+        return (error:any):Observable<T> => {
+            console.error(error);
+            return of(result as T)
+        }
+    }
+
+}
+
+
+/*
     getUser(userName: string){
         return this.http.get<User>(`http://localhost:8080/users/${userName}`)
-    }*/
+    }
 
-    /*
+    
     saveUser(user:IUser){
         user.id = UUID.v4()
         user.location.id = UUID.v4()
@@ -63,18 +80,8 @@ export class UserService{
         return this.http.post(`http://localhost:8080/users`, user)
         //return this.http.get(`http://localhost:8080/users/hello`)
     } 
-    */
+    
 
-
-
-    private handleError<T>(operation = 'operation', result?:T){
-        return (error:any):Observable<T> => {
-            console.error(error);
-            return of(result as T)
-        }
-    }
-
-}
 
 const USERS:IUser[] = [
     {
@@ -92,18 +99,18 @@ const USERS:IUser[] = [
     }
 ]
 
-/*private users:IUser[]
+  private users:IUser[]
     getUser(id:string):IUser{
         return this.users.find(user => user.id === id);
-    }*/
+    }
 
-/*getAllRoutes():Observable<IRoute[]>{
+    getAllRoutes():Observable<IRoute[]>{
         let subject = new Subject<IRoute[]>() //the observable stream
         setTimeout( () => {subject.next(ROUTES); subject.complete();},
                     2000 )
         return subject; 
-    }*/
-/*  
+    }
+
       retrieveUserById(id) {
         return this.http.get<IUser>(`http://localhost:8080/users/${id}`)
       }

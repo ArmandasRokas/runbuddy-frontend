@@ -3,13 +3,13 @@ export interface IUser{
     userName: string
     email: string
     password: string
-    location?:{
+    /*location?:{
         id:string
         streetName:string
         streetNumber:string
         city:string
         country:string
-    }
+    }*/
     routes?:IRoute
     locations?:ILocation[]
 }

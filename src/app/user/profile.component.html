@@ -1,7 +1,7 @@
 <div>
     <h1>Edit Your Profile</h1>
     <hr>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form [formGroup]="profileForm" (ngSubmit)="saveProfile(profileForm.value)" 
                     autocomplete="off" novalidate>
             <div class="from-group" [ngClass]="{'error': !validateUserName() }">
@@ -20,10 +20,31 @@
                     <em *ngIf="!validatePassword()">Required</em>
                     <input formControlName="password" id="password" type="text" class="form-control" placeholder="Password..."/>
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
 
-            <button type="button" class="btn btn-warning" style="float:right" (click)="logout()">Logout</button>
-        </form>
+
+            <hr>
+            <div class="container">
+              <div class="row">
+                  <div class="col-md-6">
+                    <h3 style="margin:0">Locations</h3>
+                  </div>
+                  <div class="col-md-6">
+                    <a (click)="addLocation()">Add Location</a>
+                  </div>      
+              </div>
+              <add-user-location *ngIf="addMode" (saveNewLocation)="saveNewLocation($event)" 
+                                                 (cancelNewLocation)="cancelNewLocation()"></add-user-location><br>
+              <location-list *ngIf="!addMode" (deleteLocation)="deleteLocation($event)" 
+                                              [locations]="user?.locations"></location-list><br>
+            </div>
+            <!--
+            <hr>
+            <location-list (deleteLocation)="deleteLocation($event)"  [locations]="user?.locations"></location-list>
+            -->
+            <button *ngIf="!addMode" type="submit" class="btn btn-primary">Save</button>
+            <button *ngIf="!addMode" type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+
+            <button *ngIf="!addMode" type="button" class="btn btn-warning" style="float:right" (click)="logout()">Logout</button>
+        </form><br><br>
     </div>
 </div>

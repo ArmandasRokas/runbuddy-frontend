@@ -1,30 +1,42 @@
 <div class="col-md-12">
         <h3>Add Location</h3>
 </div>
-<div class="col-md-6">
+<div class="col-md-12">
     <form [formGroup]="newLocationForm" (ngSubmit)="saveLocation(newLocationForm.value)" 
           autocomplete="off">
-        <div class="form-group">
-            <label for="title">Title:</label>
+        <div class="form-group" [ngClass]="{'error': title?.invalid && title?.touched}">
+            <label for="title"><strong>Title:</strong></label>
+            <em *ngIf="title?.invalid && title?.touched && title?.errors.required">Required</em>
+            <em *ngIf="title?.invalid && title?.touched && title?.errors.maxlength">Cannot exceed 80 characters</em>
+            <em *ngIf="title?.invalid && title?.touched && title?.errors.restrictedWords">Restricted words found: {{title.errors.restrictedWords}}</em>
             <input formControlName="title" id="title" type="text" class="form-control" placeholder="title..." />
         </div>
-        <div class="form-group">
-            <label for="streetName">Street Name:</label>
-            <input formControlName="streetName" id="streetName" type="text" class="form-control" placeholder="street name..." />
-        </div>
-        <div class="form-group">
-            <label for="streetNumber">Street Number:</label>
-            <input formControlName="streetNumber" id="streetNumber" type="text" class="form-control" placeholder="street number..." />
+        <div class="row">
+            <div class="col-md-2"><span><strong>Street:</strong></span></div>
+            <div class="col-md-5" [ngClass]="{'error': streetName.invalid && streetName.touched}">
+                <label for="streetName"><strong>name</strong></label>
+                <em *ngIf="streetName.invalid && streetName.touched">Required</em>
+                <input formControlName="streetName" id="streetName" type="text" class="form-control" placeholder="street name..." />
+            </div><!-- form-group -->
+            <div class="col-md-5" [ngClass]="{'error': streetNumber.invalid && streetNumber.touched}">
+                <label for="streetNumber"><strong>number</strong></label>
+                <em *ngIf="streetNumber.invalid && streetNumber.touched">Required</em>
+                <input formControlName="streetNumber" id="streetNumber" type="text" class="form-control" placeholder="street number..." />
+            </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" [ngClass]="{'error': city.invalid && city.touched}">
+                <label for="city"><strong>City:</strong></label>
+                <em *ngIf="city.invalid && city.touched">Required</em>
                 <input formControlName="city" id="city" type="text" class="form-control" placeholder="city..." />
             </div>
-            <div class="col-md-6" >
+            <div class="col-md-6" [ngClass]="{'error': country.invalid && country.touched}">
+                <label for="country"><strong>Country:</strong></label>
+                <em *ngIf="country.invalid && country.touched">Required</em>
                 <input formControlName="country" id="country" type="text" class="form-control" placeholder="country..." />
             </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-default">Cancel</button>
+        </div><br>
+        <button type="submit" class="btn btn-primary" [disabled]="newLocationForm.invalid">Save Location</button>
+        <button type="button" class="btn btn-default" (click)="cancel()">Cancel Location</button>
     </form>
 </div>
