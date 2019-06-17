@@ -1,7 +1,7 @@
 <div>
     <h1>Edit Your Profile</h1>
     <hr>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form [formGroup]="profileForm" (ngSubmit)="saveProfile(profileForm.value)" 
                     autocomplete="off" novalidate>
             <div class="from-group" [ngClass]="{'error': !validateUserName() }">

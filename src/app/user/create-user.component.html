@@ -36,42 +36,10 @@
           <location-list *ngIf="!addMode" (deleteLocation)="deleteLocation($event)" 
                                           [locations]="newUser?.locations"></location-list><br>
         </div>
-    <!--    
-      <div *ngIf="!addMode" class="form-group">
-          <label for="streetName">Street Name:</label>
-          <input (ngModel)="newUser.streetName" name="streetName" id="streetName" type="text" class="form-control" placeholder="Street Name..." />
-      </div>
-      <div *ngIf="!addMode" class="form-group">
-          <label for="streetNumber">Street Number:</label>
-          <input (ngModel)="newUser.streetNumber" name="streetNumber" id="streetNumber" type="text" class="form-control" placeholder="Street Number..." />
-      </div>
-      <div *ngIf="!addMode" class="row">
-          <div class="col-md-6">
-              <input (ngModel)="newUser.city" name="city" id="city" type="text" class="form-control" placeholder="City..." />
-          </div>
-          <div class="col-md-6" >
-              <input (ngModel)="newUser.country" name="country" id="country" type="text" class="form-control" placeholder="Country..." />
-          </div>
-      </div> 
-    --> 
-    <!--</div>-->
 
     <button *ngIf="!addMode" type="submit" class="btn btn-primary">Save</button>
     <button *ngIf="!addMode" type="button" [disabled]="newUserForm.invalid" class="btn btn-default" (click)="cancel()">Cancel</button>
     <br>
     <div *ngIf="loginInvalid" class="alert alert-danger">User name: {{userName}} is already taken.</div>
   </form><br><br>
-<!--
-  <hr>
-  <div class="row">
-      <div class="col-md-2">
-        <h3 style="margin:0">Locations</h3>
-      </div>
-      <div class="col-md-2">
-        <a (click)="addLocation()">Add Location</a>
-      </div>      
-  </div>
-  <add-user-location *ngIf="addMode" (saveNewLocation)="saveNewLocation($event)"></add-user-location>
-  <location-list *ngIf="!addMode" [locations]="newUser?.locations"></location-list>
--->
 </div>
