@@ -47,7 +47,7 @@ import { GuideComponent } from './guide/guide.component'
     MyRunsComponent,
     RunResultsComponent,
     MinuteSecondsPipe,
-    RouteDetailsComponent
+    RouteDetailsComponent,
     GuideComponent
   ],
   providers: [
