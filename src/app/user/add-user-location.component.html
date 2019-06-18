@@ -36,7 +36,13 @@
                 <input formControlName="country" id="country" type="text" class="form-control" placeholder="country..." />
             </div>
         </div><br>
-        <button type="submit" class="btn btn-primary" [disabled]="newLocationForm.invalid">Save Location</button>
-        <button type="button" class="btn btn-default" (click)="cancel()">Cancel Location</button>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-success" [disabled]="newLocationForm.invalid">Save Location</button>
+            </div>
+            <div class="form-group col-md-1">
+                <button type="button" class="btn btn-danger" (click)="cancel()">Cancel Location</button>
+            </div>
+        </div>
     </form>
 </div>

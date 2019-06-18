@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { ErrorComponent } from './error/error.component';
 import { MyRoutesComponent } from './my-routes/my-routes.component';
@@ -19,6 +18,7 @@ import { MyRunsComponent } from './my-runs/my-runs.component';
 import { RunResultsComponent, MinuteSecondsPipe } from './run-results/run-results.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import { GuideComponent } from './guide/guide.component'
 
 @NgModule({
   imports: [
@@ -45,7 +45,8 @@ import {ToastrModule} from 'ngx-toastr';
     AllRoutesComponent,
     MyRunsComponent,
     RunResultsComponent,
-    MinuteSecondsPipe
+    MinuteSecondsPipe,
+    GuideComponent
   ],
   providers: [
     AuthService
