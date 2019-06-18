@@ -9,6 +9,7 @@ import { AllRoutesComponent } from './all-routes/all-routes.component';
 import { from } from 'rxjs';
 import { MyRunsComponent } from './my-runs/my-runs.component';
 import { RunResultsComponent } from './run-results/run-results.component';
+import {RouteDetailsComponent} from './route-details/route-details.component';
 import { GuideComponent } from './guide/guide.component';
 
 export const appRoutes: Routes = [
@@ -20,8 +21,8 @@ export const appRoutes: Routes = [
   { path: 'allroutes', component: AllRoutesComponent},
   { path: '', component: AllRoutesComponent},
   { path: 'user', loadChildren: './user/user.module#UserModule' },
+  { path: 'routedetails/:id', component: RouteDetailsComponent},
   { path: 'help', component: GuideComponent },
-
   { path: '**', component: AllRoutesComponent } // ALWAYS should be the last
 ];
 

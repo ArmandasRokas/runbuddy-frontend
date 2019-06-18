@@ -16,6 +16,7 @@ import { AllRoutesComponent } from './all-routes/all-routes.component'
 import { AuthService } from './user/auth.service';
 import { MyRunsComponent } from './my-runs/my-runs.component';
 import { RunResultsComponent, MinuteSecondsPipe } from './run-results/run-results.component';
+import { RouteDetailsComponent } from './route-details/route-details.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { GuideComponent } from './guide/guide.component'
@@ -46,6 +47,7 @@ import { GuideComponent } from './guide/guide.component'
     MyRunsComponent,
     RunResultsComponent,
     MinuteSecondsPipe,
+    RouteDetailsComponent
     GuideComponent
   ],
   providers: [

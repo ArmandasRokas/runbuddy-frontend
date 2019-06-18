@@ -14,6 +14,7 @@
         <th>Title</th>
         <th>Date</th>
         <th>Status</th>
+        <th>Details</th>
         <th>Update</th>
         <th>Delete</th>
       </tr>
@@ -23,6 +24,7 @@
         <td *ngIf="route.status != 'deleted'">{{route.title}}</td>
         <td *ngIf="route.status != 'deleted'">{{route.date | date:'medium'}}</td>
         <td *ngIf="route.status != 'deleted'">{{route.status}}</td>
+        <td *ngIf="route.status != 'deleted'"><button (click)="routeDetails(route.id)" class="btn btn-info">Details</button></td>
         <td *ngIf="route.status != 'deleted'"><button (click)="updateRoute(route.id)" class="btn btn-warning">Update</button></td>
         <td *ngIf="route.status != 'deleted'"><button (click)="deleteRoute(route.id, route)" class="btn btn-danger">Delete</button></td>
       </tr>

@@ -14,7 +14,8 @@ export class Route {
     public maxParticipants: number,
     public minParticipants: number,
     public numberOfParticipants: number,
-    public signedUp: boolean = false
+    public signedUp: boolean = false,
+    public participants: String[]
   ) { }
 }
 
