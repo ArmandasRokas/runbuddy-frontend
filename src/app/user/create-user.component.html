@@ -45,6 +45,7 @@
       </div>
     </div>
     <br>
-    <div *ngIf="loginInvalid" class="alert alert-danger">User name: {{userName}} is already taken.</div>
+    <!--<div *ngIf="loginInvalid" class="alert alert-danger">User name: {{userName}} is already taken.</div>-->
+    <div *ngIf="loginInvalid" class="alert alert-danger">{{errorMsg}}</div>
   </form><br><br>
 </div>

@@ -4,7 +4,11 @@ import { AuthService } from './auth.service'
 import { Router } from '@angular/router'
 import { IUser, ILocation } from './shared/user.model';
 import { UserService } from './shared/user.service';
+import { ToastrService } from 'ngx-toastr'
 import * as UUID from 'uuid';
+import { catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     templateUrl: './profile.component.html',
@@ -28,6 +32,7 @@ export class ProfileComponent implements OnInit{
     addMode:boolean
     constructor(private authService: AuthService, 
                 private router:Router,
+                private toastr: ToastrService,
                 private userService: UserService){
 
     }
@@ -62,25 +67,43 @@ export class ProfileComponent implements OnInit{
         this.addMode = true;
     }
 
+    updateFromLoggedUser(){
+        this.user = this.authService.currentUser
+        this.userName = new FormControl(this.authService.currentUser.userName, 
+                                        [Validators.required, Validators.pattern('[a-zA-Z].*')])
+        this.email = new FormControl(this.authService.currentUser.email, Validators.required)
+        this.password = new FormControl(this.authService.currentUser.password, Validators.required)
+        
+        this.profileForm = new FormGroup({
+            userName: this.userName,
+            email: this.email,
+            password: this.password
+        })
+    }
+
     ngOnInit(): void {
-              //
-              this.user = this.authService.currentUser
-              this.userName = new FormControl(this.authService.currentUser.userName, 
-                                              [Validators.required, Validators.pattern('[a-zA-Z].*')])
-              this.email = new FormControl(this.authService.currentUser.email, Validators.required)
-              this.password = new FormControl(this.authService.currentUser.password, Validators.required)
-              
-              this.profileForm = new FormGroup({
-                  userName: this.userName,
-                  email: this.email,
-                  password: this.password
-              })
-
-
+        this.updateFromLoggedUser();
         let username = localStorage.getItem('userName');
-        if(!username){
+        let password = localStorage.getItem('password');
+        if(!username || !password){
           this.authService.logout();
         }else{
+          this.authService.loginUser(username, password)
+            .subscribe((user:IUser) =>{
+                if(!user){
+                    this.authService.logout();
+                }else{
+                    //localStorage.setItem('userName', user.userName);
+                    //localStorage.setItem('password', user.password);
+                    //localStorage.setItem('userId', user.id);
+                    //this.authService.currentUser = user;
+      
+                    this.updateFromLoggedUser();      
+
+                    //this.router.navigate(['myroutes']);
+                }
+            });
+        /*
           this.userService.getUser(username).subscribe( (user:IUser) => {
             if(!user){
               this.authService.logout();
@@ -91,26 +114,26 @@ export class ProfileComponent implements OnInit{
               this.authService.currentUser = user;
 
 
-              //
-              this.user = this.authService.currentUser
-
-              this.userName = new FormControl(this.authService.currentUser.userName, 
-                                              [Validators.required, Validators.pattern('[a-zA-Z].*')])
-              this.email = new FormControl(this.authService.currentUser.email, Validators.required)
-              this.password = new FormControl(this.authService.currentUser.password, Validators.required)
-              
-              this.profileForm = new FormGroup({
-                  userName: this.userName,
-                  email: this.email,
-                  password: this.password
-              })
-      
+              this.updateFromLoggedUser();      
             }
-          })
+          })*/
         }
 
     }
-
+    
+    private handleError<T>(operation = 'operation', result?:T){
+        return (error:any):Observable<T> => {
+            //console.error(error);
+            //console.error(result);
+            this.toastr.error(error.error.message);
+            this.toastr.error("profile saving error!");
+            return of(result as T)
+        }
+    }
+    isIUser(u:IUser){
+        return (u.id !== undefined) && (u.email !== undefined) &&
+               (u.password !== undefined) && (u.userName !== undefined);
+    }
     saveProfile(formValues){
         if(this.profileForm.valid){
             let u:IUser = {
@@ -122,10 +145,20 @@ export class ProfileComponent implements OnInit{
             }
             console.log("user before update")
             console.log(u)
-            this.authService.updateUser(u)
-            .subscribe(()=>{
-                //this.toastr.success('Profile Saved')
-            })
+            this.authService
+                .updateUser(u)
+                .pipe(catchError(this.handleError<IUser>("updateUser", {} as IUser)))
+                .subscribe( (resp)=>{
+                        if(this.isIUser(resp)){
+                            console.log("profile saved: ");
+                            console.log(resp);
+                            this.toastr.success('Profile Saved!');
+                        }else{
+                            //console.log("profile saving error! ");
+                            //console.log(resp);
+                            //this.toastr.error("profile saving error!");                            
+                        }
+                })
             //this.router.navigate(['myroutes'])
         }
     }

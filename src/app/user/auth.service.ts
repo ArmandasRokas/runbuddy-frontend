@@ -87,9 +87,9 @@ export class AuthService{
 */
     updateUser(user:IUser){
         this.currentUser = user;
-
-        let options = {headers: new HttpHeaders({'ContentType':'application/json'})};
-    return this.http.put(`http://localhost:8080/users`, this.currentUser, options);
+        return this.userService.updateUser(user);
+        //let options = {headers: new HttpHeaders({'ContentType':'application/json'})};
+    //return this.http.put(`http://localhost:8080/users`, this.currentUser, options);
     }
 
     updateCurrentUser(userName: string, email: string, password: string){

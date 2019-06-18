@@ -4,6 +4,8 @@ import { UserService } from './shared/user.service'
 import { AuthService } from './auth.service';
 import { IUser, ILocation } from './shared/user.model';
 import * as UUID from 'uuid';
+import { catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Component({
     templateUrl:'create-user.component.html',
@@ -24,7 +26,7 @@ export class CreateUserComponent{
     isDirty:boolean = true;
     loginInvalid = false;
     addMode:boolean;
-
+    errorMsg:string
     constructor(private router: Router, 
                 private userService: UserService,
                 private authService: AuthService){
@@ -38,35 +40,57 @@ export class CreateUserComponent{
         
     }
 
+    private handleError<T>(operation = 'operation', result?:T){
+        return (error:any):Observable<T> => {
+            console.error(error.error.message);
+            console.error(result);
+            //this.toastr.error(error.error.message);
+            //this.toastr.error("profile saving error!");
+            this.errorMsg = error.error.message;
+            return of(result as T)
+        }
+    }
+
+    isIUser(u:IUser){
+        return (u.id !== undefined) && (u.email !== undefined) &&
+               (u.password !== undefined) && (u.userName !== undefined);
+    }
+
     saveUser(formValues){
         formValues.locations = this.newUser.locations
         console.log(formValues.locations)
         console.log(this.newUser)
         //save user
-        this.userService.saveUser(formValues).subscribe( (saveResp) => {
+        this.userService.saveUser(formValues)
+            .pipe( catchError(this.handleError<IUser>("updateUser", {} as IUser)) )
+            .subscribe( (saveResp) => {
             //console.log(user);
-            if(!saveResp){//if userName is already taken
+            if(!this.isIUser(saveResp)){//if userName is already taken
                 this.loginInvalid = true;
-                this.userName = formValues.userName;
+                this.userName = formValues.userName; //TODO this will show the wrong username
             }else{ //if userName not taken
                 //if ok
                 this.isDirty = false
 
                 //login
-                this.authService
-                    .loginUser(formValues.userName, formValues.password)
-                    .subscribe(resp =>{
-                        if(!resp){
-                            this.loginInvalid = true;
-                        }else{
-                            this.router.navigate(['myroutes']);
-                        }
-                    })
+                this.login(formValues.userName, formValues.password);
             }
 
             //go back to main page
             //this.router.navigate([''])
         });        
+    }
+
+    login(userName, password){
+        this.authService
+            .loginUser(userName, password)
+            .subscribe(resp =>{
+                if(!resp){
+                    this.loginInvalid = true;
+                }else{
+                    this.router.navigate(['myroutes']);
+                }
+            })
     }
 
     cancel(){
