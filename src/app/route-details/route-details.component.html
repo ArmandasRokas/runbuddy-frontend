@@ -68,31 +68,31 @@
   <br>
   <h2>Waypoints</h2>
   <div *ngFor="let wayPoint of route.wayPoints; let index = index;">
-      <div class="form-group">
+    <div class="form-group">
 
-          <div class="form-row">
-              <div class="form-group col-md-2">
-                  <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
-                </div>
-            <div class="form-group col-md-2">
-              <label for="inputLattitude">Lattitude(X)</label>
-              <td>{{wayPoint.x}}</td>
-            </div>
-            <div class="form-group col-md-2">
-              <label for="inputLongitude">Longitude(Y)</label>
-              <td>{{wayPoint.y}}</td>
-            </div>
-          </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputLattitude">Lattitude(X)</label>
+          <td>{{wayPoint.x}}</td>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputLongitude">Longitude(Y)</label>
+          <td>{{wayPoint.y}}</td>
+        </div>
       </div>
+    </div>
   </div>
   <br>
   <h2>Participants</h2>
   <div *ngFor="let participant of participants">
     <div class="form-row">
       <div class="form-group col-md-3">
-       <td><b>{{participant.userName}}</b></td>
-     </div>
-     <div class="form-group col-md-2">
+        <td><b>{{participant.userName}}</b></td>
+      </div>
+      <div class="form-group col-md-2">
         <td>{{participant.email}}</td>
       </div>
     </div>
@@ -103,4 +103,9 @@
   <div class="form-group col-md-3">
     <button (click)="return()" class="btn btn-danger">Return</button>
   </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 </div>
