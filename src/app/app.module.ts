@@ -16,11 +16,19 @@ import{ appRoutes } from './app-routing.module';
 import { AllRoutesComponent } from './all-routes/all-routes.component'
 import { AuthService } from './user/auth.service';
 import { MyRunsComponent } from './my-runs/my-runs.component';
-import { RunResultsComponent, MinuteSecondsPipe } from './run-results/run-results.component'
+import { RunResultsComponent, MinuteSecondsPipe } from './run-results/run-results.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: false
+    }),
     FormsModule,
     HttpClientModule,
     ChartsModule,

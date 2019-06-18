@@ -3,18 +3,16 @@ import { Subject, Observable, of } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 
 import { IUser, ILocation } from './user.model'
-import { User, Location } from './user'
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as UUID from 'uuid'
-import { CreateUserComponent } from '../create-user.component';
+import { AuthService } from '../auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService{
-    constructor(private http: HttpClient ) {
-        
+    constructor(private http: HttpClient) {
     }
 
     getUser(userName: string):Observable<IUser>{
@@ -23,24 +21,24 @@ export class UserService{
     }
 
     saveUser(user:IUser){
-        /*user.locations = [
-            <ILocation>{ 
-                id:'', streetName: user.location.streetName, 
-                streetNumber:user.location.streetNumber, 
-                city:user.location.city, country:user.location.country 
-            } ]*/
         let options = {headers: new HttpHeaders({'Content-Type':'application/json'})}
-        return this.http.post<IUser>(`http://localhost:8080/users`, user, options)
-                .pipe(catchError(this.handleError<IUser>('saveUser')))
+        return this.http.post<IUser>(`http://localhost:8080/users`, user, options);
+                //.pipe(catchError(this.handleError<IUser>('saveUser')))
     }
 
+    updateUser(user:IUser):Observable<IUser>{
+        let options = {headers: new HttpHeaders({'ContentType':'application/json'})};
+    return this.http.put<IUser>(`http://localhost:8080/users`, user, options);
+    }
+
+/*
     updateUser(updatedUser) {
         let options = {headers: new HttpHeaders({'Content-Type':'application/json'})}
         return this.http.put<IUser>(`http://localhost:8080/users`, updatedUser, options)
                 .pipe(catchError(this.handleError<IUser>('updateUser')))
                 
     }
-
+*/
     private handleError<T>(operation = 'operation', result?:T){
         return (error:any):Observable<T> => {
             console.error(error);
