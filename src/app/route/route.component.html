@@ -96,10 +96,9 @@
       <fieldset class="form-group">
 
         <div class="form-row">
-          <div class="form-group col-md-2">
-            <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
-            <button class="btn btn-secondary" (click)=removeWayPoint(index)>Remove</button>
-          </div>
+            <div class="form-group col-md-2">
+                <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
+              </div>
           <div class="form-group col-md-2">
             <label for="inputLattitude">Lattitude(X)</label>
             <input id="inputLattitude" type="number" [(ngModel)]="route.wayPoints[index].x"
@@ -111,6 +110,10 @@
             <input id="inputLongitude" type="number" [(ngModel)]="wayPoint.y"
                    class="form-control" name=waypointY{{index}} required="required">
           </div>
+          <div class="form-group col-md-2">
+              <label><b>Action</b> </label> <br>
+              <button class="btn btn-secondary" (click)=removeWayPoint(index)>Remove</button>
+            </div>
         </div>
       </fieldset>
     </div>
