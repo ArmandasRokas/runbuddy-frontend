@@ -28,7 +28,7 @@
                 <h3 style="margin:0">Locations:</h3>
               </div>
               <div class="col-md-6">
-                <a (click)="addLocation()">Add Location</a>
+                  <button type="button" class="btn btn-warning" (click)="addLocation()">Add Location</button>
               </div>      
           </div><br>
           <add-user-location *ngIf="addMode" (saveNewLocation)="saveNewLocation($event)" 
@@ -38,10 +38,10 @@
         </div>
     <div class="form-row">
       <div class="form-group col-md-2">
-        <button *ngIf="!addMode" type="submit" class="btn btn-success">Save</button>
+        <button *ngIf="!addMode" type="submit" [disabled]="newUserForm.invalid" class="btn btn-success">Save</button>
       </div>
       <div class="form-group col-md-1">
-        <button *ngIf="!addMode" type="button" [disabled]="newUserForm.invalid" class="btn btn-danger" (click)="cancel()">Cancel</button>
+        <button *ngIf="!addMode" type="button"  class="btn btn-danger" (click)="cancel()">Cancel</button>
       </div>
     </div>
     <br>
