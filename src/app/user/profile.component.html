@@ -41,10 +41,15 @@
             <hr>
             <location-list (deleteLocation)="deleteLocation($event)"  [locations]="user?.locations"></location-list>
             -->
-            <button *ngIf="!addMode" type="submit" class="btn btn-primary">Save</button>
-            <button *ngIf="!addMode" type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
-
-            <button *ngIf="!addMode" type="button" class="btn btn-warning" style="float:right" (click)="logout()">Logout</button>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <button *ngIf="!addMode" type="submit" class="btn btn-success">Save</button>
+                </div>
+                <div class="form-group col-md-1">
+                    <button *ngIf="!addMode" type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+            <button *ngIf="!addMode" type="button" class="btn btn-info" style="float:right" (click)="logout()">Logout</button>
         </form><br><br>
     </div>
 </div>
