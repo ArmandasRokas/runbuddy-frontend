@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Route } from 'src/app/enitities/route';
+import { User } from 'src/app/user/shared/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,11 @@ export class RouteDataService {
   retrieveRoute(userId, routeId) {
     return this.http.get<Route>(`http://localhost:8080/users/${userId}/routes/${routeId}`)
   }
+
+  retrieveParticipants(userId){
+    return this.http.get<User[]>(`http://localhost:8080/routes/${userId}/users`)
+  }
+
   //deleteRoute(routeId) {
   //  return this.http.delete(`http://localhost:8080/routes/${routeId}`)
   //}

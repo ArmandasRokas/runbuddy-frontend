@@ -1,0 +1,106 @@
+<h1>Details</h1>
+<div class="container alert alert-danger" *ngIf="errorMessage">
+    {{errorMessage}}
+</div>
+<hr>
+<div class="container">
+  <div>
+    <label><b>Title:</b></label>
+    <td>{{route.title}}</td>
+  </div>
+  <br>
+  <div>
+    <label><b>Date:</b></label>
+    <td>{{route.date}}</td>
+  </div>
+  <br>
+  <h2>Location</h2>
+  <div>
+    <label><b>Street name:</b></label>
+    <td>{{route.location.streetName}}</td>
+  </div>
+  <br>
+  <div>
+    <label><b>Street number:</b></label>
+    <td>{{route.location.streetNumber}}</td>
+  </div>
+  <br>
+  <div>
+    <label><b>City:</b></label>
+    <td>{{route.location.city}}</td>
+  </div>
+  <br>
+  <div>
+    <label><b>Country:</b></label>
+    <td>{{route.location.country}}</td>
+  </div>
+  <br>
+  <h2>Advanced optional</h2>
+  <div>
+    <label><b>Distance:</b></label>
+    <td>{{route.distance}}</td>
+  </div>
+  <br>
+  <div>
+    <label><b>Duration:</b></label>
+    <td>{{route.duration}}</td>
+  </div>
+  <br>
+  <div>
+    <label><b>Description:</b></label>
+    <td>{{route.description}}</td>
+  </div>
+  <br>
+  <div>
+    <label><b>Maximum participants:</b></label>
+    <td>{{route.maxParticipants}}</td>
+  </div>
+  <br>
+  <div>
+    <label><b>Minimum participants:</b></label>
+    <td>{{route.minParticipants}}</td>
+  </div>
+  <br>
+  <div>
+    <label><b>Status:</b></label>
+    <td>{{route.status}}</td>
+  </div>
+  <br>
+  <h2>Waypoints</h2>
+  <div *ngFor="let wayPoint of route.wayPoints; let index = index;">
+      <div class="form-group">
+
+          <div class="form-row">
+              <div class="form-group col-md-2">
+                  <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
+                </div>
+            <div class="form-group col-md-2">
+              <label for="inputLattitude">Lattitude(X)</label>
+              <td>{{wayPoint.x}}</td>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputLongitude">Longitude(Y)</label>
+              <td>{{wayPoint.y}}</td>
+            </div>
+          </div>
+      </div>
+  </div>
+  <br>
+  <h2>Participants</h2>
+  <div *ngFor="let participant of participants">
+    <div class="form-row">
+      <div class="form-group col-md-3">
+       <td><b>{{participant.userName}}</b></td>
+     </div>
+     <div class="form-group col-md-2">
+        <td>{{participant.email}}</td>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="form-group col-md-3">
+    <button (click)="return()" class="btn btn-danger">Return</button>
+  </div>
+</div>

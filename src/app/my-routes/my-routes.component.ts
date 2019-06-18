@@ -53,6 +53,10 @@ export class MyRoutesComponent implements OnInit {
      )
   }
 
+  routeDetails(routeId){
+    this.router.navigate(['routedetails', routeId])
+  }
+
   updateRoute(routeId) {
     this.router.navigate(['route', routeId])
   }
