@@ -1,15 +1,15 @@
 <div class="row" style="margin-bottom: 20px" *ngFor="let location of locations">
-    <div class="row">
-        <div class="col-md-10" style="float: left">
-            <div class="well">
-                <div class="row"><span><strong>Title:</strong> {{location.title}}</span></div>
-                <div class="row"><span><strong>Street:</strong> {{location.streetName}} {{location.streetNumber}}</span></div>
-                <div class="row"><span><strong>City:</strong> {{location.city}}</span></div>
-                <div class="row"><span><strong>Country: </strong> {{location.country}}</span></div>
-            </div>
-        </div>
-        <div class="col-md-2" style="float: right">
-            <button type="button" class="btn btn-secondary" (click)="delete(location)">Delete</button>
-        </div>
+  <div class="row">
+    <div class="col-md-10" style="float: left">
+      <div class="well">
+        <div class="row"><span><strong>Title:</strong> {{location.title}}</span></div>
+        <div class="row"><span><strong>Street:</strong> {{location.streetName}} {{location.streetNumber}}</span></div>
+        <div class="row"><span><strong>City:</strong> {{location.city}}</span></div>
+        <div class="row"><span><strong>Country: </strong> {{location.country}}</span></div>
+      </div>
     </div>
+    <div class="col-md-2" style="float: right">
+      <button type="button" class="btn btn-secondary" (click)="delete(location)">Delete</button>
+    </div>
+  </div>
 </div>
