@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { GuideComponent } from './guide/guide.component'
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     RunResultsComponent,
     MinuteSecondsPipe,
     RouteDetailsComponent,
-    GuideComponent
+    GuideComponent,
+    AboutUsComponent
   ],
   providers: [
     AuthService
