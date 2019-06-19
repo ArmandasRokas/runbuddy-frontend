@@ -39,23 +39,21 @@
           </div>            
         </div>        
     </div>
-
-<!--    <div ngModelGroup="location">-->
-        <hr>
-        <div class="container">
-          <div class="row">
-              <div class="col-md-6">
-                <h3 style="margin:0">Locations:</h3>
-              </div>
-              <div class="col-md-6">
-                  <button type="button" class="btn btn-warning" (click)="addLocation()">Add Location</button>
-              </div>      
-          </div><br>
-          <add-user-location *ngIf="addMode" (saveNewLocation)="saveNewLocation($event)" 
-                                             (cancelNewLocation)="cancelNewLocation()"></add-user-location><br>
-          <location-list *ngIf="!addMode" (deleteLocation)="deleteLocation($event)" 
-                                          [locations]="locations"></location-list><br>
-        </div>
+    <hr>
+    <div class="container">
+      <div class="row">
+          <div class="col-md-6">
+            <h3 style="margin:0">Locations:</h3>
+          </div>
+          <div class="col-md-6">
+              <button type="button" class="btn btn-warning" (click)="addLocation()">Add Location</button>
+          </div>      
+      </div><br>
+      <add-user-location *ngIf="addMode" (saveNewLocation)="saveNewLocation($event)" 
+                                          (cancelNewLocation)="cancelNewLocation()"></add-user-location><br>
+      <location-list *ngIf="!addMode" (deleteLocation)="deleteLocation($event)" 
+                                      [locations]="locations"></location-list><br>
+    </div>
     <div class="form-row">
       <div class="form-group col-md-2">
         <button *ngIf="!addMode" type="submit" [disabled]="newUserForm.invalid" class="btn btn-success">Save</button>
@@ -64,8 +62,6 @@
         <button *ngIf="!addMode" type="button"  class="btn btn-danger" (click)="cancel()">Cancel</button>
       </div>
     </div>
-    <br>
-    <!--<div *ngIf="loginInvalid" class="alert alert-danger">User name: {{userName}} is already taken.</div>-->
     <div *ngIf="loginInvalid" class="alert alert-danger">{{errorMsg}}</div>
   </form><br><br><br><br>
 </div>

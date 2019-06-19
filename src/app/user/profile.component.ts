@@ -93,30 +93,11 @@ export class ProfileComponent implements OnInit{
                 if(!user){
                     this.authService.logout();
                 }else{
-                    //localStorage.setItem('userName', user.userName);
-                    //localStorage.setItem('password', user.password);
-                    //localStorage.setItem('userId', user.id);
-                    //this.authService.currentUser = user;
-      
                     this.updateFromLoggedUser();      
 
                     //this.router.navigate(['myroutes']);
                 }
             });
-        /*
-          this.userService.getUser(username).subscribe( (user:IUser) => {
-            if(!user){
-              this.authService.logout();
-            }else{
-              localStorage.setItem('userName', user.userName);
-              localStorage.setItem('password', user.password);
-              localStorage.setItem('userId', user.id);
-              this.authService.currentUser = user;
-
-
-              this.updateFromLoggedUser();      
-            }
-          })*/
         }
 
     }

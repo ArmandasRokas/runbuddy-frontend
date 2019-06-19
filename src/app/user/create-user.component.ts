@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { restrictedWords } from './shared/restricted-words.validator';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     templateUrl:'create-user.component.html',
@@ -42,7 +43,8 @@ export class CreateUserComponent implements OnInit{
     constructor(
         private router: Router, 
         private userService: UserService,
-        private authService: AuthService)
+        private authService: AuthService,
+        private toastr: ToastrService)
     {
         this.locations = [] as ILocation[];                    
     }
@@ -72,9 +74,9 @@ export class CreateUserComponent implements OnInit{
 
     private handleError<T>(operation = 'operation', result?:T){
         return (error:any):Observable<T> => {
-            console.error(error.error.message);
-            console.error(result);
             this.errorMsg = error.error.message;
+            this.toastr.error(error.error.message);
+            this.toastr.error("profile saving error");
             return of(result as T)
         }
     }

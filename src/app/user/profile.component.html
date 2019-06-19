@@ -1,9 +1,5 @@
 <div>
-  <h1>
-    Edit Your Profile
-    <!--<button *ngIf="!addMode" type="button" class="btn btn-info" style="float:right; margin: 10px;" (click)="logout()">Logout</button>-->
-  </h1>-
-
+  <h1>Edit Your Profile</h1>
   <hr>
   <div class="col-md-6">
     <form [formGroup]="profileForm" (ngSubmit)="saveProfile(profileForm.value)"
