@@ -18,10 +18,14 @@ import { MyRunsComponent } from './my-runs/my-runs.component';
 import { RunResultsComponent, MinuteSecondsPipe } from './run-results/run-results.component';
 import { RouteDetailsComponent } from './route-details/route-details.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {ToastrModule} from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { GuideComponent } from './guide/guide.component'
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AboutUsComponent } from './about-us/about-us.component';
+
+//import { PasswordToggleDirective, JQUERY } from './common/index';
+
+//let jQuery = window['$'];
 
 @NgModule({
   imports: [
@@ -49,13 +53,15 @@ import { AboutUsComponent } from './about-us/about-us.component';
     AllRoutesComponent,
     MyRunsComponent,
     RunResultsComponent,
+  //  PasswordToggleDirective,
     MinuteSecondsPipe,
     RouteDetailsComponent,
     GuideComponent,
     AboutUsComponent
   ],
   providers: [
-    AuthService
+    AuthService,
+    //{provide: JQUERY, useValue: jQuery}
   ],
   bootstrap: [AppComponent]
 })

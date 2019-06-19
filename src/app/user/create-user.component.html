@@ -1,31 +1,58 @@
 <h1>New User</h1>
 <hr>
 <div class="col-md-6">
-  <form #newUserForm="ngForm" (ngSubmit)="saveUser(newUserForm.value)" autocomplete="off" novalidate>
-    <div class="form-group" [ngClass]="{'error': newUserForm.controls.userName?.invalid && newUserForm.controls.userName?.touched}">
+  <!--<form #newUserForm="ngForm" (ngSubmit)="saveUser(newUserForm.value)" autocomplete="off" novalidate> -->
+  <form [formGroup]="newUserForm" (ngSubmit)="saveUser(newUserForm.value)" autocomplete="off">
+    <div class="form-group" [ngClass]="{'error': userName?.invalid && userName?.touched}">
       <label for="userName">User Name:</label>
-      <em *ngIf="newUserForm.controls.userName?.invalid && (newUserForm.controls.userName?.touched)">Required</em>
-      <input (ngModel)="newUser.userName" name="userName" required id="userName" type="text" class="form-control" placeholder="User Name..." />
+      <em *ngIf="userName?.invalid && userName?.touched && userName?.errors.required">Required</em>
+      <em *ngIf="userName?.invalid && userName?.touched && userName?.errors.maxlength">Cannot be more than {{maxCharsUserName}} characters</em>
+      <em *ngIf="userName?.invalid && userName?.touched && userName?.errors.restrictedWords">Restricted words found: {{userName.errors.restrictedWords}}</em>
+      <input formControlName="userName" required id="userName" type="text" class="form-control" placeholder="User Name..." />
     </div>
 
-    <div class="form-group" [ngClass]="{'error': newUserForm.controls.email?.invalid && newUserForm.controls.email?.touched}">
+    <div class="form-group" [ngClass]="{'error': email?.invalid && email?.touched}">
       <label for="email">Email:</label>
-      <em *ngIf="newUserForm.controls.email?.invalid && (newUserForm.controls.email?.touched)">Required</em>
-      <input (ngModel)="newUser.email" name="email" required id="email" type="text" class="form-control" placeholder="Email..." />
+      <em *ngIf="email?.invalid && email?.touched && email?.errors.required">Required</em>
+      <em *ngIf="email?.invalid && email?.touched && email?.errors.maxlength">Cannot be more than {{maxCharsEmail}} characters</em>
+      <em *ngIf="email?.invalid && email?.touched && email?.errors.email">Email is invalid</em>
+      <input formControlName="email" required id="email" type="text" class="form-control" placeholder="Email..." />
     </div>
-
-    <div class="form-group" [ngClass]="{'error': newUserForm.controls.password?.invalid && newUserForm.controls.password?.touched}">
-      <label for="password">Password:</label>
-      <em *ngIf="newUserForm.controls.password?.invalid && (newUserForm.controls.password?.touched)">Required</em>
-      <input (ngModel)="newUser.password" name="password" required id="password" type="text" class="form-control" placeholder="Password..." />
+    <div class="col-md-12">
+        <div class="form-group" [ngClass]="{'error': password?.invalid && password?.touched}">
+          <div class="row">
+            <div class="row">
+              <div class="col-md-10">
+                  <label for="password">Password:</label>
+                  <em *ngIf="password?.invalid && password?.touched && password?.errors.required">Required</em>
+                  <em *ngIf="password?.invalid && password?.touched && password?.errors.minlength">Cannot be less than {{passwordMinChars}} characters</em>
+                  <input formControlName="password" required id="passwordOnCreateUser" type="password" class="form-control" placeholder="Password..." />
+              </div>
+              <div class="col-md-2">
+                  <div class="row">
+                        <label for="passwordToggleLabel" style="display: inline-block; padding-right: 10px; white-space: nowrap;">
+                        <input password-toggle="passwordOnCreateUser" type="checkbox" id="togglePasswordBtn" style="float: left"/><span>show password</span>
+                        </label>
+                  </div>                  
+              </div>                
+            </div>              
+          </div>            
+        </div>        
     </div>
-
-    <!--    <div ngModelGroup="location">-->
-    <hr>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <h3 style="margin:0">Locations:</h3>
+        <hr>
+        <div class="container">
+          <div class="row">
+              <div class="col-md-6">
+                <h3 style="margin:0">Locations:</h3>
+              </div>
+              <div class="col-md-6">
+                  <button type="button" class="btn btn-warning" (click)="addLocation()">Add Location</button>
+              </div>      
+          </div><br>
+          <add-user-location *ngIf="addMode" (saveNewLocation)="saveNewLocation($event)" 
+                                             (cancelNewLocation)="cancelNewLocation()"></add-user-location><br>
+          <location-list *ngIf="!addMode" (deleteLocation)="deleteLocation($event)" 
+                                          [locations]="locations"></location-list><br>
         </div>
         <div class="col-md-6">
           <button type="button" class="btn btn-warning" (click)="addLocation()">Add Location</button>
