@@ -28,7 +28,11 @@ export class CreateUserComponent implements OnInit{
     public email: FormControl
     public password: FormControl
     public locations: ILocation[]
-    
+
+    public maxCharsUserName = 10;
+    public maxCharsEmail = 100;
+    public passwordMinChars = 6;
+
     isDirty:boolean = true;
     loginInvalid = false;
     addMode:boolean;
@@ -46,15 +50,17 @@ export class CreateUserComponent implements OnInit{
     ngOnInit():void{
         this.userName = new FormControl('',[
             Validators.required, 
-            Validators.maxLength(10), 
+            Validators.maxLength(this.maxCharsUserName), 
             restrictedWords(['fuck', 'fucker'])
         ]);
         this.email = new FormControl('',[
-            Validators.required, Validators.maxLength(100)
+            Validators.required,             
+            Validators.email, 
+            Validators.maxLength(this.maxCharsEmail)
         ]);
         this.password = new FormControl('',[
-            Validators.required, 
-            Validators.minLength(6)
+            Validators.required,
+            Validators.minLength(this.passwordMinChars)
         ]);    
 
         this.newUserForm = new FormGroup({

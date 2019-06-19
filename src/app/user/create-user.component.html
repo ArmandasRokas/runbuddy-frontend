@@ -5,13 +5,17 @@
   <form [formGroup]="newUserForm" (ngSubmit)="saveUser(newUserForm.value)" autocomplete="off">
     <div class="form-group" [ngClass]="{'error': userName?.invalid && userName?.touched}">
       <label for="userName">User Name:</label>
-      <em *ngIf="userName?.invalid && (userName?.touched)">Required</em>
+      <em *ngIf="userName?.invalid && userName?.touched && userName?.errors.required">Required</em>
+      <em *ngIf="userName?.invalid && userName?.touched && userName?.errors.maxlength">Cannot be more than {{maxCharsUserName}} characters</em>
+      <em *ngIf="userName?.invalid && userName?.touched && userName?.errors.restrictedWords">Restricted words found: {{userName.errors.restrictedWords}}</em>
       <input formControlName="userName" required id="userName" type="text" class="form-control" placeholder="User Name..." />
     </div>
 
     <div class="form-group" [ngClass]="{'error': email?.invalid && email?.touched}">
       <label for="email">Email:</label>
-      <em *ngIf="email?.invalid && (email?.touched)">Required</em>
+      <em *ngIf="email?.invalid && email?.touched && email?.errors.required">Required</em>
+      <em *ngIf="email?.invalid && email?.touched && email?.errors.maxlength">Cannot be more than {{maxCharsEmail}} characters</em>
+      <em *ngIf="email?.invalid && email?.touched && email?.errors.email">Email is invalid</em>
       <input formControlName="email" required id="email" type="text" class="form-control" placeholder="Email..." />
     </div>
     <div class="col-md-12">
@@ -21,7 +25,7 @@
               <div class="col-md-10">
                   <label for="password">Password:</label>
                   <em *ngIf="password?.invalid && password?.touched && password?.errors.required">Required</em>
-                  <em *ngIf="password?.invalid && password?.touched && password?.errors.minlength">Cannot be less than 6 characters</em>
+                  <em *ngIf="password?.invalid && password?.touched && password?.errors.minlength">Cannot be less than {{passwordMinChars}} characters</em>
                   <input formControlName="password" required id="passwordOnCreateUser" type="password" class="form-control" placeholder="Password..." />
               </div>
               <div class="col-md-2">
