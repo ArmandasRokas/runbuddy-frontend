@@ -12,6 +12,7 @@ import { RunResultsComponent } from './run-results/run-results.component';
 import {RouteDetailsComponent} from './route-details/route-details.component';
 import { GuideComponent } from './guide/guide.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { LogoutComponent } from './logout/logout.component';
 
 export const appRoutes: Routes = [
   { path: 'myroutes', component: MyRoutesComponent, canActivate: [RouteGuardService] },
@@ -24,7 +25,8 @@ export const appRoutes: Routes = [
   { path: 'user', loadChildren: './user/user.module#UserModule' },
   { path: 'routedetails/:id', component: RouteDetailsComponent},
   { path: 'help', component: GuideComponent },
-  { path: 'aboutus', component: AboutUsComponent},
+  { path: 'aboutus', component: AboutUsComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: '**', component: AllRoutesComponent } // ALWAYS should be the last
 ];
 

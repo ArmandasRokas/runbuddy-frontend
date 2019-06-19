@@ -24,7 +24,7 @@
            class="nav-link" routerLinkActive="active">Edit profil</a>
       </li>
       <li>
-        <a *ngIf="auth.isAuthenticated()"  (click)="logout()" [routerLink]="['allroutes']"
+        <a *ngIf="auth.isAuthenticated()"  (click)="logout()" [routerLink]="['logout']"
            class="nav-link" routerLinkActive="active">Logout</a>
       </li>
     </ul>

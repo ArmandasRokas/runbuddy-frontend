@@ -23,6 +23,7 @@ import { GuideComponent } from './guide/guide.component'
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { TeximateModule } from 'ngx-teximate';
+import { LogoutComponent } from './logout/logout.component';
 
 //import { PasswordToggleDirective, JQUERY } from './common/index';
 
@@ -59,7 +60,8 @@ import { TeximateModule } from 'ngx-teximate';
     MinuteSecondsPipe,
     RouteDetailsComponent,
     GuideComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    LogoutComponent
   ],
   providers: [
     AuthService,
