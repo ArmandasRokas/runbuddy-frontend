@@ -36,8 +36,8 @@ export class CreateUserComponent implements OnInit{
 
     isDirty:boolean = true;
     loginInvalid = false;
-    addMode:boolean;
     errorMsg:string;
+    addMode:boolean;    
     passwordButtonText: 'show';
     
     constructor(
@@ -91,19 +91,20 @@ export class CreateUserComponent implements OnInit{
         console.log(formValues.locations)
     
         //save user
-        this.userService.saveUser(formValues)
-            .pipe( catchError(this.handleError<IUser>("updateUser", {} as IUser)) )
+        this.userService
+            .saveUser(formValues)
+            .pipe(catchError(this.handleError<IUser>("saveUser", {} as IUser)) )
             .subscribe( (saveResp) => {
-            if(!this.isIUser(saveResp)){//if userName is already taken
-                this.loginInvalid = true;
-                this.userName = formValues.userName; //TODO this will show the wrong username
-            }else{ //if userName not taken
-                //if ok
-                this.isDirty = false
+                if(!this.isIUser(saveResp)){//if userName is already taken
+                    this.loginInvalid = true;
+                    this.userName = formValues.userName; //TODO this will show the wrong username
+                }else{ //if userName not taken
+                    //if ok
+                    this.isDirty = false
 
-                //login
-                this.login(formValues.userName, formValues.password);
-            }
+                    //login
+                    this.login(formValues.userName, formValues.password);
+                }
        });        
     }
 
