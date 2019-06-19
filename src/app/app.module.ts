@@ -20,6 +20,7 @@ import { RouteDetailsComponent } from './route-details/route-details.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { GuideComponent } from './guide/guide.component'
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { GuideComponent } from './guide/guide.component'
     FormsModule,
     HttpClientModule,
     ChartsModule,
+    NgSelectModule,
     RouterModule.forRoot(appRoutes)
   ],
   declarations: [

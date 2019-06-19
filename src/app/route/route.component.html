@@ -38,8 +38,11 @@
     </fieldset>
     <fieldset class="form-group">
       <label><b>Country</b></label>
-      <input type="text" [(ngModel)]="route.location.country"
-             class="form-control" name="country" required="required" #country="ngModel">
+      <ng-select [items]="countries"
+                 [(ngModel)]="route.location.country"            bindLabel="country"
+           bindValue="country"
+                 class="form-control" name="country" required="required" #country="ngModel">
+      </ng-select>
     </fieldset>
     <h2> Advanced optional </h2>
     <fieldset class="form-group">
@@ -73,15 +76,15 @@
              class="form-control" name="minParticipants" #minParticipants="ngModel">
     </fieldset>
     <fieldset class="form-group">
-        <label><b>Status:</b></label>
-        <div>Set the route's status. New routes are set to released by default:</div>
-        <select type="text" [(ngModel)]="route.status"
-        class="form-control" name="status" #status="ngModel">
-          <option value="created">Created</option>
-          <option value="released">Released</option>
-          <option value="started">Started</option>
-          <option value="finished">Finished</option>
-        </select>  
+      <label><b>Status:</b></label>
+      <div>Set the route's status. New routes are set to released by default:</div>
+      <select type="text" [(ngModel)]="route.status"
+              class="form-control" name="status" #status="ngModel">
+        <option value="created">Created</option>
+        <option value="released">Released</option>
+        <option value="started">Started</option>
+        <option value="finished">Finished</option>
+      </select>
     </fieldset>
     <h2> Waypoints </h2>
     <fieldset class="form-group">
@@ -96,9 +99,9 @@
       <fieldset class="form-group">
 
         <div class="form-row">
-            <div class="form-group col-md-2">
-                <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
-              </div>
+          <div class="form-group col-md-2">
+            <label><b>Waypoint {{wayPoint.index}}:</b> </label> <br>
+          </div>
           <div class="form-group col-md-2">
             <label for="inputLattitude">Lattitude(X)</label>
             <input id="inputLattitude" type="number" [(ngModel)]="route.wayPoints[index].x"
@@ -111,9 +114,9 @@
                    class="form-control" name=waypointY{{index}} required="required">
           </div>
           <div class="form-group col-md-2">
-              <label><b>Action</b> </label> <br>
-              <button class="btn btn-secondary" (click)=removeWayPoint(index)>Remove</button>
-            </div>
+            <label><b>Action</b> </label> <br>
+            <button class="btn btn-secondary" (click)=removeWayPoint(index)>Remove</button>
+          </div>
         </div>
       </fieldset>
     </div>
