@@ -29,26 +29,18 @@ export class CreateUserComponent implements OnInit{
     public password: FormControl
     public locations: ILocation[]
     
-    //newUser:IUser;
-    //userName;
     isDirty:boolean = true;
     loginInvalid = false;
     addMode:boolean;
     errorMsg:string;
     passwordButtonText: 'show';
-    constructor(private router: Router, 
-                private userService: UserService,
-                private authService: AuthService){
-                    this.locations = [] as ILocation[];
-                    /*this.newUser = {
-                        id:'',
-                        userName: '',
-                        email: '',
-                        password: '',
-                        locations: []
-                    }*/            
-
-        
+    
+    constructor(
+        private router: Router, 
+        private userService: UserService,
+        private authService: AuthService)
+    {
+        this.locations = [] as ILocation[];                    
     }
 
     ngOnInit():void{
@@ -76,8 +68,6 @@ export class CreateUserComponent implements OnInit{
         return (error:any):Observable<T> => {
             console.error(error.error.message);
             console.error(result);
-            //this.toastr.error(error.error.message);
-            //this.toastr.error("profile saving error!");
             this.errorMsg = error.error.message;
             return of(result as T)
         }
@@ -89,15 +79,13 @@ export class CreateUserComponent implements OnInit{
     }
 
     saveUser(formValues){
-        //formValues.locations = this.newUser.locations
         formValues.locations = this.locations
         console.log(formValues.locations)
-        //console.log(this.newUser)
+    
         //save user
         this.userService.saveUser(formValues)
             .pipe( catchError(this.handleError<IUser>("updateUser", {} as IUser)) )
             .subscribe( (saveResp) => {
-            //console.log(user);
             if(!this.isIUser(saveResp)){//if userName is already taken
                 this.loginInvalid = true;
                 this.userName = formValues.userName; //TODO this will show the wrong username
@@ -108,10 +96,7 @@ export class CreateUserComponent implements OnInit{
                 //login
                 this.login(formValues.userName, formValues.password);
             }
-
-            //go back to main page
-            //this.router.navigate([''])
-        });        
+       });        
     }
 
     login(userName, password){
@@ -135,41 +120,16 @@ export class CreateUserComponent implements OnInit{
     }
 
     deleteLocation(location:ILocation){
-        //this.newUser.locations = this.newUser.locations.filter(l=>l.id !== location.id);
         this.locations = this.locations.filter(l=>l.id !== location.id);
     }
 
     saveNewLocation(location:ILocation){
         location.id = UUID.v4();
-        //console.log(this.newUser)
-        //this.newUser.locations.push(location);
         this.locations.push(location);
-        //this.userService.updateUser(this.newUser).subscribe();
         this.addMode = false;
-        //console.log(this.newUser)
-        /*
-        if(typeof this.newUser == "undefined"){
-            this.newUser = {
-                id:'',
-                userName: '',
-                email: '',
-                password: '',
-                locations: [location]
-            }                    
-            console.log(this.newUser)
-            //this.newUser.locations.push(location);
-            //this.userService.updateUser(this.newUser).subscribe();
-            this.addMode = false;
-        }else{
-            this.newUser.locations.push(location);
-            //this.userService.updateUser(this.newUser).subscribe();
-            this.addMode = false;
-        }*/
     }
 
     cancelNewLocation(){
         this.addMode = false;
     }
-
-
 }
