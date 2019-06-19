@@ -20,6 +20,17 @@
       <input type="date" [ngModel]="route.date | date:'yyyy-MM-dd'" (ngModelChange)="route.date = $event"
              class="form-control" name="targetDate" required="required" #date="ngModel">
     </fieldset>
+    <fieldset class="form-group">
+      <label><b>Status:</b></label>
+      <div>Set the route's status. New routes are set to released by default:</div>
+      <select type="text" [(ngModel)]="route.status"
+              class="form-control" name="status" #status="ngModel">
+        <option value="created">Created</option>
+        <option value="released">Released</option>
+        <option value="started">Started</option>
+        <option value="finished">Finished</option>
+      </select>
+    </fieldset>
     <h2> Location </h2>
     <fieldset class="form-group">
       <label><b>Street name</b></label>
@@ -39,8 +50,8 @@
     <fieldset class="form-group">
       <label><b>Country</b></label>
       <ng-select [items]="countries"
-                 [(ngModel)]="route.location.country"            bindLabel="country"
-           bindValue="country"
+                 [(ngModel)]="route.location.country" bindLabel="country"
+                 bindValue="country"
                  class="form-control" name="country" required="required" #country="ngModel">
       </ng-select>
     </fieldset>
@@ -74,17 +85,6 @@
       <div>Set the minimum number of participants:</div>
       <input type="text" [(ngModel)]="route.minParticipants"
              class="form-control" name="minParticipants" #minParticipants="ngModel">
-    </fieldset>
-    <fieldset class="form-group">
-      <label><b>Status:</b></label>
-      <div>Set the route's status. New routes are set to released by default:</div>
-      <select type="text" [(ngModel)]="route.status"
-              class="form-control" name="status" #status="ngModel">
-        <option value="created">Created</option>
-        <option value="released">Released</option>
-        <option value="started">Started</option>
-        <option value="finished">Finished</option>
-      </select>
     </fieldset>
     <h2> Waypoints </h2>
     <fieldset class="form-group">

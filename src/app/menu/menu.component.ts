@@ -38,4 +38,8 @@ export class MenuComponent implements OnInit {
     }
     //this.hardcodedAuthenticationService.setUsername(sessionStorage.getItem('authenticaterUser'))
   }
+  logout() {
+    this.auth.logout();
+  }
+
 }

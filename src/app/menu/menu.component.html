@@ -16,8 +16,16 @@
            class="nav-link" routerLinkActive="active">Login</a>
       </li>
       <li>
+        <a *ngIf="auth.isAuthenticated()" 
+           class="navbar-brand text-white" routerLinkActive="active">Welcome {{auth.currentUser.userName | titlecase}}</a>
+      </li>
+      <li>
         <a *ngIf="auth.isAuthenticated()" [routerLink]="['user/profile']"
-           class="nav-link" routerLinkActive="active">Welcome {{auth.currentUser.userName}}</a>
+           class="nav-link" routerLinkActive="active">Edit profil</a>
+      </li>
+      <li>
+        <a *ngIf="auth.isAuthenticated()"  (click)="logout()" [routerLink]="['allroutes']"
+           class="nav-link" routerLinkActive="active">Logout</a>
       </li>
     </ul>
   </nav>
