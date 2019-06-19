@@ -18,11 +18,12 @@
       <tr *ngFor="let route of routes">
         <td>{{route.title}}</td>
         <td>{{route.date | date:'medium'}}</td>
-        <td>{{route.numberOfParticipants}}</td>
+        <td>{{route.numberOfParticipants}} of {{route.maxParticipants}}</td>
         <td *ngIf="route.status != 'deleted'"><button (click)="routeDetails(route.id)" class="btn btn-info">Details</button></td>
-        <td *ngIf="auth.isAuthenticated() && !route.signedUp"><button (click)="signUpForRoute(route.id)" class="btn btn-success">Sign up</button></td>
+        <td *ngIf="auth.isAuthenticated() && !route.signedUp && !(route.numberOfParticipants >= route.maxParticipants)"><button (click)="signUpForRoute(route.id)" class="btn btn-success">Sign up</button></td>
         <td *ngIf="!auth.isAuthenticated()"><div class="container alert alert-warning">Login to sign up for route</div></td>
         <td *ngIf="auth.isAuthenticated() && route.signedUp"><div class="container alert alert-warning">Already signed up</div></td>
+        <td *ngIf="route.numberOfParticipants >= route.maxParticipants && !(route.signedUp)"><div class="container alert alert-warning">Route is full</div></td>
       </tr>
     </tbody>
   </table>
