@@ -1,4 +1,4 @@
-import { Directive, OnInit, Inject, ElementRef } from '@angular/core';
+import { Directive, OnInit, Inject, ElementRef, Input } from '@angular/core';
 import { JQUERY } from './jQuery.service'
 
 @Directive({
@@ -7,13 +7,14 @@ import { JQUERY } from './jQuery.service'
 
 export class PasswordToggleDirective implements OnInit{
     private element: HTMLElement;
+    @Input('password-toggle') passwordToggleId:string;
     constructor(elementWhichDirectiveOn: ElementRef, @Inject(JQUERY) private $: any){
         this.element = elementWhichDirectiveOn.nativeElement;
     }
     ngOnInit(){
         this.element.addEventListener('change', event => {
-            this.$('#passwordOnCreateUser').attr('type', 
-                (this.$('#passwordOnCreateUser').attr('type')=='password') ? 'text' : 'password');
+            this.$(`#${this.passwordToggleId}`).attr('type', 
+                (this.$(`#${this.passwordToggleId}`).attr('type')=='password') ? 'text' : 'password');
         });
     }
 }
