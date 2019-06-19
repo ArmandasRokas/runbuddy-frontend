@@ -9,7 +9,9 @@ import { AllRoutesComponent } from './all-routes/all-routes.component';
 import { from } from 'rxjs';
 import { MyRunsComponent } from './my-runs/my-runs.component';
 import { RunResultsComponent } from './run-results/run-results.component';
+import {RouteDetailsComponent} from './route-details/route-details.component';
 import { GuideComponent } from './guide/guide.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 export const appRoutes: Routes = [
   { path: 'myroutes', component: MyRoutesComponent, canActivate: [RouteGuardService] },
@@ -20,8 +22,9 @@ export const appRoutes: Routes = [
   { path: 'allroutes', component: AllRoutesComponent},
   { path: '', component: AllRoutesComponent},
   { path: 'user', loadChildren: './user/user.module#UserModule' },
+  { path: 'routedetails/:id', component: RouteDetailsComponent},
   { path: 'help', component: GuideComponent },
-
+  { path: 'aboutus', component: AboutUsComponent},
   { path: '**', component: AllRoutesComponent } // ALWAYS should be the last
 ];
 

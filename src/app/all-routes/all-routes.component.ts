@@ -95,6 +95,10 @@ export class AllRoutesComponent implements OnInit {
     )
   }
 
+  routeDetails(routeId){
+    this.router.navigate(['routedetails', routeId])
+  }
+
   handleErrorResponse(error) {
     if (error.error.message != null) {
       this.errorMessage = error.error.message;
