@@ -32,7 +32,7 @@ export class AddUserLocationComponent implements OnInit{
     ngOnInit(): void {
         this.title = new FormControl('',[
             Validators.required, 
-            Validators.maxLength(80), 
+            Validators.maxLength(10), 
             restrictedWords(['fuck', 'fucker'])])
         this.streetName = new FormControl('',Validators.required)
         this.streetNumber = new FormControl('',Validators.required)

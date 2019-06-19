@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { UserService } from './shared/user.service'
 import { AuthService } from './auth.service';
@@ -6,6 +6,8 @@ import { IUser, ILocation } from './shared/user.model';
 import * as UUID from 'uuid';
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { restrictedWords } from './shared/restricted-words.validator';
 
 @Component({
     templateUrl:'create-user.component.html',
@@ -20,9 +22,15 @@ import { Observable, of } from 'rxjs';
     `]
 })
 
-export class CreateUserComponent{
-    newUser:IUser;
-    userName;
+export class CreateUserComponent implements OnInit{
+    public newUserForm: FormGroup
+    public userName: FormControl
+    public email: FormControl
+    public password: FormControl
+    public locations: ILocation[]
+    
+    //newUser:IUser;
+    //userName;
     isDirty:boolean = true;
     loginInvalid = false;
     addMode:boolean;
@@ -31,14 +39,37 @@ export class CreateUserComponent{
     constructor(private router: Router, 
                 private userService: UserService,
                 private authService: AuthService){
-                    this.newUser = {
+                    this.locations = [] as ILocation[];
+                    /*this.newUser = {
                         id:'',
                         userName: '',
                         email: '',
                         password: '',
                         locations: []
-                    }                    
+                    }*/            
+
         
+    }
+
+    ngOnInit():void{
+        this.userName = new FormControl('',[
+            Validators.required, 
+            Validators.maxLength(10), 
+            restrictedWords(['fuck', 'fucker'])
+        ]);
+        this.email = new FormControl('',[
+            Validators.required, Validators.maxLength(100)
+        ]);
+        this.password = new FormControl('',[
+            Validators.required, 
+            Validators.minLength(6)
+        ]);    
+
+        this.newUserForm = new FormGroup({
+            userName: this.userName,
+            email: this.email,
+            password: this.password
+        })
     }
 
     private handleError<T>(operation = 'operation', result?:T){
@@ -58,9 +89,10 @@ export class CreateUserComponent{
     }
 
     saveUser(formValues){
-        formValues.locations = this.newUser.locations
+        //formValues.locations = this.newUser.locations
+        formValues.locations = this.locations
         console.log(formValues.locations)
-        console.log(this.newUser)
+        //console.log(this.newUser)
         //save user
         this.userService.saveUser(formValues)
             .pipe( catchError(this.handleError<IUser>("updateUser", {} as IUser)) )
@@ -103,16 +135,18 @@ export class CreateUserComponent{
     }
 
     deleteLocation(location:ILocation){
-        this.newUser.locations = this.newUser.locations.filter(l=>l.id !== location.id);
+        //this.newUser.locations = this.newUser.locations.filter(l=>l.id !== location.id);
+        this.locations = this.locations.filter(l=>l.id !== location.id);
     }
 
     saveNewLocation(location:ILocation){
         location.id = UUID.v4();
-        console.log(this.newUser)
-        this.newUser.locations.push(location);
+        //console.log(this.newUser)
+        //this.newUser.locations.push(location);
+        this.locations.push(location);
         //this.userService.updateUser(this.newUser).subscribe();
         this.addMode = false;
-        console.log(this.newUser)
+        //console.log(this.newUser)
         /*
         if(typeof this.newUser == "undefined"){
             this.newUser = {
