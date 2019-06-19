@@ -21,12 +21,13 @@ import { Observable, of } from 'rxjs';
 })
 
 export class CreateUserComponent{
-    newUser:IUser
-    userName
+    newUser:IUser;
+    userName;
     isDirty:boolean = true;
     loginInvalid = false;
     addMode:boolean;
-    errorMsg:string
+    errorMsg:string;
+    passwordButtonText: 'show';
     constructor(private router: Router, 
                 private userService: UserService,
                 private authService: AuthService){

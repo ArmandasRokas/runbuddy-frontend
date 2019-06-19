@@ -11,7 +11,8 @@ import { AddUserLocationComponent } from './add-user-location.component'
 import { LocationListComponent } from './location-list.component'
 
 import { UserService } from './shared/user.service'
-
+import { PasswordToggleDirective, JQUERY } from '../common/index';
+let jQuery = window['$'];
 
 //import { restrictedWords } from './shared/restricted-words.validator'
 
@@ -27,10 +28,12 @@ import { UserService } from './shared/user.service'
         LoginComponent,
         CreateUserComponent,
         AddUserLocationComponent,
-        LocationListComponent
+        LocationListComponent,
+        PasswordToggleDirective
     ],
     providers: [
-        UserService
+        UserService,
+        {provide: JQUERY, useValue: jQuery}
     ]
 })
 export class UserModule{
