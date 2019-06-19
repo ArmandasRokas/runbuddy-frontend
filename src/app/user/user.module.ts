@@ -14,8 +14,6 @@ import { UserService } from './shared/user.service'
 import { PasswordToggleDirective, JQUERY } from '../common/index';
 let jQuery = window['$'];
 
-//import { restrictedWords } from './shared/restricted-words.validator'
-
 @NgModule({
     imports:[
         CommonModule,
@@ -36,6 +34,4 @@ let jQuery = window['$'];
         {provide: JQUERY, useValue: jQuery}
     ]
 })
-export class UserModule{
-
-}
+export class UserModule{ }
