@@ -22,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { GuideComponent } from './guide/guide.component'
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { TeximateModule } from 'ngx-teximate';
 
 //import { PasswordToggleDirective, JQUERY } from './common/index';
 
@@ -40,6 +41,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
     HttpClientModule,
     ChartsModule,
     NgSelectModule,
+    TeximateModule,
     RouterModule.forRoot(appRoutes)
   ],
   declarations: [
