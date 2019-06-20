@@ -77,23 +77,12 @@
     <fieldset class="form-group">
       <label><b>Maximum participants</b></label>
       <div>Set the maximum number of participants:</div>
-      <input type="text" [(ngModel)]="route.maxParticipants"
-             class="form-control" name="maxParticipants" #maxParticipants="ngModel">
-    </fieldset>
-    <fieldset class="form-group">
-      <label><b>Minimum participants</b></label>
-      <div>Set the minimum number of participants:</div>
-      <input type="text" [(ngModel)]="route.minParticipants"
-             class="form-control" name="minParticipants" #minParticipants="ngModel">
+      <ng-select [items]="numParticipants"
+                 [(ngModel)]="route.maxParticipants"
+                 class="form-control" name="maxParticipants" #maxParticipants="ngModel">
+      </ng-select>
     </fieldset>
     <h2> Waypoints </h2>
-    <fieldset class="form-group">
-      <div class="form-group">
-        <br>
-        <div *ngIf="route.wayPoints == null || this.route.wayPoints.length === 0 ">There is no waypoints added to this route.</div>
-        <button type="button" class="btn btn-warning" (click)=addWayPoint()>Add a new waypoint</button>
-      </div>
-    </fieldset>
 
     <div *ngFor="let wayPoint of route.wayPoints; let index = index;">
       <fieldset class="form-group">
@@ -104,14 +93,17 @@
           </div>
           <div class="form-group col-md-2">
             <label for="inputLattitude">Lattitude(X)</label>
-            <input id="inputLattitude" type="number" [(ngModel)]="route.wayPoints[index].x"
-                   class="form-control" name=waypointX{{index}} required="required"
-                   min="0.1">
+            <ng-select [items]="waypointsValues" id="inputLattitude" type="number"
+                        [(ngModel)]="route.wayPoints[index].x"
+                       class="form-control" name=waypointX{{index}} required="required">
+            </ng-select>
           </div>
           <div class="form-group col-md-2">
             <label for="inputLongitude">Longitude(Y)</label>
-            <input id="inputLongitude" type="number" [(ngModel)]="wayPoint.y"
-                   class="form-control" name=waypointY{{index}} required="required">
+            <ng-select [items]="waypointsValues" id="inputLattitude" type="number"
+                        [(ngModel)]="wayPoint.y"
+                       class="form-control" name=waypointY{{index}} required="required">
+            </ng-select>
           </div>
           <div class="form-group col-md-2">
             <label><b>Action</b> </label> <br>
@@ -120,6 +112,15 @@
         </div>
       </fieldset>
     </div>
+    
+    <fieldset class="form-group">
+      <div class="form-group">
+        <br>
+        <div *ngIf="route.wayPoints == null || this.route.wayPoints.length === 0 ">There is no waypoints added to this route.</div>
+        <button type="button" class="btn btn-warning" (click)=addWayPoint()>Add a new waypoint</button>
+      </div>
+    </fieldset>
+
     <div class="form-row">
       <div class="form-group col-md-1">
         <button type="submit" [disabled]="routeForm.invalid" class="btn btn-success">Save</button>
