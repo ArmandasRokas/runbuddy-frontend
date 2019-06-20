@@ -7,6 +7,7 @@ import { RouteDataService } from '../service/data/route-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RunDataService } from '../service/data/run-data.service';
 import { Checkpoint, Run } from '../enitities/run';
+import { ToastrService } from 'ngx-toastr';
 
 
 class WayPointBubbleData {
@@ -113,7 +114,8 @@ export class RunComponent implements OnInit {
   constructor(
     private runDataService: RunDataService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -173,8 +175,11 @@ export class RunComponent implements OnInit {
   }
 
   submit() {
-    this.runDataService.addCheckPointIfValid(this.runId, this.currUserX, this.currUserY, 1).subscribe(
-      response => this.refreshBubbles(),
+    this.runDataService.addCheckPointIfValid(this.runId, this.currUserX, this.currUserY, 2).subscribe(
+      response => {
+        this.refreshBubbles()
+        this.toastr.success("Success waypoint found");
+      },
       error => this.handleErrorResponse(error) 
     )
   }
@@ -188,10 +193,11 @@ export class RunComponent implements OnInit {
   }
 
   handleErrorResponse(error) {
+    
     if (error.error.message != null) {
-      this.errorMessage = error.error.message;
+      this.toastr.warning(error.error.message);
     } else {
-      this.errorMessage = "Error: Could not get connection to server";
+      this.toastr.error("Error: Could not get connection to server");
     }
   }
 }

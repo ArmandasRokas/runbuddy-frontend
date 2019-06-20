@@ -15,6 +15,8 @@ export class RouteComponent implements OnInit {
   route: Route
   errorMessage: String;
   sumbited = false;
+  numParticipants: Array<number> = []
+  waypointsValues: Array<number> = []
  // countries = ['Denmark', 'Sweden', 'Norway', 'Finland', 'Lithuania', 'Estonia', 'Latvia'];
 
   constructor(
@@ -34,7 +36,12 @@ export class RouteComponent implements OnInit {
         error => this.handleErrorResponse(error)
       )
     }
-
+    for (let i = 1; i < 1000; i++) {
+      this.numParticipants.push(i);
+    }
+    for (let i = 0; i < 31; i++) {
+      this.waypointsValues.push(i);
+    }
   }
   saveRoute() {
     this.sumbited = true;
