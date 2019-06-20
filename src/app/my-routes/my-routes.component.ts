@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Route } from '../enitities/route';
 import { RouteDataService } from '../service/data/route-data.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-my-routes',
@@ -21,7 +22,8 @@ export class MyRoutesComponent implements OnInit {
 
   constructor(
     private routeDataService: RouteDataService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -65,11 +67,12 @@ export class MyRoutesComponent implements OnInit {
     this.router.navigate(['route', 'newRoute'])
   }
   handleErrorResponse(error) {
-    console.log(error.error.message)
     if (error.error.message != null) {
       this.errorMessage = error.error.message;
+    } else if (error.status == 404) {
+      this.toastr.warning("You have not created any route yet.");
     } else {
-      this.errorMessage = "Error: Could not get connection to server";
+      this.toastr.error("Error: Could not get connection to server");
     }
   }
 }
