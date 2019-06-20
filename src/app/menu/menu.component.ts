@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HardcodedAuthenticationService } from '../service/hardcoded-authentication.service';
-import { Injectable } from '@angular/core';
 import { AuthService } from '../user/auth.service';
 import { UserService } from '../user/shared/user.service';
 import { IUser } from '../user/shared/user.model';
+
 
 @Component({
   selector: 'app-menu',
@@ -13,9 +12,9 @@ import { IUser } from '../user/shared/user.model';
 
 export class MenuComponent implements OnInit {
   constructor(
-//    private hardcodedAuthenticationService: HardcodedAuthenticationService,
-    private auth: AuthService, private userService: UserService
-  ) { }
+    private auth: AuthService, 
+    private userService: UserService) 
+  {  }
 
   ngOnInit() {
     let userName = localStorage.getItem('userName');
@@ -36,10 +35,13 @@ export class MenuComponent implements OnInit {
 
       )
     }
-    //this.hardcodedAuthenticationService.setUsername(sessionStorage.getItem('authenticaterUser'))
   }
+
   logout() {
     this.auth.logout();
   }
 
+  get userName():any{
+    return localStorage.getItem('userName');
+  }
 }

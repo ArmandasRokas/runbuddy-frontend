@@ -10,7 +10,11 @@
         <div class="form-group">
             <label for="password">Password:</label>
             <em *ngIf="loginForm.controls.password?.invalid && (loginForm.controls.password?.touched || mouseoverLogin)">Required</em>
-            <input (ngModel)="password" name="password" required id="password" type="password" class="form-control" placeholder="Password..."/>
+            <input (ngModel)="password" name="password" required id="passwordOnLoginUser" type="password" class="form-control" placeholder="Password..."/>
+            <label for="passwordToggleLabel" style="display: inline-block; padding-right: 10px; white-space: nowrap;">
+                    <input password-toggle="passwordOnLoginUser" type="checkbox" id="togglePasswordBtn" style="float: left"/><span>show password</span>
+            </label>
+
         </div>
         <div class="form-row">
             <div class="form-group col-md-3">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵCompiler_compileModuleAndAllComponentsAsync__POST_R3__ } from '@angular/core'
+import { Component, OnInit, ɵCompiler_compileModuleAndAllComponentsAsync__POST_R3__, ɵɵcontainerRefreshEnd } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service'
 import { Router } from '@angular/router'
@@ -9,6 +9,7 @@ import * as UUID from 'uuid';
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { restrictedWords } from './shared/restricted-words.validator';
 
 @Component({
     templateUrl: './profile.component.html',
@@ -24,64 +25,31 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 
 export class ProfileComponent implements OnInit{
-    profileForm: FormGroup
-    private userName:FormControl
-    private email:FormControl
-    private password:FormControl    
-    user:IUser
+    public editedUserForm: FormGroup
+    public userName:FormControl
+    public email:FormControl
+    public password:FormControl
+    public locations: ILocation[]
+
+    public maxCharsUserName = 10;
+    public maxCharsEmail = 100;
+    public passwordMinChars = 6;
+
+    loginInvalid = false;
+    errorMsg:string;
+
     addMode:boolean
     constructor(private authService: AuthService, 
                 private router:Router,
                 private toastr: ToastrService,
-                private userService: UserService){
-
-    }
-    
-    deleteLocation(location:ILocation){
-        console.log("user locations before delete location")
-        console.log(this.user.locations)
-
-        this.user.locations = this.user.locations.filter(l=>l.id !== location.id);
-        
-        console.log("user locations after delete location")
-        console.log(this.user.locations)
-    }
-
-    cancelNewLocation(){
-        this.addMode = false;
-    }
-
-    saveNewLocation(location:ILocation){
-        location.id = UUID.v4();
-        console.log("user after add new location")
-        console.log(this.user);
-        this.user.locations.push(location);
-        
-        //this.userService.updateUser(this.newUser).subscribe();
-        this.addMode = false;
-        console.log("user after add new location")
-        console.log(this.user);     
-    }
-
-    addLocation(){
-        this.addMode = true;
-    }
-
-    updateFromLoggedUser(){
-        this.user = this.authService.currentUser
-        this.userName = new FormControl(this.authService.currentUser.userName, 
-                                        [Validators.required, Validators.pattern('[a-zA-Z].*')])
-        this.email = new FormControl(this.authService.currentUser.email, Validators.required)
-        this.password = new FormControl(this.authService.currentUser.password, Validators.required)
-        
-        this.profileForm = new FormGroup({
-            userName: this.userName,
-            email: this.email,
-            password: this.password
-        })
-    }
+                private userService: UserService)
+                {
+                    this.locations = [] as ILocation[];                    
+                }
 
     ngOnInit(): void {
+        this.setupValidators();
+
         this.updateFromLoggedUser();
         let username = localStorage.getItem('userName');
         let password = localStorage.getItem('password');
@@ -93,40 +61,101 @@ export class ProfileComponent implements OnInit{
                 if(!user){
                     this.authService.logout();
                 }else{
-                    //localStorage.setItem('userName', user.userName);
-                    //localStorage.setItem('password', user.password);
-                    //localStorage.setItem('userId', user.id);
-                    //this.authService.currentUser = user;
-      
                     this.updateFromLoggedUser();      
 
                     //this.router.navigate(['myroutes']);
                 }
             });
-        /*
-          this.userService.getUser(username).subscribe( (user:IUser) => {
-            if(!user){
-              this.authService.logout();
-            }else{
-              localStorage.setItem('userName', user.userName);
-              localStorage.setItem('password', user.password);
-              localStorage.setItem('userId', user.id);
-              this.authService.currentUser = user;
-
-
-              this.updateFromLoggedUser();      
-            }
-          })*/
         }
 
     }
+
+    setupValidators(){
+        this.userName = new FormControl('',[
+            Validators.required, 
+            Validators.maxLength(this.maxCharsUserName), 
+            restrictedWords(['fuck', 'fucker'])
+        ]);
+        this.email = new FormControl('',[
+            Validators.required,             
+            Validators.email, 
+            Validators.maxLength(this.maxCharsEmail)
+        ]);
+        this.password = new FormControl('',[
+            Validators.required,
+            Validators.minLength(this.passwordMinChars)
+        ]);    
+
+        this.editedUserForm = new FormGroup({
+            userName: this.userName,
+            email: this.email,
+            password: this.password
+        });
+    }
+
+    deleteLocation(location:ILocation){
+        this.locations = this.locations.filter(l=>l.id !== location.id);
+    }
+
+    cancelNewLocation(){
+        this.addMode = false;
+    }
+
+    saveNewLocation(location:ILocation){
+        location.id = UUID.v4();
+        this.locations.push(location);
+        
+        this.addMode = false;
+    }
+
+    addLocation(){
+        this.addMode = true;
+    }
+
+    updateFromLoggedUser(){
+        let user = this.authService.currentUser;
+        this.locations = user.locations; 
+        this.userName = new FormControl(
+            user.userName,
+            [
+                Validators.required, 
+                Validators.maxLength(this.maxCharsUserName), 
+                restrictedWords(['fuck', 'fucker'])
+            ]
+        );
+
+        this.email = new FormControl(
+            user.email,
+            [
+                Validators.required,             
+                Validators.email, 
+                Validators.maxLength(this.maxCharsEmail)
+            ]
+        );
+
+        this.password = new FormControl(
+            user.password,
+            [
+                Validators.required,
+                Validators.minLength(this.passwordMinChars)
+            ]
+        );    
+
+        this.editedUserForm = new FormGroup({
+            userName: this.userName,
+            email: this.email,
+            password: this.password
+        });
+
+
+    }
+
     
     private handleError<T>(operation = 'operation', result?:T){
         return (error:any):Observable<T> => {
-            //console.error(error);
-            //console.error(result);
+            this.errorMsg = error.error.message;
             this.toastr.error(error.error.message);
-            this.toastr.error("profile saving error!");
+            this.toastr.error("profile updating error");
             return of(result as T)
         }
     }
@@ -135,44 +164,33 @@ export class ProfileComponent implements OnInit{
                (u.password !== undefined) && (u.userName !== undefined);
     }
     saveProfile(formValues){
-        if(this.profileForm.valid){
+        if(this.editedUserForm.valid){
             let u:IUser = {
                 id: localStorage.getItem("userId"),
                 userName: formValues.userName,
                 email: formValues.email,
                 password: formValues.password,
-                locations: this.user.locations
+                locations: this.locations
             }
-            console.log("user before update")
-            console.log(u)
-            this.authService
+            
+            this.userService //authService
                 .updateUser(u)
                 .pipe(catchError(this.handleError<IUser>("updateUser", {} as IUser)))
                 .subscribe( (resp)=>{
-                        if(this.isIUser(resp)){
-                            console.log("profile saved: ");
-                            console.log(resp);
-                            this.toastr.success('Profile Saved!');
-                        }else{
-                            //console.log("profile saving error! ");
-                            //console.log(resp);
-                            //this.toastr.error("profile saving error!");                            
-                        }
+                    if(this.isIUser(resp)){
+                        this.toastr.success('Profile Saved!');
+                        this.loginInvalid = false;
+                        this.authService.loginUser(resp.userName, resp.password).subscribe();
+                    }else{
+                        this.loginInvalid = true;
+                    } 
                 })
-            //this.router.navigate(['myroutes'])
         }
     }
 
-
     logout(){
-        console.log("user before logout")
-        console.log(this.user)
-
         this.authService.logout();
         this.ngOnInit();
-
-        console.log("user after logout")
-        console.log(this.user)
 
         this.router.navigate(['/user/login']);
     }
@@ -180,17 +198,4 @@ export class ProfileComponent implements OnInit{
     cancel(){
         this.router.navigate(['myroutes'])
     }
-
-    validateUserName(){        
-        return this.userName.valid || this.userName.untouched
-    }
-
-    validateEmail(){        
-        return this.email.valid || this.email.untouched
-    }
-
-    validatePassword(){        
-        return this.password.valid || this.password.untouched
-    }
-    
 }

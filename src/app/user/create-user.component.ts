@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { restrictedWords } from './shared/restricted-words.validator';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     templateUrl:'create-user.component.html',
@@ -35,14 +36,15 @@ export class CreateUserComponent implements OnInit{
 
     isDirty:boolean = true;
     loginInvalid = false;
-    addMode:boolean;
     errorMsg:string;
+    addMode:boolean;    
     passwordButtonText: 'show';
     
     constructor(
         private router: Router, 
         private userService: UserService,
-        private authService: AuthService)
+        private authService: AuthService,
+        private toastr: ToastrService)
     {
         this.locations = [] as ILocation[];                    
     }
@@ -72,9 +74,9 @@ export class CreateUserComponent implements OnInit{
 
     private handleError<T>(operation = 'operation', result?:T){
         return (error:any):Observable<T> => {
-            console.error(error.error.message);
-            console.error(result);
             this.errorMsg = error.error.message;
+            this.toastr.error(error.error.message);
+            this.toastr.error("profile saving error");
             return of(result as T)
         }
     }
@@ -89,19 +91,20 @@ export class CreateUserComponent implements OnInit{
         console.log(formValues.locations)
     
         //save user
-        this.userService.saveUser(formValues)
-            .pipe( catchError(this.handleError<IUser>("updateUser", {} as IUser)) )
+        this.userService
+            .saveUser(formValues)
+            .pipe(catchError(this.handleError<IUser>("saveUser", {} as IUser)) )
             .subscribe( (saveResp) => {
-            if(!this.isIUser(saveResp)){//if userName is already taken
-                this.loginInvalid = true;
-                this.userName = formValues.userName; //TODO this will show the wrong username
-            }else{ //if userName not taken
-                //if ok
-                this.isDirty = false
+                if(!this.isIUser(saveResp)){//if userName is already taken
+                    this.loginInvalid = true;
+                    this.userName = formValues.userName; //TODO this will show the wrong username
+                }else{ //if userName not taken
+                    //if ok
+                    this.isDirty = false
 
-                //login
-                this.login(formValues.userName, formValues.password);
-            }
+                    //login
+                    this.login(formValues.userName, formValues.password);
+                }
        });        
     }
 
