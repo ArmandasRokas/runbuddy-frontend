@@ -97,7 +97,7 @@ export class CreateUserComponent implements OnInit{
             .subscribe( (saveResp) => {
                 if(!this.isIUser(saveResp)){//if userName is already taken
                     this.loginInvalid = true;
-                    this.userName = formValues.userName; //TODO this will show the wrong username
+                    //this.userName = formValues.userName; //TODO this will show the wrong username
                 }else{ //if userName not taken
                     //if ok
                     this.isDirty = false

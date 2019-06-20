@@ -17,11 +17,11 @@
       </li>
       <li>
         <a *ngIf="auth.isAuthenticated()" 
-           class="navbar-brand text-white" routerLinkActive="active">Welcome {{ userName | titlecase}}</a>
+           class="navbar-brand text-white" routerLinkActive="active">Welcome {{ userName }}</a>
       </li>
       <li>
         <a *ngIf="auth.isAuthenticated()" [routerLink]="['user/profile']"
-           class="nav-link" routerLinkActive="active">Edit profil</a>
+           class="nav-link" routerLinkActive="active">Edit profile</a>
       </li>
       <li>
         <a *ngIf="auth.isAuthenticated()"  (click)="logout()" [routerLink]="['logout']"
