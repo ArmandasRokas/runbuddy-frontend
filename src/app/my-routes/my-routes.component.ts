@@ -67,10 +67,8 @@ export class MyRoutesComponent implements OnInit {
     this.router.navigate(['route', 'newRoute'])
   }
   handleErrorResponse(error) {
-    if (error.error.message != null) {
-      this.errorMessage = error.error.message;
-    } else if (error.status == 404) {
-      this.toastr.warning("You have not created any route yet.");
+    if (error.error != null) {
+      this.toastr.error(error.error);
     } else {
       this.toastr.error("Error: Could not get connection to server");
     }
