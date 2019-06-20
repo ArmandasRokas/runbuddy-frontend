@@ -83,13 +83,6 @@
       </ng-select>
     </fieldset>
     <h2> Waypoints </h2>
-    <fieldset class="form-group">
-      <div class="form-group">
-        <br>
-        <div *ngIf="route.wayPoints == null || this.route.wayPoints.length === 0 ">There is no waypoints added to this route.</div>
-        <button type="button" class="btn btn-warning" (click)=addWayPoint()>Add a new waypoint</button>
-      </div>
-    </fieldset>
 
     <div *ngFor="let wayPoint of route.wayPoints; let index = index;">
       <fieldset class="form-group">
@@ -119,6 +112,15 @@
         </div>
       </fieldset>
     </div>
+    
+    <fieldset class="form-group">
+      <div class="form-group">
+        <br>
+        <div *ngIf="route.wayPoints == null || this.route.wayPoints.length === 0 ">There is no waypoints added to this route.</div>
+        <button type="button" class="btn btn-warning" (click)=addWayPoint()>Add a new waypoint</button>
+      </div>
+    </fieldset>
+
     <div class="form-row">
       <div class="form-group col-md-1">
         <button type="submit" [disabled]="routeForm.invalid" class="btn btn-success">Save</button>
